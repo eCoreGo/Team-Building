@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+	<div data-role="header">
+		<h1>eCore</h1>
+		<a href="group.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="group.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
+	</div>
+
+	<div role="main" class="ui-content">
+		<div data-role="fieldcontain">
+			<label for="group-name">群昵称</label>
+			<input type="text" name="group-name" id="group-name" value="eCore 玩一夏 -_-">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="group-id">群号</label>
+			<input type="text" disabled="disabled" name="group-id" id="group-id" value="eCoreGo">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="group-description">简介</label>
+			<textarea cols="40" rows="8" name="group-description" id="group-description">eCore是一个很有活力的团队，我们的目标是要将eCore打造成一支不仅最能工作还最能玩的团队。</textarea>
+		</div>
+		<div class="ui-field-contain">
+			<label for="members">修改组员/查看组员</label>
+			<select name="members" id="members" multiple="multiple" data-native-menu="false">
+				<option value="value1" selected="selected">楚留香</option>
+				<option value="value2">陆小凤</option>
+				<option value="value3">西门吹雪</option>
+				<option value="value4">萧十一郎</option>
+				<option value="value5" selected="selected">李寻欢</option>
+			</select>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="group-funds">群组经费</label>
+			<input type="text" name="group-funds" id="group-funds" value="3577.50">
+		</div>
+	</div>
+
+	<!--<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="home.html" data-icon="home">主页</a></li>
+				<li><a href="activity.html" data-icon="star">活动</a></li>
+				<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
+				<li><a href="mine.html" data-icon="user">我的</a></li>
+			</ul>
+		</div>
+	</div>-->
+
+</body>
+</html>

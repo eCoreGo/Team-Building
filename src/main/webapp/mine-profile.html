@@ -4,12 +4,29 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>eCore Team Building Assistant</title>
+	<title></title>
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
+
+	<div data-role="header" data-position="fixed">
+		<h1>我的个人信息</h1>
+		<a href="mine.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="mine.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
+	</div>
+
+	<div role="main" class="ui-content">
+		<div data-role="fieldcontain">
+			<label for="user-name">昵称</label>
+			<input type="text" name="user-name" id="user-name" value="楚留香">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="phone">手机号</label>
+			<input type="tel" data-clear-btn="false" name="phone" id="phone" value="18215611922">
+		</div>
+	</div>
 
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
@@ -17,7 +34,7 @@
 				<li><a href="home.html" data-icon="home">主页</a></li>
 				<li><a href="activity.html" data-icon="star">活动</a></li>
 				<li><a href="group.html" data-icon="gear">群组</a></li>
-				<li><a href="mine.html" data-icon="user">我的</a></li>
+				<li><a href="mine.html" data-icon="user" class="ui-btn-active">我的</a></li>
 			</ul>
 		</div>
 	</div>

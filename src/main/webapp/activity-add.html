@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+</head>
+<body>
+
+	<div data-role="header" data-position="fixed">
+		<h1>新建活动</h1>
+		<a href="activity.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="activity.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
+	</div>
+
+	<div role="main" class="ui-content">
+		<div data-role="fieldcontain">
+			<label for="activity-name">活动名称</label>
+			<input type="text" name="activity-name" id="activity-name" placeholder="活动名称" value="">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="activity-description">活动简介</label>
+			<textarea cols="40" rows="8" name="activity-description" id="activity-description" placeholder="简明介绍该活动……"></textarea>
+		</div>
+		<div data-role="fieldcontain">
+			<fieldset data-role="controlgroup">
+				<legend>活动内容</legend>
+				<input type="radio" name="activity-content" id="activity-content-a" value="on" checked="checked">
+				<label for="activity-content-a">黔香阁</label>
+				<input type="radio" name="activity-content" id="activity-content-b" value="off">
+				<label for="activity-content-b">爱晚亭</label>
+				<input type="radio" name="activity-content" id="activity-content-c" value="other">
+				<label for="activity-content-c">广州蕉叶</label>
+			</fieldset>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="is-wholeday">全天活动</label>
+			<select name="is-wholeday" id="is-wholeday" data-role="slider">
+				<option value="yes" selected="">否</option>
+				<option value="no">是</option>
+			</select>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="start-time">开始时间（日期）</label>
+			<input type="date" name="date-1" id="date-1" value="">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="end-time">结束时间（时间）</label>
+			<input type="datetime-local" name="end-time" id="end-time" value="">
+		</div>
+		<div data-role="fieldcontain" class="ui-field-contain">
+			<label for="activity-cycle" class="select">活动周期</label>
+			<select name="activity-cycle" id="activity-cycle" data-native-menu="false">
+				<option value="once">一次性活动</option>
+				<option value="everyday">每天</option>
+				<option value="weekday">每个工作日</option>
+				<option value="onedayinweek">每周周四</option>
+				<option value="onedayinmonth">每月7日</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="members">邀请活动成员</label>
+			<select name="members" id="members" multiple="multiple" data-native-menu="false">							
+				<optgroup label="eCore Team">
+					<option value="value1" selected="selected">楚留香</option>
+					<option value="value2">陆小凤</option>
+					<option value="value3">西门吹雪</option>
+				</optgroup>
+				<optgroup label="Retail Team">
+					<option value="value4">萧十一郎</option>
+					<option value="value5" selected="selected">李寻欢</option>
+				</optgroup>
+			</select>
+		</div>
+		<label>
+			<input type="checkbox" id="has-car-manage" name="">开启车辆分配管理
+		</label>
+		<label>
+			<input type="checkbox" id="has-finance-manage" name="">开启财务报销管理
+		</label>
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="home.html" data-icon="home">主页</a></li>
+				<li><a href="activity.html" data-icon="star" class="ui-btn-active">活动</a></li>
+				<li><a href="group.html" data-icon="gear">群组</a></li>
+				<li><a href="mine.html" data-icon="user">我的</a></li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+</html>
