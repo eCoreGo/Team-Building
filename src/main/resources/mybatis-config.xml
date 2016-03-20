@@ -7,9 +7,9 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost:3306/infocam"/>
-                <property name="username" value="system"/>
-                <property name="password" value="manager"/>
+                <property name="url" value="jdbc:mysql://106.186.125.8:9000/tba"/>
+                <property name="username" value="root"/>
+                <property name="password" value="tba1234"/>
             </dataSource>
         </environment>
     </environments>
