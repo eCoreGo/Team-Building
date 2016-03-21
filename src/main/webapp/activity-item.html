@@ -12,22 +12,65 @@
 <body>
 
 	<div data-role="header" data-position="fixed">
-		<h1>活动</h1>
-		<a href="activity-add.html" data-icon="plus" data-iconpos="notext">Add</a>
-		<a href="#" data-icon="search" data-iconpos="notext">Search</a>
+		<h1>eCore 春游</h1>
+		<a href="activity.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="activity.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
 	</div>
 
 	<div role="main" class="ui-content">
-		<div data-role="header" style="overflow:hidden;">
-			<h1>I'm a header</h1>
-			<a href="#" data-icon="gear" class="ui-btn-right">Options</a>
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#">One</a></li>
-					<li><a href="#">Two</a></li>
-				</ul>
-			</div>
+	<div data-role="fieldcontain">
+			<label for="activity-name">活动名称</label>
+			<input type="text" name="activity-name" id="activity-name" value="eCore 春游">
 		</div>
+		<div data-role="fieldcontain">
+			<label for="activity-description">活动简介</label>
+			<textarea cols="40" rows="8" name="activity-description" id="activity-description">eCore 春游，公司组团一起出行</textarea>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="is-wholeday">全天活动</label>
+			<select name="is-wholeday" id="is-wholeday" data-role="slider">
+				<option value="yes" selected="">否</option>
+				<option value="no">是</option>
+			</select>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="start-time">开始时间（日期）</label>
+			<input type="date" name="date-1" id="date-1" value="">
+		</div>
+		<div data-role="fieldcontain">
+			<label for="end-time">结束时间（时间）</label>
+			<input type="datetime-local" name="end-time" id="end-time" value="">
+		</div>
+		<div data-role="fieldcontain" class="ui-field-contain">
+			<label for="activity-cycle" class="select">活动周期</label>
+			<select name="activity-cycle" id="activity-cycle" data-native-menu="false">
+				<option value="once">一次性活动</option>
+				<option value="everyday">每天</option>
+				<option value="weekday">每个工作日</option>
+				<option value="onedayinweek">每周周四</option>
+				<option value="onedayinmonth">每月7日</option>
+			</select>
+		</div>
+		<div class="ui-field-contain">
+			<label for="members">邀请活动成员</label>
+			<select name="members" id="members" multiple="multiple" data-native-menu="false">							
+				<optgroup label="eCore Team">
+					<option value="value1" selected="selected">楚留香</option>
+					<option value="value2">陆小凤</option>
+					<option value="value3">西门吹雪</option>
+				</optgroup>
+				<optgroup label="Retail Team">
+					<option value="value4">萧十一郎</option>
+					<option value="value5" selected="selected">李寻欢</option>
+				</optgroup>
+			</select>
+		</div>
+		<label>
+			<input type="checkbox" id="has-car-manage" name="">开启车辆分配管理
+		</label>
+		<label>
+			<input type="checkbox" id="has-finance-manage" name="">开启财务报销管理
+		</label>
 	</div>
 
 	<div data-role="footer" data-position="fixed">
