@@ -1,6 +1,7 @@
 package com.core.util;
 
-import com.core.mapper.UserMapper;
+import com.core.mapper.MemberMapper;
+import com.core.mapper.TeamMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -27,7 +28,8 @@ public class GetSqlSessionFactory
         }
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 
-        sqlSessionFactory.getConfiguration().addMapper(UserMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(MemberMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(TeamMapper.class);
     }
 
     public static GetSqlSessionFactory getInstance()

@@ -1,10 +1,12 @@
 package com.core.bean;
 
-public class User {
+import java.util.List;
+
+public class Member {
 	private String id;
 	private String name;
 	private String phone;
-	private Double balance;
+	private List<TeamMember> teams;
 
 	public String getId() {
 		return id;
@@ -30,11 +32,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public Double getBalance() {
-		return balance;
+	public List<TeamMember> getTeams() {
+		return teams;
 	}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
+	public void setTeams(List<TeamMember> teams) {
+		this.teams = teams;
 	}
 }
