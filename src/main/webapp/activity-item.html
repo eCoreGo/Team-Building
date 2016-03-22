@@ -18,41 +18,60 @@
 	</div>
 
 	<div role="main" class="ui-content">
-	<div data-role="fieldcontain">
+		<div data-role="fieldcontain">
+			<label for="inorout">是否参加活动</label>
+			<select name="inorout" id="inorout" data-role="slider">
+				<option value="no">不加</option>
+				<option value="yes" selected>加入</option>
+			</select>
+		</div>
+		<div data-role="collapsible">
+			<h4>我要自主选座（活动参与后）</h4>
+			<div data-role="fieldcontain">
+				<label for="hascar">是否自己开车</label>
+				<select name="hascar" id="hascar" data-role="slider" data-mini="true">
+					<option value="no" selected>否</option>
+					<option value="yes">是</option>
+				</select>
+				<label for="seat">座位数</label>
+				<input type="text" name="seat" id="seat" placeholder="可提供的空余座位数" value="">
+			</div>
+		</div>
+		<div data-role="collapsible">
+			<h4>我要活动报销（活动结束后）</h4>
+			<div data-role="fieldcontain">
+				<label for="inandout">收支</label>
+				<select name="inandout" id="inandout" data-role="slider" data-mini="true">
+					<option value="in">收入</option>
+					<option value="out" selected>支出</option>
+				</select>
+				<label for="money">金额</label>
+				<input type="text" name="money" id="money" placeholder="请输入金额" value="">
+			</div>
+			<div data-role="fieldcontain">
+				<label for="description1">备注</label>
+				<input type="text" name="description1" id="description1" placeholder="请备注此次报销信息" value="">
+			</div>
+			<a class="ui-btn ui-corner-all">报销</a>
+		</div>
+		<div data-role="fieldcontain">
 			<label for="activity-name">活动名称</label>
-			<input type="text" name="activity-name" id="activity-name" value="eCore 春游">
+			<input type="text" disabled="disabled" name="activity-name" id="activity-name" value="eCore 春游">
 		</div>
 		<div data-role="fieldcontain">
 			<label for="activity-description">活动简介</label>
-			<textarea cols="40" rows="8" name="activity-description" id="activity-description">eCore 春游，公司组团一起出行</textarea>
-		</div>
-		<div data-role="fieldcontain">
-			<label for="is-wholeday">全天活动</label>
-			<select name="is-wholeday" id="is-wholeday" data-role="slider">
-				<option value="yes" selected="">否</option>
-				<option value="no">是</option>
-			</select>
+			<textarea disabled="disabled" cols="40" rows="8" name="activity-description" id="activity-description">eCore 春游，公司组团一起出行</textarea>
 		</div>
 		<div data-role="fieldcontain">
 			<label for="start-time">开始时间（日期）</label>
-			<input type="date" name="date-1" id="date-1" value="">
+			<input type="date" disabled="disabled" name="date-1" id="date-1" value="">
 		</div>
 		<div data-role="fieldcontain">
 			<label for="end-time">结束时间（时间）</label>
-			<input type="datetime-local" name="end-time" id="end-time" value="">
-		</div>
-		<div data-role="fieldcontain" class="ui-field-contain">
-			<label for="activity-cycle" class="select">活动周期</label>
-			<select name="activity-cycle" id="activity-cycle" data-native-menu="false">
-				<option value="once">一次性活动</option>
-				<option value="everyday">每天</option>
-				<option value="weekday">每个工作日</option>
-				<option value="onedayinweek">每周周四</option>
-				<option value="onedayinmonth">每月7日</option>
-			</select>
+			<input type="datetime-local" disabled="disabled" name="end-time" id="end-time" value="">
 		</div>
 		<div class="ui-field-contain">
-			<label for="members">邀请活动成员</label>
+			<label for="members">活动成员（做成列表）</label>
 			<select name="members" id="members" multiple="multiple" data-native-menu="false">							
 				<optgroup label="eCore Team">
 					<option value="value1" selected="selected">楚留香</option>
@@ -65,12 +84,6 @@
 				</optgroup>
 			</select>
 		</div>
-		<label>
-			<input type="checkbox" id="has-car-manage" name="">开启车辆分配管理
-		</label>
-		<label>
-			<input type="checkbox" id="has-finance-manage" name="">开启财务报销管理
-		</label>
 	</div>
 
 	<div data-role="footer" data-position="fixed">

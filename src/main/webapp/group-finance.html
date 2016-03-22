@@ -14,6 +14,7 @@
 	<div data-role="header">
 		<h1>eCore 经费管理</h1>
 		<a href="group-item.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="group-item.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
 	</div>
 
 	<div role="main" class="ui-content">
@@ -60,51 +61,6 @@
 								<td><a href="" data-rel="external">陆小凤</a></td>
 								<td>¥ -23.45</td>
 							</tr>
-							<tr>
-								<th>4</th>
-								<td><a href="" data-rel="external">楚留香</a></td>
-								<td>¥ 68.43</td>
-							</tr>
-							<tr>
-								<th>5</th>
-								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ 158.50</td>
-							</tr>
-							<tr>
-								<th>6</th>
-								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23.45</td>
-							</tr>
-							<tr>
-								<th>7</th>
-								<td><a href="" data-rel="external">楚留香</a></td>
-								<td>¥ 68.43</td>
-							</tr>
-							<tr>
-								<th>8</th>
-								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ 158.50</td>
-							</tr>
-							<tr>
-								<th>9</th>
-								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23.45</td>
-							</tr>
-							<tr>
-								<th>10</th>
-								<td><a href="" data-rel="external">楚留香</a></td>
-								<td>¥ 68.43</td>
-							</tr>
-							<tr>
-								<th>11</th>
-								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ 158.50</td>
-							</tr>
-							<tr>
-								<th>12</th>
-								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23.45</td>
-							</tr>
 						</tbody>
 					</table>
 				</div>
@@ -114,32 +70,30 @@
 				<!-- 添加收支明细，默认隐藏 -->
 				<div data-role="collapsible">
 					<h4>添加收支明细</h4>
-					<div role="main" class="ui-content">
-						<div data-role="fieldcontain">
-							<label for="name" class="select">报账账户</label>
-							<select name="name" id="name" data-native-menu="false" data-mini="true">
-								<option value="value1" selected="selected">群组经费</option>
-								<option value="value2">陆小凤</option>
-								<option value="value3">西门吹雪</option>
-								<option value="value4">萧十一郎</option>
-								<option value="value5">李寻欢</option>
-							</select>
-						</div>
-						<div data-role="fieldcontain">
-							<label for="is-wholeday">收支</label>
-							<select name="is-wholeday" id="is-wholeday" data-role="slider" data-mini="true">
-								<option value="yes" selected="">收入</option>
-								<option value="no">支出</option>
-							</select>
-							<label for="money">金额</label>
-							<input type="text" name="money" id="money" placeholder="请输入金额" value="">
-						</div>
-						<div data-role="fieldcontain">
-							<label for="description">备注</label>
-							<input type="text" name="description" id="description" placeholder="请备注此次收支明细" value="">
-						</div>
-						<a class="ui-btn ui-corner-all">添加收支明细</a>
+					<div data-role="fieldcontain">
+						<label for="name" class="select">报账账户</label>
+						<select name="name" id="name" data-native-menu="false" data-mini="true">
+							<option value="value1" selected="selected">群组经费</option>
+							<option value="value2">陆小凤</option>
+							<option value="value3">西门吹雪</option>
+							<option value="value4">萧十一郎</option>
+							<option value="value5">李寻欢</option>
+						</select>
 					</div>
+					<div data-role="fieldcontain">
+						<label for="inandout">收支</label>
+						<select name="inandout" id="inandout" data-role="slider" data-mini="true">
+							<option value="in" selected="">收入</option>
+							<option value="out">支出</option>
+						</select>
+						<label for="money">金额</label>
+						<input type="text" name="money" id="money" placeholder="请输入金额" value="">
+					</div>
+					<div data-role="fieldcontain">
+						<label for="description1">备注</label>
+						<input type="text" name="description1" id="description1" placeholder="请备注此次收支明细" value="">
+					</div>
+					<a class="ui-btn ui-corner-all">添加收支明细</a>
 				</div>
 				<!-- 历史收支明细表格 -->
 				<div data-role="fieldcontain">
@@ -167,15 +121,15 @@
 							<tr>
 								<th>2</th>
 								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ +100</td>
+								<td>¥ -40.56</td>
 								<td>2016.03.12 12:34</td>
 								<td>石观音</td>
-								<td>充值</td>
+								<td>系统</td>
 							</tr>
 							<tr>
 								<th>3</th>
 								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23.45</td>
+								<td>¥ -23</td>
 								<td>2016.01.05 10:20</td>
 								<td>陆小凤</td>
 								<td>打车</td>
