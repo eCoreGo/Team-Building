@@ -36,20 +36,12 @@ create table activity
 create table activity_attender
 (
    id                   int not null,
+   acitivity_id         int not null,
    user_id              int not null,
+   attended             boolean,
    seats                int,
-   primary key (id, user_id)
-);
-
-/*==============================================================*/
-/* Table: taxi_schedule                                         */
-/*==============================================================*/
-create table taxi_schedule
-(
-   id                   int not null,
-   no                   int not null,
-   user_name            char(10),
-   user_id              char(10),
+   seatnumber           int not null,
+   user_name            varchar(50),
    primary key (id)
 );
 
