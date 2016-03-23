@@ -21,8 +21,8 @@
 		<div data-role="fieldcontain">
 			<label for="inorout">是否参加活动</label>
 			<select name="inorout" id="inorout" data-role="slider">
-				<option value="no">不加</option>
-				<option value="yes" selected>加入</option>
+				<option value="no" selected>不加</option>
+				<option value="yes">加入</option>
 			</select>
 		</div>
 		<div data-role="collapsible">
@@ -33,7 +33,13 @@
 					<option value="no" selected>否</option>
 					<option value="yes">是</option>
 				</select>
-				<label for="seat">座位数</label>
+				<label for="carchoice">选择车辆（自己不开车用）</label>
+				<select name="carchoice" id="carchoice" data-native-menu="false" data-mini="true">
+					<option value="1">楚留香 - 余 3/5</option>
+					<option value="2" disabled="disabled">陆小凤 - 余 0/3</option>
+					<option value="3">李寻欢 - 余 1/3</option>
+				</select>
+				<label for="seat">座位数（自己开车用）</label>
 				<input type="text" name="seat" id="seat" placeholder="可提供的空余座位数" value="">
 			</div>
 		</div>
@@ -63,15 +69,15 @@
 			<textarea disabled="disabled" cols="40" rows="8" name="activity-description" id="activity-description">eCore 春游，公司组团一起出行</textarea>
 		</div>
 		<div data-role="fieldcontain">
-			<label for="start-time">开始时间（日期）</label>
+			<label for="start-time">开始时间（日期格式）</label>
 			<input type="date" disabled="disabled" name="date-1" id="date-1" value="">
 		</div>
 		<div data-role="fieldcontain">
-			<label for="end-time">结束时间（时间）</label>
+			<label for="end-time">结束时间（时间格式）</label>
 			<input type="datetime-local" disabled="disabled" name="end-time" id="end-time" value="">
 		</div>
 		<div class="ui-field-contain">
-			<label for="members">活动成员（做成列表）</label>
+			<label for="members">活动成员（管理员用）</label>
 			<select name="members" id="members" multiple="multiple" data-native-menu="false">							
 				<optgroup label="eCore Team">
 					<option value="value1" selected="selected">楚留香</option>
@@ -83,6 +89,35 @@
 					<option value="value5" selected="selected">李寻欢</option>
 				</optgroup>
 			</select>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="finance-items">活动成员（普通用户用）</label>
+			<table data-role="table" id="finance-items" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+				<thead>
+					<tr>
+						<th data-priority="1">编号</th>
+						<th data-priority="1">姓名</th>
+						<th data-priority="1">加入时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>1</th>
+						<td><a href="" data-rel="external">楚留香</a></td>
+						<td>2016.03.20 17:20</td>
+					</tr>
+					<tr>
+						<th>2</th>
+						<td><a href="" data-rel="external">李寻欢</a></td>
+						<td>2016.03.12 12:34</td>
+					</tr>
+					<tr>
+						<th>3</th>
+						<td><a href="" data-rel="external">陆小凤</a></td>
+						<td>2016.01.05 10:20</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
