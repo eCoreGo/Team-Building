@@ -7,8 +7,6 @@ drop table if exists activity;
 
 drop table if exists activity_attender;
 
-drop table if exists taxi_schedule;
-
 drop table if exists team;
 
 drop table if exists user;
@@ -53,6 +51,7 @@ create table team
    id                   int not null,
    temp                 bool not null,
    name                 varchar(50) not null,
+   description          varchar(500),
    total_foundation     decimal not null,
    total_user_balance   decimal not null,
    creation_time        timestamp not null,
@@ -62,7 +61,7 @@ create table team
 /*==============================================================*/
 /* Table: user                                                  */
 /*==============================================================*/
-create table user
+create table member
 (
    id                   int not null,
    name                 varchar(50) not null,
@@ -74,7 +73,7 @@ create table user
 /*==============================================================*/
 /* Table: user_team                                             */
 /*==============================================================*/
-create table user_team
+create table team_member
 (
    team_id              int not null,
    user_id              int not null,
@@ -82,22 +81,3 @@ create table user_team
    attend_time          timestamp not null,
    primary key (team_id, user_id)
 );
-
-alter table activity add constraint FK_Relationship_4 foreign key (id)
-      references team (id) on delete restrict on update restrict;
-
-alter table activity_attender add constraint FK_Relationship_6 foreign key (user_id)
-      references user (id) on delete restrict on update restrict;
-
-alter table activity_attender add constraint FK_Relationship_7 foreign key (id)
-      references activity (id) on delete restrict on update restrict;
-
-alter table taxi_schedule add constraint FK_Relationship_8 foreign key (id)
-      references activity (id) on delete restrict on update restrict;
-
-alter table user_team add constraint FK_Relationship_2 foreign key (user_id)
-      references user (id) on delete restrict on update restrict;
-
-alter table user_team add constraint FK_Relationship_3 foreign key (team_id)
-      references team (id) on delete restrict on update restrict;
-

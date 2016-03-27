@@ -10,6 +10,7 @@ public class Team {
     private Integer id;
     private Boolean temp;
     private String name;
+    private String description;
     private Double totalFoundation;
     private Double totalUserBalance;
     private Date creationTime;
@@ -37,6 +38,14 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Double getTotalFoundation() {

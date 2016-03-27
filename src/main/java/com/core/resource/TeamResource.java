@@ -1,11 +1,10 @@
 package com.core.resource;
 
-import com.core.bean.Member;
-import com.core.service.MemberService;
+import com.core.bean.Team;
+import com.core.service.TeamService;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -18,7 +17,7 @@ import java.util.List;
 @Path(value = "/Team")
 public class TeamResource {
 	private static ObjectMapper objectMapper = new ObjectMapper();
-	private MemberService memberService = new MemberService();
+	private TeamService teamService = new TeamService();
 
 	private Logger logger = Logger.getLogger(TeamResource.class);
 	private static final String SUCCESSFULLY = "操作成功！";
@@ -26,34 +25,13 @@ public class TeamResource {
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "addMember")
-	public String addMember(@FormParam(value = "id") String id,
-			@FormParam(value = "name") String name,
-			@FormParam(value = "phone") String phone,
-			@Context HttpServletRequest request, @Context HttpServletResponse response) {
+	@Path(value = "getAllTeams")
+	public String getAllTeams(@Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-
-		try {
-			Member member= new Member();
-			member.setId(id);
-			member.setName(name);
-			member.setPhone(phone);
-			memberService.addMember(member);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return FAIL;
-		}
-		return SUCCESSFULLY;
-	}
-
-	@POST
-	 @Produces(MediaType.TEXT_PLAIN)
-	 @Path(value = "getMembers")
-	 public String getMembers() {
 		String result = "[]";
 		try {
-			List<Member> members = memberService.getMembers();
-			result = objectMapper.writeValueAsString(members);
+			List<Team> teams = teamService.getTeams();
+			result = objectMapper.writeValueAsString(teams);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
@@ -63,17 +41,21 @@ public class TeamResource {
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "getMemberById")
-	public String getMemberById(@FormParam(value = "id") String id) {
-		String result = "{}";
+	@Path(value = "getTeamDetail")
+	public String getTeamDetail(@FormParam(value = "id") Integer id,
+			@Context HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		String result = "[]";
 		try {
-			Member member = memberService.getMemberById(id);
-			result = objectMapper.writeValueAsString(member);
+			Team team = teamService.getTeamById(id);
+			result = objectMapper.writeValueAsString(team);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
 		}
 		return result;
 	}
+
+
 
 }
