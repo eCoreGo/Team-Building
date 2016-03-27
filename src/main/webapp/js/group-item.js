@@ -1,27 +1,6 @@
 /**
  * Created by stereomatrix on 2016/3/25.
  */
-/*$(document).ready(function() {
-    var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var teamId = query["id"];
-    $.ajax({
-        type: "POST",
-        dataType: "json",
-        data: {
-          id: teamId
-        },
-        url:"service/Team/getTeamDetail",
-        success: function(result) {
-            $("#group-name").val(result.name);
-            $("#group-id").val(result.id);
-        },
-        complete: function() {
-
-        }
-    });
-});*/
 $(document).on("pageinit", function() {
     var raw = window.location.search;
     var queryString = raw.substr(1);
