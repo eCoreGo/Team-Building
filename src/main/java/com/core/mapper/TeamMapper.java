@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface TeamMapper {
 
-    @Select("select * from team")
+    @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team")
     List<Team> getTeams();
 
-    @Select("select * from team where id = ${id}")
+    @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team where id = ${id}")
     Team getTeamById(@Param(value = "id") Integer id);
 
     @Insert("insert into team(id, temp, name, description, total_foundation, total_user_balance, creation_time) values(#{team.id}, #{team.temp}, #{team.name}, #{team.description}, #{team.totalFoundation}, #{team.totalUserBalance}, #{team.creationTime})")

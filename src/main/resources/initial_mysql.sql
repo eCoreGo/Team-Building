@@ -2,6 +2,11 @@
 /* DBMS name:      MySQL 5.0                                    */
 /* Created on:     2016/3/20 18:02:35                           */
 /*==============================================================*/
+drop database if exists tba;
+
+create database tba;
+
+use tba;
 
 drop table if exists activity;
 
@@ -76,8 +81,8 @@ create table member
 create table team_member
 (
    team_id              int not null,
-   user_id              int not null,
+   member_id              int not null,
    balance              decimal not null,
    attend_time          timestamp not null,
-   primary key (team_id, user_id)
+   primary key (team_id, member_id)
 );

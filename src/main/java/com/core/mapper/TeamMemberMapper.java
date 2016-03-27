@@ -1,9 +1,14 @@
 package com.core.mapper;
 
+import com.core.bean.Member;
+import com.core.bean.Team;
 import com.core.bean.TeamMember;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * Created by stereomatrix on 2016/3/20.
@@ -15,4 +20,7 @@ public interface TeamMemberMapper {
 
     @Delete("delete from team_member where team_id = ${teamId} and member_id = ${memberId}")
     void leave(@Param("teamId") Integer teamId, @Param("memberId") String memberId);
+
+    @Select("select * from ")
+    List<Member> getMembers(@Param("teamId") Integer teamId);
 }

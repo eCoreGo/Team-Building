@@ -12,7 +12,7 @@
 <body>
 
 	<div data-role="header">
-		<h1>eCore</h1>
+		<h1 id="group-title"></h1>
 		<a href="group.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
 		<a href="group.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
 	</div>
@@ -20,15 +20,15 @@
 	<div role="main" class="ui-content">
 		<div data-role="fieldcontain">
 			<label for="group-name">群昵称</label>
-			<input type="text" name="group-name" id="group-name" value="eCore 玩一夏 -_-">
+			<input type="text" name="group-name" id="group-name" value="">
 		</div>
 		<div data-role="fieldcontain">
 			<label for="group-id">群号</label>
-			<input type="text" disabled="disabled" name="group-id" id="group-id" value="eCoreGo">
+			<input type="text" disabled="disabled" name="group-id" id="group-id" value="">
 		</div>
 		<div data-role="fieldcontain">
 			<label for="group-description">简介</label>
-			<textarea cols="40" rows="8" name="group-description" id="group-description">eCore是一个很有活力的团队，我们的目标是要将eCore打造成一支不仅最能工作还最能玩的团队。</textarea>
+			<textarea cols="40" rows="8" name="group-description" id="group-description"></textarea>
 		</div>
 		<div class="ui-field-contain">
 			<label for="members">修改组员/查看组员</label>
@@ -42,7 +42,7 @@
 		</div>
 		<div data-role="fieldcontain">
 			<label for="group-funds">群组总经费（不包含公共经费）</label>
-			<a href="group-finance.html" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right">¥ 5577.50</a>
+			<a href="group-finance.html" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right" id="group-totalUserBalance"></a>
 		</div>
 		<div data-role="fieldcontain">
 			<label for="group-funds">历史活动</label>

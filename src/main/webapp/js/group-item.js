@@ -14,8 +14,11 @@ $(document).on("pageinit", function() {
         },
         url:"service/Team/getTeamDetail",
         success: function(result) {
+            $("#group-title").html(result.name);
             $("#group-name").val(result.name);
             $("#group-id").val(result.id);
+            $("#group-description").html(result.description);
+            $("#group-totalUserBalance").html(result.totalUserBalance + "RMB");
         },
         complete: function() {
 
