@@ -5,12 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
-	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.css">
-	<script src="//cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
-	<script src="//cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
+	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
+	<script src="jquery/jquery.min.js"></script>
+	<script src="jquery/jquery.mobile.min.js"></script>
 </head>
 <body>
-
 	<div data-role="header" data-position="fixed">
 		<h1>我的群组</h1>
 		<a href="group-add.html" data-icon="plus" data-iconpos="notext">Add</a>
@@ -18,18 +17,7 @@
 	</div>
 
 	<div role="main" class="ui-content">
-		<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true">
-			<li><a href="group-item.html">AlphaGo</a></li>
-			<li><a href="group-item.html">Alex Team</a></li>
-			<li><a href="group-item.html">Alpha Retail</a></li>
-			<li><a href="group-item.html">BigCore</a></li>
-			<li><a href="group-item.html">CCAR</a></li>
-			<li><a href="group-item.html">CCB</a></li>
-			<li><a href="group-item.html">CCC</a></li>
-			<li><a href="group-item.html">IPath</a></li>
-			<li><a href="group-item.html">Lattice</a></li>
-			<li><a href="group-item.html">Retail</a></li>
-			<li><a href="group-item.html">Ruby</a></li>
+		<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true" id="teamList">
 		</ul>
 	</div>
 
@@ -43,6 +31,6 @@
 			</ul>
 		</div>
 	</div>
-
+	<script src="js/group.js"></script>
 </body>
 </html>

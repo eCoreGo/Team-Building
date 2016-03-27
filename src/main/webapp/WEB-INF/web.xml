@@ -5,7 +5,7 @@
 <web-app>
     <display-name>Archetype Created Web Application</display-name>
 
-    <filter>
+    <!--<filter>
         <filter-name>authorityFilter</filter-name>
         <filter-class>com.core.web.AuthorityFilter</filter-class>
         <init-param>
@@ -14,13 +14,28 @@
         </init-param>
     </filter>
 
-    <filter-mapping>
-        <filter-name>authorityFilter</filter-name>
+    <filter-mapping>>
+        <filter-name>authorityFilter</filter-name
         <url-pattern>/service/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
 
     <servlet>
         <servlet-name>authorizeServlet</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.core.resource</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>serviceServlet</servlet-name>
+        <url-pattern>/service/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>serviceServlet</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
