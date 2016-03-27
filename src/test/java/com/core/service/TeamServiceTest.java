@@ -1,5 +1,6 @@
 package com.core.service;
 
+import com.core.bean.Member;
 import com.core.bean.Team;
 import org.junit.Test;
 
@@ -29,5 +30,11 @@ public class TeamServiceTest {
     public void testGetTeams() {
         List<Team> teams = service.getTeams();
         System.out.println(teams);
+    }
+
+    @Test
+    public void testGetMembers() {
+        List<Member> members = service.getMembers(1);
+        System.out.println(members);
     }
 }

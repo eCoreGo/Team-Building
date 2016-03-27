@@ -1,7 +1,9 @@
 package com.core.service;
 
+import com.core.bean.Member;
 import com.core.bean.Team;
 import com.core.mapper.TeamMapper;
+import com.core.mapper.TeamMemberMapper;
 import com.core.util.GetSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -41,8 +43,10 @@ public class TeamService {
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
         try {
             team = session.getMapper(TeamMapper.class).getTeamById(id);
+            List<Member> members = session.getMapper(TeamMemberMapper.class).getMembers(id);
+            team.setMembers(members);
         } catch (Exception e) {
-            throw new RuntimeException("Fail to get teams!", e);
+            throw new RuntimeException("Fail to get team!", e);
         } finally {
             session.close();
         }
@@ -66,11 +70,27 @@ public class TeamService {
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
         try {
             session.getMapper(TeamMapper.class).removeTeam(id);
+            session.getMapper(TeamMemberMapper.class).leaveAll(id);
         } catch (Exception e) {
+            session.rollback();
             throw new RuntimeException("Fail to remove team!", e);
         } finally {
             session.close();
         }
+    }
+
+    @SuppressWarnings("static-access")
+    public List<Member> getMembers(Integer teamId) throws RuntimeException {
+        List<Member> members = null;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            members = session.getMapper(TeamMemberMapper.class).getMembers(teamId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to leave!", e);
+        } finally {
+            session.close();
+        }
+        return members;
     }
 
 }

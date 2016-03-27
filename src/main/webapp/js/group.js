@@ -1,7 +1,7 @@
 /**
  * Created by stereomatrix on 2016/3/25.
  */
-$(document).on("pageinit", function() {
+$(document).on("pageshow", function() {
     $.ajax({
         type: "POST",
         dataType: "json",

@@ -14,7 +14,8 @@ public class Team {
     private Double totalFoundation;
     private Double totalUserBalance;
     private Date creationTime;
-    private List<TeamMember> users;
+    private List<TeamMember> teamMembers;
+    private List<Member> members;
 
     public Integer getId() {
         return id;
@@ -72,11 +73,19 @@ public class Team {
         this.creationTime = creationTime;
     }
 
-    public List<TeamMember> getUsers() {
-        return users;
+    public List<TeamMember> getTeamMembers() {
+        return teamMembers;
     }
 
-    public void setUsers(List<TeamMember> users) {
-        this.users = users;
+    public void setTeamMembers(List<TeamMember> teamMembers) {
+        this.teamMembers = teamMembers;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<Member> members) {
+        this.members = members;
     }
 }

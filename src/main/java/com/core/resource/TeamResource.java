@@ -1,5 +1,6 @@
 package com.core.resource;
 
+import com.core.bean.Member;
 import com.core.bean.Team;
 import com.core.service.TeamService;
 import org.apache.log4j.Logger;
@@ -45,7 +46,7 @@ public class TeamResource {
 	public String getTeamDetail(@FormParam(value = "id") Integer id,
 			@Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
-		String result = "[]";
+		String result = "{}";
 		try {
 			Team team = teamService.getTeamById(id);
 			result = objectMapper.writeValueAsString(team);
@@ -56,6 +57,21 @@ public class TeamResource {
 		return result;
 	}
 
-
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getTeamMembers")
+	public String getTeamMembers(@FormParam(value = "id") Integer id,
+			@Context HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+		String result = "[]";
+		try {
+			List<Member> members = teamService.getMembers(id);
+			result = objectMapper.writeValueAsString(members);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 
 }

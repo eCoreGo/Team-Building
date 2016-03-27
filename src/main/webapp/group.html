@@ -8,29 +8,31 @@
 	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.mobile.min.js"></script>
+	<script src="js/group.js"></script>
 </head>
 <body>
-	<div data-role="header" data-position="fixed">
-		<h1>我的群组</h1>
-		<a href="group-add.html" data-icon="plus" data-iconpos="notext">Add</a>
-		<a href="group-search.html" data-icon="search" data-iconpos="notext">Search</a>
-	</div>
+	<div data-role="page" data-dom-cache="true">
+		<div data-role="header" data-position="fixed">
+			<h1>我的群组</h1>
+			<a href="group-add.html" data-icon="plus" data-iconpos="notext">Add</a>
+			<a href="group-search.html" data-icon="search" data-iconpos="notext">Search</a>
+		</div>
 
-	<div role="main" class="ui-content">
-		<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true" id="teamList">
-		</ul>
-	</div>
-
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="home.html" data-icon="home">主页</a></li>
-				<li><a href="activity.html" data-icon="star">活动</a></li>
-				<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
-				<li><a href="mine.html" data-icon="user">我的</a></li>
+		<div role="main" class="ui-content">
+			<ul data-role="listview" data-autodividers="true" data-filter="true" data-inset="true" id="teamList">
 			</ul>
 		</div>
+
+		<div data-role="footer" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="home.html" data-icon="home">主页</a></li>
+					<li><a href="activity.html" data-icon="star">活动</a></li>
+					<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
+					<li><a href="mine.html" data-icon="user">我的</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	<script src="js/group.js"></script>
 </body>
 </html>

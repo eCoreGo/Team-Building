@@ -21,6 +21,9 @@ public interface TeamMemberMapper {
     @Delete("delete from team_member where team_id = ${teamId} and member_id = ${memberId}")
     void leave(@Param("teamId") Integer teamId, @Param("memberId") String memberId);
 
-    @Select("select * from ")
+    @Delete("delete from team_member where team_id = ${teamId}")
+    void leaveAll(@Param("teamId") Integer teamId);
+
+    @Select("select b.* from team_member a, member b where a.member_id = b.id and a.team_id = ${teamId}")
     List<Member> getMembers(@Param("teamId") Integer teamId);
 }
