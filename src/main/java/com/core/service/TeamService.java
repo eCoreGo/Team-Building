@@ -38,6 +38,20 @@ public class TeamService {
     }
 
     @SuppressWarnings("static-access")
+    public List<Team> getTeamsByNameWildCard(String name) throws RuntimeException {
+        List<Team> teams;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            teams = session.getMapper(TeamMapper.class).getTeamsByNameWildCard(name);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get teams!", e);
+        } finally {
+            session.close();
+        }
+        return teams;
+    }
+
+    @SuppressWarnings("static-access")
     public Team getTeamById(Integer id) throws RuntimeException {
         Team team;
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);

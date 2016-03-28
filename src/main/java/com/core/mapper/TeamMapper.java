@@ -13,6 +13,9 @@ public interface TeamMapper {
     @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team")
     List<Team> getTeams();
 
+    @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team where name like '%${name}%'")
+    List<Team> getTeamsByNameWildCard(@Param(value = "name") String name);
+
     @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team where id = ${id}")
     Team getTeamById(@Param(value = "id") Integer id);
 

@@ -46,6 +46,21 @@ public class TeamResource {
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getTeamsByNameWildCard")
+	public String getTeamsByNameWildCard(@FormParam(value = "name") String name) {
+		String result = "[]";
+		try {
+			List<Team> teams = teamService.getTeamsByNameWildCard(name);
+			result = objectMapper.writeValueAsString(teams);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(value = "getTeamDetail")
 	public String getTeamDetail(@FormParam(value = "id") Integer id,
 			@Context HttpServletResponse response) {
