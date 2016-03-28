@@ -53,7 +53,7 @@ create table activity_attender
 /*==============================================================*/
 create table team
 (
-   id                   int not null,
+   id                   int auto_increment,
    temp                 bool not null,
    name                 varchar(50) not null,
    description          varchar(500),

@@ -1,60 +1,61 @@
 ﻿<!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title></title>
-	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
-	<script src="jquery/jquery.min.js"></script>
-	<script src="jquery/jquery.mobile.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="jquery/jquery.mobile.min.css">
+    <script src="jquery/jquery.min.js"></script>
+    <script src="jquery/jquery.mobile.min.js"></script>
+    <script src="js/group-add.js"></script>
 </head>
 <body>
+<div data-role="page" data-dom-cache="true">
+    <div data-role="header">
+        <h1>新建群组</h1>
+        <a href="group.html" data-icon="arrow-l" data-iconpos="notext" data-ajax='false'>Back</a>
+        <a href="group.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check" data-ajax='false' id="add-group">确定</a>
+    </div>
 
-	<div data-role="header">
-		<h1>新建群组</h1>
-		<a href="group.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
-		<a href="group.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
-	</div>
+    <div role="main" class="ui-content">
+        <div data-role="fieldcontain">
+            <label for="group-name">群昵称</label>
+            <input type="text" name="group-name" id="group-name" placeholder="群组昵称" value="">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="group-id">群号</label>
+            <input type="text" name="group-id" id="group-id" placeholder="群号唯一，且不能更改" value="" readonly="readonly">
+        </div>
+        <div data-role="fieldcontain">
+            <label for="group-desc">简介</label>
+            <textarea cols="40" rows="8" name="group-desc" id="group-desc" placeholder="简明介绍该群组……"></textarea>
+        </div>
+        <div class="ui-field-contain">
+            <label for="members">邀请组员</label>
+            <select name="members" id="members" multiple="multiple" data-native-menu="false">
+                <!--<option value="value1" selected="selected">楚留香</option>
+                <option value="value2">陆小凤</option>
+                <option value="value3">西门吹雪</option>
+                <option value="value4">萧十一郎</option>
+                <option value="value5" selected="selected">李寻欢</option>-->
+            </select>
+        </div>
+        <label>
+            <input type="checkbox" id="has-finance-manage" name="">开启群组经费管理
+        </label>
+    </div>
 
-	<div role="main" class="ui-content">
-		<div data-role="fieldcontain">
-			<label for="textinput-1">群昵称</label>
-			<input type="text" name="textinput-1" id="textinput-1" placeholder="群组昵称" value="">
-		</div>
-		<div data-role="fieldcontain">
-			<label for="textinput-1">群号</label>
-			<input type="text" name="textinput-1" id="textinput-1" placeholder="群号唯一，且不能更改" value="">
-		</div>
-		<div data-role="fieldcontain">
-			<label for="textarea-1">简介</label>
-			<textarea cols="40" rows="8" name="textarea-1" id="textarea-1" placeholder="简明介绍该群组……"></textarea>
-		</div>
-		<div class="ui-field-contain">
-			<label for="members">邀请组员</label>
-			<select name="members" id="members" multiple="multiple" data-native-menu="false">
-				<option value="value1" selected="selected">楚留香</option>
-				<option value="value2">陆小凤</option>
-				<option value="value3">西门吹雪</option>
-				<option value="value4">萧十一郎</option>
-				<option value="value5" selected="selected">李寻欢</option>
-			</select>
-		</div>
-		<label>
-			<input type="checkbox" id="has-finance-manage" name="">开启群组经费管理
-		</label>
-	</div>
-
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="home.html" data-icon="home">主页</a></li>
-				<li><a href="activity.html" data-icon="star">活动</a></li>
-				<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
-				<li><a href="mine.html" data-icon="user">我的</a></li>
-			</ul>
-		</div>
-	</div>
-
+    <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="home.html" data-icon="home" data-ajax='false'>主页</a></li>
+                <li><a href="activity.html" data-icon="star" data-ajax='false'>活动</a></li>
+                <li><a href="group.html" data-icon="gear" class="ui-btn-active" data-ajax='false'>群组</a></li>
+                <li><a href="mine.html" data-icon="user" data-ajax='false'>我的</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -16,7 +16,10 @@ public interface TeamMapper {
     @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team where id = ${id}")
     Team getTeamById(@Param(value = "id") Integer id);
 
-    @Insert("insert into team(id, temp, name, description, total_foundation, total_user_balance, creation_time) values(#{team.id}, #{team.temp}, #{team.name}, #{team.description}, #{team.totalFoundation}, #{team.totalUserBalance}, #{team.creationTime})")
+    @Select("select id as id, name as name, description as description, total_user_balance as totalUserBalance, total_foundation as totalFoundation from team where name = '${name}'")
+    Team getTeamByName(@Param(value = "name") String name);
+
+    @Insert("insert into team(temp, name, description, total_foundation, total_user_balance, creation_time) values(#{team.temp}, #{team.name}, #{team.description}, #{team.totalFoundation}, #{team.totalUserBalance}, #{team.creationTime})")
     void addTeam(@Param(value = "team") Team team);
 
     @Update("update team set name=${team.name}, description=${team.description}, total_foundation=${team.totalFoundation}, total_user_balance=${team.totalUserBalance} where id = ${team.id}")
