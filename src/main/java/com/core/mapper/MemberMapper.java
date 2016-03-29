@@ -1,9 +1,11 @@
 package com.core.mapper;
 
 import com.core.bean.Member;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -20,5 +22,8 @@ public interface MemberMapper {
 
     @Select("select id, name, phone from member where id = ${id}")
     Member getMemberById(@Param("id") String id);
+    
+    @Update("update member set name = ${name}, phone = ${phone} where id = ${id}")
+    Member updateMemberById(@Param(value = "id") String id, @Param(value = "name") String name, @Param(value = "phone") String phone);
 
 }

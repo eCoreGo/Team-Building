@@ -20,6 +20,18 @@ public class MemberService {
             session.close();
         }
     }
+    
+    @SuppressWarnings("static-access")
+    public void updateMemberById(String id, String name, String phone) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            session.getMapper(MemberMapper.class).updateMemberById(id, name, phone);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to update member!", e);
+        } finally {
+            session.close();
+        }
+    }
 
     @SuppressWarnings("static-access")
     public List<Member> getMembers() throws RuntimeException {

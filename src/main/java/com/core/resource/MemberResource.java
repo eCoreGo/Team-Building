@@ -47,6 +47,24 @@ public class MemberResource {
 	}
 
 	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "updateMember")
+	public String updateMemberById(@FormParam(value = "id") String id,
+			@FormParam(value = "name") String name,
+			@FormParam(value = "phone") String phone,
+			@Context HttpServletRequest request, @Context HttpServletResponse response) {
+		response.setCharacterEncoding("UTF-8");
+
+		try {
+			memberService.updateMemberById(id, name, phone);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return SUCCESSFULLY;
+	}
+	
+	@POST
 	 @Produces(MediaType.TEXT_PLAIN)
 	 @Path(value = "getMembers")
 	 public String getMembers() {
