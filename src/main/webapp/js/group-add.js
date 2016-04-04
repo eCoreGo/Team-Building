@@ -23,13 +23,17 @@ $(document).on("pageshow", function() {
     });
 
     $("#addGroup").bind("click", function() {
+        var name = $("#group-name").val();
+        var desc = $("#group-description").val();
+        var members = $("#members").val();
+        var memberString = members != null ? members.toString() : "";
         $.ajax({
             type: "POST",
             dataType: "json",
             data: {
-                name: $("#group-name").val(),
-                desc: $("#group-description").val(),
-                members: $("#members").val().toString()
+                name: name,
+                desc: desc,
+                members: memberString
             },
             url:"service/Team/addTeam",
             success: function(result) {

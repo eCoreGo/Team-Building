@@ -7,6 +7,7 @@ import com.core.bean.TeamMember;
 import com.core.service.ActivityService;
 import com.core.service.MemberService;
 import com.core.util.StringUtils;
+
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -18,6 +19,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -36,25 +39,24 @@ public class ActivityResource {
 	@Path(value = "addActivity")
 	public String addActivity(@FormParam(value = "id") Integer id,
 			@FormParam(value = "name") String name,
-			@FormParam(value = "totalCost") Double totalCost,
-			@FormParam(value = "totalFoundationCost") Double totalFoundationCost,
-			@FormParam(value = "startTime") Date startTime,
-			@FormParam(value = "endTime") Date endTime,
+			@FormParam(value = "totalFoundationCost") String totalFoundationCost,
+			@FormParam(value = "startTime") String startTime,
+			@FormParam(value = "endTime") String endTime,
 			@FormParam(value = "description") String description,
-			//@FormParam(value = "status") Integer iStatus,
+			@FormParam(value = "teamId") Integer teamId,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
 			Activity activity= new Activity();
-			activity.setId(id);
 			activity.setName(name);
-			activity.setTotalCost(totalCost);
-			activity.setTotalFoundationCost(totalFoundationCost);
-			activity.setStartTime(startTime);
-			activity.setEndTime(endTime);
+			activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			activity.setStartTime(sdf.parse(startTime));
+			activity.setEndTime(sdf.parse(endTime));
 			activity.setDescription(description);
 			activity.setStatus(Activity.Status.TODO);
+			activity.setTeamId(0);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
 			e.printStackTrace();
