@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" href="//cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.css">
+	<script src="//cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
+</head>
+<body>
+
+	<div data-role="header">
+		<h1>我的财务管理</h1>
+		<a href="mine.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="mine.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
+	</div>
+
+	<div role="main" class="ui-content">
+		<div data-role="tabs" id="tabs">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#one">财务报表</a></li>
+					<li><a href="#two">财务明细</a></li>
+				</ul>
+			</div>
+			<!-- 财务报表选项卡 -->
+			<div id="one" class="ui-body-d ui-content">
+				<div data-role="fieldcontain">
+					<label for="group-funds">我的财务汇总</label>
+					<input type="text" disabled="disabled" name="group-funds" id="group-funds" value="¥ 3577.50">
+				</div>
+				<div data-role="fieldcontain">
+					<label for="personl-finance">我的财务明细</label>
+					<table data-role="table" id="personl-finance" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+						<thead>
+							<tr>
+								<th data-priority="1">编号</th>
+								<th data-priority="1">群组</th>
+								<th data-priority="1">金额</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td><a href="group-item.html" data-rel="external">eCore Team</a></td>
+								<td>¥ 68.43</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td><a href="group-item.html" data-rel="external">Lattice</a></td>
+								<td>¥ 158.50</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td><a href="group-item.html" data-rel="external">Retail Alpha</a></td>
+								<td>¥ -23.45</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- 财务明细选项卡 -->
+			<div id="two">
+				<!-- 历史收支明细表格 -->
+				<div data-role="fieldcontain">
+					<label for="finance-items">历史收支明细</label>
+					<table data-role="table" id="finance-items" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+						<thead>
+							<tr>
+								<th data-priority="3">编号</th>
+								<th data-priority="1">活动</th>
+								<th data-priority="1">金额</th>
+								<th data-priority="1">时间</th>
+								<th data-priority="3">备注</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td><a href="activity-item.html" data-rel="external">eCore 玩一夏</a></td>
+								<td>¥ -200</td>
+								<td>2016.03.20 17:20</td>
+								<td>充值</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td><a href="activity-item.html" data-rel="external">Lattice 聚餐</a></td>
+								<td>¥ -40.56</td>
+								<td>2016.03.12 12:34</td>
+								<td>活动费用均摊</td>
+							</tr>
+							<tr>
+								<th>3</th>
+								<td><a href="activity-item.html" data-rel="external">周末一起去哪儿</a></td>
+								<td>¥ -23</td>
+								<td>2016.01.05 10:20</td>
+								<td>打车</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="footer" data-position="fixed">
+		<div data-role="navbar">
+			<ul>
+				<li><a href="home.html" data-icon="home">主页</a></li>
+				<li><a href="activity.html" data-icon="star">活动</a></li>
+				<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
+				<li><a href="mine.html" data-icon="user">我的</a></li>
+			</ul>
+		</div>
+	</div>
+
+</body>
+</html>
