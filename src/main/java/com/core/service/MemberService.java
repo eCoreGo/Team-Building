@@ -1,10 +1,13 @@
 package com.core.service;
 
 import com.core.bean.Member;
+import com.core.bean.Team;
 import com.core.mapper.MemberMapper;
+import com.core.mapper.TeamMemberMapper;
 import com.core.util.GetSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemberService {
@@ -61,4 +64,17 @@ public class MemberService {
         return member;
     }
 
+    @SuppressWarnings("static-access")
+    public List<Team> getTeams(String id) throws RuntimeException {
+        List<Team> teams = new ArrayList<Team>();
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            teams = session.getMapper(TeamMemberMapper.class).getTeams(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return teams;
+    }
 }

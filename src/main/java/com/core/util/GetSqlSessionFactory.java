@@ -1,5 +1,6 @@
 package com.core.util;
 
+import com.core.mapper.ActivityMapper;
 import com.core.mapper.MemberMapper;
 import com.core.mapper.TeamMapper;
 import com.core.mapper.TeamMemberMapper;
@@ -32,6 +33,7 @@ public class GetSqlSessionFactory
         sqlSessionFactory.getConfiguration().addMapper(MemberMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(TeamMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(TeamMemberMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(ActivityMapper.class);
     }
 
     public static GetSqlSessionFactory getInstance()

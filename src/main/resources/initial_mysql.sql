@@ -14,24 +14,26 @@ drop table if exists activity_attender;
 
 drop table if exists team;
 
-drop table if exists user;
+drop table if exists member;
 
-drop table if exists user_team;
+drop table if exists team_member;
 
 /*==============================================================*/
 /* Table: activity                                              */
 /*==============================================================*/
 create table activity
 (
-   id                   int not null,
+   id                   int auto_increment,
    name                 varchar(50) not null,
    total_cost           decimal not null,
    total_foundation_cost decimal not null,
-   time                 timestamp not null,
    description          varchar(500),
    status               smallint not null,
+   start_time           timestamp default current_timestamp,
+   end_time             timestamp default current_timestamp,
+   team_id              int,
    primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: activity_attender                                     */
@@ -46,7 +48,7 @@ create table activity_attender
    seatnumber           int not null,
    user_name            varchar(50),
    primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: team                                                  */
@@ -61,7 +63,7 @@ create table team
    total_user_balance   decimal not null,
    creation_time        timestamp not null,
    primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: user                                                  */
@@ -73,7 +75,7 @@ create table member
    wechat_no            varchar(50) not null,
    phone                varchar(20),
    primary key (id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*==============================================================*/
 /* Table: user_team                                             */
@@ -85,4 +87,4 @@ create table team_member
    balance              decimal not null,
    attend_time          timestamp not null,
    primary key (team_id, member_id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;

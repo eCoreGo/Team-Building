@@ -1,7 +1,12 @@
 package com.core.resource;
 
 import com.core.bean.Activity;
+import com.core.bean.Member;
+import com.core.bean.Team;
+import com.core.bean.TeamMember;
 import com.core.service.ActivityService;
+import com.core.service.MemberService;
+import com.core.util.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -20,6 +25,7 @@ import java.util.List;
 public class ActivityResource {
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	private ActivityService activityService = new ActivityService();
+	private MemberService memberService = new MemberService();
 
 	private Logger logger = Logger.getLogger(ActivityResource.class);
 	private static final String SUCCESSFULLY = "操作成功！";
@@ -32,9 +38,10 @@ public class ActivityResource {
 			@FormParam(value = "name") String name,
 			@FormParam(value = "totalCost") Double totalCost,
 			@FormParam(value = "totalFoundationCost") Double totalFoundationCost,
-			@FormParam(value = "time") Date time,
+			@FormParam(value = "startTime") Date startTime,
+			@FormParam(value = "endTime") Date endTime,
 			@FormParam(value = "description") String description,
-			@FormParam(value = "status") Activity.Status status,
+			//@FormParam(value = "status") Integer iStatus,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 
@@ -44,9 +51,10 @@ public class ActivityResource {
 			activity.setName(name);
 			activity.setTotalCost(totalCost);
 			activity.setTotalFoundationCost(totalFoundationCost);
-			activity.setTime(time);
+			activity.setStartTime(startTime);
+			activity.setEndTime(endTime);
 			activity.setDescription(description);
-			activity.setStatus(status);
+			activity.setStatus(Activity.Status.TODO);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,9 +64,9 @@ public class ActivityResource {
 	}
 
 	@POST
-	 @Produces(MediaType.TEXT_PLAIN)
-	 @Path(value = "getOngoingActivities")
-	 public String getOngoingActivities(String teamID) {
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getOngoingActivities")
+	public String getOngoingActivities(@FormParam(value = "id") Integer teamID) {
 		String result = "[]";
 		try {
 			List<Activity> activities = activityService.getOngoingActivities(teamID);
@@ -70,5 +78,39 @@ public class ActivityResource {
 		return result;
 	}
 
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivities")
+	public String getAllActivities(@FormParam(value = "id") Integer teamID) {
+		String result = "[]";
+		try {
+			List<Activity> activities = activityService.getAllActivities(teamID);
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivitiesByMemberId")
+	public String getAllActivitiesByMemberId(@FormParam(value = "memberId") String memberId) {
+		String result = "[]";
+		try {
+			List<Team> teams = memberService.getTeams(memberId);
+			Integer[] teamIds = new Integer[teams.size()];
+			for (int i = 0; i < teams.size(); i++) {
+				teamIds[i] = teams.get(i).getId();
+			}
+			List<Activity> activities = activityService.getAllActivities(teamIds);
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 
 }

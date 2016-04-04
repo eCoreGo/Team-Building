@@ -6,6 +6,9 @@ $(document).on("pageshow", function() {
     var queryString = raw.substr(1);
     var query = parseQueryString(queryString);
     var teamId = query["id"];
+
+    var url = $("#checkActivitiesByGroup").attr("href");
+    $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId);
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -52,7 +55,8 @@ $(document).on("pageshow", function() {
 
             }
         });
-    })
+    });
+
 });
 
 function parseQueryString(queryString) {

@@ -18,14 +18,24 @@ public class Activity {
         public int getValue() {
             return value;
         }
+        public static Status getByValue(int value) {
+            for(Status status : Status.values()) {
+                if(value == status.getValue()) {
+                    return status;
+                }
+            }
+            return null;
+        }
     }
     private Integer id;
     private String name;
     private Double totalCost;
     private Double totalFoundationCost;
-    private Date time;
     private String description;
     private Status status;
+    private Date startTime;
+    private Date endTime;
+    private Integer teamId;
 
     public Integer getId() {
         return id;
@@ -59,14 +69,6 @@ public class Activity {
         this.totalFoundationCost = totalFoundationCost;
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -81,6 +83,30 @@ public class Activity {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 }
 

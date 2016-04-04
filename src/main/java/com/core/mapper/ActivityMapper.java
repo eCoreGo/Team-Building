@@ -14,10 +14,16 @@ import java.util.List;
  */
 public interface ActivityMapper {
 
-    @Select("select * from activity where status = 2 and teamID = ${teamID}")
-    List<Activity> getOngoingActivities(String teamID);
+    @Select("select id, name, total_cost as totalCost, total_foundation_cost as totalFoundationCost, team_id as teamId, description, status, start_time as startTime, end_time as endTime from activity where status = 2 and team_id = ${teamId}")
+    List<Activity> getOngoingActivities(@Param(value = "teamId") Integer teamID);
 
-    @Insert("insert into activity(id, name, totalCost, totalFoundationCost, time, description, status) values(${activity.id}, ${activity.name}, ${activity.totalCost}, ${activity.totalFoundationCost}, ${activity.time}, ${activity.description}, ${activity.status})")
+    @Select("select id, name, total_cost as totalCost, total_foundation_cost as totalFoundationCost, team_id, description, status, start_time as startTime, end_time as endTime from activity where team_id = ${teamId}")
+    List<Activity> getAllActivitiesByTeamId(@Param(value = "teamId") Integer teamID);
+
+    @Select("select id, name, total_cost as totalCost, total_foundation_cost as totalFoundationCost, team_id as teamId, description, status, start_time as startTime, end_time as endTime from activity where team_id in(${teamIds})")
+    List<Activity> getAllActivitiesByTeamIds(@Param(value = "teamIds") String teamIDs);
+
+    @Insert("insert into activity(name, total_cost, total_foundation_cost, team_id, description, status, start_time, end_time) values(${activity.name}, ${activity.totalCost}, ${activity.totalFoundationCost}, ${activity.teamId}, ${activity.description}, ${activity.status}, ${activity.startTime}, , ${activity.endTime})")
     void addActivity(@Param(value = "activity") Activity activity);
 
 
