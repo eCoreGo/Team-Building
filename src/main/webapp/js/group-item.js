@@ -33,6 +33,26 @@ $(document).on("pageshow", function() {
 
         }
     });
+
+    $("#saveGroup").bind("click", function() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: {
+                id: $("#group-id").val(),
+                name: $("#group-name").val(),
+                desc: $("#group-description").val(),
+                members: $("#members").val().toString()
+            },
+            url:"service/Team/updateTeam",
+            success: function(result) {
+
+            },
+            complete: function() {
+
+            }
+        });
+    })
 });
 
 function parseQueryString(queryString) {

@@ -129,4 +129,40 @@ public class TeamResource {
 		return SUCCESSFULLY;
 	}
 
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "updateTeam")
+	public String updateTeam(
+			@FormParam(value = "id") Integer id,
+			@FormParam(value = "name") String name,
+			@FormParam(value = "desc") String description,
+			@FormParam(value = "members") String memberIds,
+			@Context HttpServletResponse response) {
+		try {
+			Team team = new Team();
+			team.setId(id);
+			team.setName(name);
+			team.setDescription(description);
+
+			String[] memberIdArr = memberIds.split(",");
+			teamService.updateTeam(team);
+			team = teamService.getTeamByName(name);
+			teamMemberService.leaveAll(id);
+			for(String memberId : memberIdArr) {
+				Member member = new Member();
+				member.setId(memberId);
+				TeamMember teamMember = new TeamMember();
+				teamMember.setTeam(team);
+				teamMember.setMember(member);
+				teamMember.setAttendTime(new Date());
+				teamMember.setBalance(0d);
+				teamMemberService.join(teamMember);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return SUCCESSFULLY;
+	}
+
 }

@@ -31,4 +31,16 @@ public class TeamMemberService {
         }
     }
 
+    @SuppressWarnings("static-access")
+    public void leaveAll(Integer teamId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            session.getMapper(TeamMemberMapper.class).leaveAll(teamId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to leave!", e);
+        } finally {
+            session.close();
+        }
+    }
+
 }
