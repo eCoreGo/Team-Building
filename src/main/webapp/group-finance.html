@@ -13,7 +13,7 @@
 
 	<div data-role="header">
 		<h1>eCore 经费管理</h1>
-		<a href="group-item.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
+		<a href="group-item.html" data-icon="arrow-l" data-iconpos="notext" data-ajax = 'false'>Back</a>
 		<a href="group-item.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
 	</div>
 
@@ -21,8 +21,8 @@
 		<div data-role="tabs" id="tabs">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#one">经费报表</a></li>
-					<li><a href="#two">经费明细</a></li>
+					<li><a href="#one" data-ajax = 'false'>经费报表</a></li>
+					<li><a href="#two" data-ajax = 'false'>经费明细</a></li>
 				</ul>
 			</div>
 			<!-- 经费报表选项卡 -->
@@ -93,7 +93,7 @@
 						<label for="description1">备注</label>
 						<input type="text" name="description1" id="description1" placeholder="请备注此次收支明细" value="">
 					</div>
-					<a class="ui-btn ui-corner-all">添加收支明细</a>
+					<a class="ui-btn ui-corner-all" data-ajax = 'false'>添加收支明细</a>
 				</div>
 				<!-- 历史收支明细表格 -->
 				<div data-role="fieldcontain">
@@ -144,10 +144,10 @@
 	<div data-role="footer" data-position="fixed">
 		<div data-role="navbar">
 			<ul>
-				<li><a href="home.html" data-icon="home">主页</a></li>
-				<li><a href="activity.html" data-icon="star">活动</a></li>
-				<li><a href="group.html" data-icon="gear" class="ui-btn-active">群组</a></li>
-				<li><a href="mine.html" data-icon="user">我的</a></li>
+				<li><a href="home.html" data-icon="home" data-ajax="false">主页</a></li>
+				<li><a href="activity.html" data-icon="star" data-ajax="false">活动</a></li>
+				<li><a href="group.html" data-icon="gear" class="ui-btn-active" data-ajax="false">群组</a></li>
+				<li><a href="mine.html" data-icon="user" data-ajax="false">我的</a></li>
 			</ul>
 		</div>
 	</div>
