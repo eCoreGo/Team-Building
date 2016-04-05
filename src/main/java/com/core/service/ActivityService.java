@@ -94,4 +94,18 @@ public class ActivityService {
         }
         return activities;
     }
+
+    @SuppressWarnings("static-access")
+    public List<Activity> getAllActivitiesByStatus(Integer[] status) throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getAllActivitiesByStatus",status);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
 }

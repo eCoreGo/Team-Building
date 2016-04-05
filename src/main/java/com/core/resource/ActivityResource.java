@@ -22,6 +22,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -107,6 +108,31 @@ public class ActivityResource {
 		try {
 			//List<Activity> activities = activityService.getAllActivities(teamID);
 			List<Activity> activities = activityService.getAllActivities();
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivitiesByStatus")
+	public String getAllActivitiesByStatus(@FormParam(value = "status") String statusString) {
+		String result = "[]";
+		List<Activity> activities = new ArrayList<Activity>();
+		try {
+			if(StringUtils.isNullOrEmpty(statusString)) {
+				activities = activityService.getAllActivities();
+			} else {
+				String[] statusStr = statusString.split(",");
+				Integer[] status = new Integer[statusStr.length];
+				for(int i = 0; i < statusStr.length; i++) {
+					status[i] = Integer.valueOf(statusStr[i]);
+				}
+				activities = activityService.getAllActivitiesByStatus(status);
+			}
 			result = objectMapper.writeValueAsString(activities);
 		} catch (Exception e) {
 			e.printStackTrace();

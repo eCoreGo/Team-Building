@@ -24,4 +24,11 @@
     <select id="getAllActivities" resultType="com.core.bean.Activity" resultMap="activityMap">
         select a.id as aid, a.name as aname, a.total_cost as totalCost, a.total_foundation_cost as totalFoundationCost, a.description as adescription, a.status as astatus, a.start_time as startTime, a.end_time as endTime, b.id as bid, b.name as bname from activity a, team b where a.team_id = b.id;
     </select>
+
+    <select id="getAllActivitiesByStatus" resultType="com.core.bean.Activity" resultMap="activityMap">
+        select a.id as aid, a.name as aname, a.total_cost as totalCost, a.total_foundation_cost as totalFoundationCost, a.description as adescription, a.status as astatus, a.start_time as startTime, a.end_time as endTime, b.id as bid, b.name as bname from activity a, team b where a.team_id = b.id and a.status in
+        <foreach collection="array" index="index" item="item" open="(" close=")" separator=",">
+            ${item}
+        </foreach>
+    </select>
 </mapper>

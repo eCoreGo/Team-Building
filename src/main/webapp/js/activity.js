@@ -2,12 +2,26 @@
  * Created by stereomatrix on 2016/3/25.
  */
 $(document).on("pageshow", function() {
+    getActivitiesByStatus();
+    $("fieldset input").bind("change", function() {
+        getActivitiesByStatus();
+    })
+});
+
+function getActivitiesByStatus(status) {
+    var status = [];
+    $("fieldset input").each(function () {
+        if(this.checked == true) {
+            status.push(this.value);
+        }
+    });
+    status = status.toString()
     $.ajax({
         type: "POST",
         dataType: "json",
-        url:"service/Activity/getAllActivities",
+        url:"service/Activity/getAllActivitiesByStatus",
         data: {
-            memberId: "1"
+            status: status
         },
         success: function(result) {
             $("#activitiesListView").empty();
@@ -32,4 +46,4 @@ $(document).on("pageshow", function() {
             $("#activitiesListView").listview("refresh");
         }
     });
-});
+}
