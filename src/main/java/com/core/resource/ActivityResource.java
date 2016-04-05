@@ -55,7 +55,7 @@ public class ActivityResource {
 			activity.setStartTime(sdf.parse(startTime));
 			activity.setEndTime(sdf.parse(endTime));
 			activity.setDescription(description);
-			activity.setStatus(Activity.Status.TODO);
+			activity.setStatus(Activity.TODO);
 			activity.setTeamId(0);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
