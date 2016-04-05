@@ -6,13 +6,15 @@ $(document).on("pageshow", function() {
     var queryString = raw.substr(1);
     var query = parseQueryString(queryString);
     var teamId = query["id"];
+    var url = $("#backToGroup").attr("href");
+    $("#backToGroup").attr("href", url + "?id=" + teamId);
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
             id: teamId
         },
-        url:"service/Activity/getAllActivities",
+        url:"service/Activity/getTeamActivities",
         success: function(result) {
             $("#activitiesListView").empty();
             if(result.length == 0) {

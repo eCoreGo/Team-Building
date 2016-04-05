@@ -5,7 +5,7 @@ $(document).on("pageshow", function() {
     $.ajax({
         type: "POST",
         dataType: "json",
-        url:"service/Activity/getAllActivitiesByMemberId",
+        url:"service/Activity/getAllActivities",
         data: {
             memberId: "1"
         },

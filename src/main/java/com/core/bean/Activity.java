@@ -41,7 +41,7 @@ public class Activity {
     private Integer status;
     private Date startTime;
     private Date endTime;
-    private Integer teamId;
+    private Team team;
 
     public Integer getId() {
         return id;
@@ -109,12 +109,12 @@ public class Activity {
         this.endTime = endTime;
     }
 
-    public Integer getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
 

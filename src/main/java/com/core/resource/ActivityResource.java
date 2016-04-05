@@ -6,6 +6,7 @@ import com.core.bean.Team;
 import com.core.bean.TeamMember;
 import com.core.service.ActivityService;
 import com.core.service.MemberService;
+import com.core.service.TeamService;
 import com.core.util.StringUtils;
 
 import org.apache.log4j.Logger;
@@ -29,6 +30,7 @@ public class ActivityResource {
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	private ActivityService activityService = new ActivityService();
 	private MemberService memberService = new MemberService();
+	private TeamService teamService = new TeamService();
 
 	private Logger logger = Logger.getLogger(ActivityResource.class);
 	private static final String SUCCESSFULLY = "操作成功！";
@@ -48,6 +50,7 @@ public class ActivityResource {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
+			Team team = teamService.getTeamById(teamId);
 			Activity activity= new Activity();
 			activity.setName(name);
 			activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
@@ -56,7 +59,7 @@ public class ActivityResource {
 			activity.setEndTime(sdf.parse(endTime));
 			activity.setDescription(description);
 			activity.setStatus(Activity.TODO);
-			activity.setTeamId(0);
+			activity.setTeam(team);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,11 +85,28 @@ public class ActivityResource {
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "getAllActivities")
-	public String getAllActivities(@FormParam(value = "id") Integer teamID) {
+	@Path(value = "getTeamActivities")
+	public String getTeamActivities(@FormParam(value = "id") Integer teamID) {
 		String result = "[]";
 		try {
-			List<Activity> activities = activityService.getAllActivities(teamID);
+			//List<Activity> activities = activityService.getAllActivities(teamID);
+			List<Activity> activities = activityService.getTeamActivities(teamID);
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivities")
+	public String getAllActivities() {
+		String result = "[]";
+		try {
+			//List<Activity> activities = activityService.getAllActivities(teamID);
+			List<Activity> activities = activityService.getAllActivities();
 			result = objectMapper.writeValueAsString(activities);
 		} catch (Exception e) {
 			e.printStackTrace();

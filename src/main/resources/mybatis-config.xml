@@ -16,4 +16,7 @@
             </dataSource>
         </environment>
     </environments>
+    <mappers>
+        <mapper resource="ActivityMapper.xml"></mapper>
+    </mappers>
 </configuration>

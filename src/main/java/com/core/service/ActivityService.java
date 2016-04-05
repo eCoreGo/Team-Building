@@ -67,4 +67,31 @@ public class ActivityService {
         return activities;
     }
 
+    @SuppressWarnings("static-access")
+    public List<Activity> getTeamActivities(Integer teamID) throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getTeamActivities", teamID);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
+
+    @SuppressWarnings("static-access")
+    public List<Activity> getAllActivities() throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getAllActivities");
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
 }
