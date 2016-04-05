@@ -25,7 +25,8 @@ $(document).on("pageshow", function() {
                         return "<li>" +
                             "<a data-ajax = 'false' href='activity-item.html?id=" + result[i].id + "'>" +
                             "<h1>" + result[i].name + "</h1>" +
-                            "<p><strong>" + result[i].startTime + "-" + result[i].endTime + "</strong></p>" +
+                            "<p><strong>" + result[i].startTime + " - " + result[i].endTime + "</strong></p>" +
+                            "<p>From <strong>" + result[i].team.name + "</strong></p>" +
                             "<p>" + result[i].description + "</p>" +
                             "<p class='ui-li-aside'><strong>" + result[i].status + "</strong></p>" +
                             "</a></li>";
