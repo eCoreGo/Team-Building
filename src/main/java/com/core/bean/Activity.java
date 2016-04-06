@@ -12,27 +12,7 @@ public class Activity {
     public static final Integer TODO = 1;
     public static final Integer DOING = 2;
     public static final Integer DONE = 3;
-    /*public static enum Status {
-        TODO(1),
-        DOING(2),
-        DONE(3);
-
-        private int value;
-        Status(int value) {
-            this.value = value;
-        }
-        public int getValue() {
-            return value;
-        }
-        public static Status getByValue(int value) {
-            for(Status status : Status.values()) {
-                if(value == status.getValue()) {
-                    return status;
-                }
-            }
-            return null;
-        }
-    }*/
+    public static final Integer OVERTIME = 4;
     private Integer id;
     private String name;
     private Double totalCost;
@@ -42,6 +22,8 @@ public class Activity {
     private Date startTime;
     private Date endTime;
     private Team team;
+    private Boolean openCarSchedule;
+    private Boolean openExchangeModule;
 
     public Integer getId() {
         return id;
@@ -116,6 +98,24 @@ public class Activity {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+	public Boolean getOpenCarSchedule() {
+		return openCarSchedule;
+	}
+
+	public void setOpenCarSchedule(Boolean openCarSchedule) {
+		this.openCarSchedule = openCarSchedule;
+	}
+
+	public Boolean getOpenExchangeModule() {
+		return openExchangeModule;
+	}
+
+	public void setOpenExchangeModule(Boolean openExchangeModule) {
+		this.openExchangeModule = openExchangeModule;
+	}
+    
+    
 }
 
 

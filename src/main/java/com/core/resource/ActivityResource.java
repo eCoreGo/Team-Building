@@ -47,6 +47,8 @@ public class ActivityResource {
 			@FormParam(value = "endTime") String endTime,
 			@FormParam(value = "description") String description,
 			@FormParam(value = "teamId") Integer teamId,
+			@FormParam(value = "openCarSchedule") Boolean openCarSchedule,
+			@FormParam(value = "openExchangeModule") Boolean openExchangeModule,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 
@@ -61,6 +63,8 @@ public class ActivityResource {
 			activity.setDescription(description);
 			activity.setStatus(Activity.TODO);
 			activity.setTeam(team);
+			activity.setOpenCarSchedule(openCarSchedule);
+			activity.setOpenExchangeModule(openExchangeModule);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,5 +164,35 @@ public class ActivityResource {
 		}
 		return result;
 	}
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getActivityByActivityId")
+	public String getActivityByActivityId(@FormParam(value = "id") Integer id) {
+		String result = "[]";
+		try {
+			//Activity activity = activityService.getActivityById(id);
+			Activity activity = new Activity();
+			activity.setStatus(1);
+			activity.setName("haha");
+			activity.setDescription("ddddd");
+			activity.setStartTime(new Date());
+			
+			Team team = new Team();
+			List<Member> members = new ArrayList<Member>();
+			Member member = new Member();
+			member.setName("huyi");
+			member.setPhone("13916790975");
+			members.add(member);
+			team.setMembers(members);
+			activity.setTeam(team);
+			result = objectMapper.writeValueAsString(activity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
 
 }

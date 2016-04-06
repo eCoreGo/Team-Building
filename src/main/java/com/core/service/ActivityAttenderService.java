@@ -1,230 +1,129 @@
 package com.core.service;
 
-
-
 import java.util.ArrayList;
-
 import java.util.List;
-
-
 
 import org.apache.ibatis.session.SqlSession;
 
-
-
+import com.core.bean.Activity;
 import com.core.bean.ActivityAttender;
-
 import com.core.mapper.ActivityAttenderMapper;
-
+import com.core.mapper.ActivityMapper;
 import com.core.util.GetSqlSessionFactory;
 
-
-
 /**
-
- * @author alice
-
- * 车辆调度服务
-
+ * @author Huihui
  */
 
 public class ActivityAttenderService {
 
-
     @SuppressWarnings("static-access")
-
-    public List<ActivityAttender> getArangeTaixInfo(Integer activityId) throws RuntimeException {
-
-    List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-
+    public void updateActivityAttender(ActivityAttender activityAttender) throws RuntimeException {
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-
         try {
-
-        activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getSeatNoByActivityId(activityId);
-
+            session.getMapper(ActivityAttenderMapper.class).updateActivityAttender(activityAttender);
         } catch (Exception e) {
-
-            throw new RuntimeException("Fail to get seat info!", e);
-
+            throw new RuntimeException("Fail to update activityAttender!", e);
         } finally {
-
             session.close();
-
         }
-
-        return activityAttenderList;
-
-    
-
     }
+	
+	@SuppressWarnings("static-access")
+	public List<ActivityAttender> getArangeTaixInfo(Integer activityId)
+			throws RuntimeException {
+		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
+		SqlSession session = GetSqlSessionFactory.getInstance()
+				.getSqlSessionFactory().openSession(true);
+		try {
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getSeatNoByActivityId(activityId);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get seat info!", e);
+		} finally {
+			session.close();
+		}
+		return activityAttenderList;
+	}
 
-    
+	@SuppressWarnings("static-access")
+	public void arangeTaix(Integer activityId) throws RuntimeException {
+		List<ActivityAttender> carAttenderList = getCarAttender(activityId);
+		List<ActivityAttender> nocarAttenderList = getNoCarAttender(activityId);
+		int seatNo = 1;
+		for (ActivityAttender carInfo : carAttenderList) {
+			int i = 0;
+			for (ActivityAttender nocarInfo : nocarAttenderList) {
+				if (i == carInfo.getSeatsleave()) {
+					break;
+				}
+				i++;
+				insertSeatNo(seatNo, nocarInfo.getUserId());
+			}
+			seatNo++;
+		}
+		List<ActivityAttender> whoNotArrangeTaixList = getWhoNotArrangeTaix(activityId);
+		int k = 0;
+		for (ActivityAttender no : whoNotArrangeTaixList) {
+			if (k == 3) {
+				break;
+			}
+			k++;
+			insertSeatNo(seatNo, no.getUserId());
+		}
+	}
 
-    @SuppressWarnings("static-access")
+	private List<ActivityAttender> getNoCarAttender(Integer activityId) {
+		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
+		SqlSession session = GetSqlSessionFactory.getInstance()
+				.getSqlSessionFactory().openSession(true);
+		try {
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getNoCarAttendByActivityId(activityId);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get activity attender info!", e);
+		} finally {
+			session.close();
+		}
+		return activityAttenderList;
+	}
 
-    public void arangeTaix(Integer activityId) throws RuntimeException {
+	private List<ActivityAttender> getCarAttender(Integer activityId) {
+		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getCarByActivityId(activityId);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get activity attender info!", e);
+		} finally {
+			session.close();
+		}
+		return activityAttenderList;
+	}
 
-    List<ActivityAttender> carAttenderList = getCarAttender(activityId);
+	private void insertSeatNo(Integer user_id, Integer seatNo) {
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			session.getMapper(ActivityAttenderMapper.class).insertSeartNo(seatNo, user_id);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to insert seatNo!", e);
+		} finally {
+			session.close();
+		}
+	}
 
-    List<ActivityAttender> nocarAttenderList = getNoCarAttender(activityId);
-
-    int seatNo = 1;
-
-    for(ActivityAttender carInfo: carAttenderList) {
-
-    int i = 0;
-
-    for(ActivityAttender nocarInfo: nocarAttenderList) {
-
-    if(i == carInfo.getSeatsLeave()) {
-
-    break;
-
-    }
-
-    i++;
-
-    insertSeatNo(seatNo,nocarInfo.getUserId());
-
-    }
-
-    seatNo++;
-
-    }
-
-    
-
-    List<ActivityAttender> whoNotArrangeTaixList = getWhoNotArrangeTaix(activityId);
-
-    int k=0;
-
-    for(ActivityAttender no : whoNotArrangeTaixList) {
-
-    if(k == 3) {
-
-break;
-
+	private List<ActivityAttender> getWhoNotArrangeTaix(Integer activityId) {
+		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getWhoNotArrangeTaixUser(activityId);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get activity attender info!", e);
+		} finally {
+			session.close();
+		}
+		return activityAttenderList;
+	}
 }
-
-k++;
-
-insertSeatNo(seatNo,no.getUserId());
-
-    }
-
-    }
-
-    
-
-    
-
-    
-
-
-private List<ActivityAttender> getNoCarAttender(Integer activityId) {
-
-List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-
-        try {
-
-        activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getNoCarAttendByActivityId(activityId);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Fail to get activity attender info!", e);
-
-        } finally {
-
-            session.close();
-
-        }
-
-        
-
-        return activityAttenderList;
-
-}
-
-
-private List<ActivityAttender> getCarAttender(Integer activityId) {
-
-List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-
-        try {
-
-        activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getCarByActivityId(activityId);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Fail to get activity attender info!", e);
-
-        } finally {
-
-            session.close();
-
-        }
-
-        
-
-        return activityAttenderList;
-
-}
-
-
-private void insertSeatNo(Integer user_id,Integer seatNo) {
-
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-
-        try {
-
-        session.getMapper(ActivityAttenderMapper.class).insertSeartNo(seatNo, user_id);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Fail to insert seatNo!", e);
-
-        } finally {
-
-            session.close();
-
-        }
-
-        
-
-}
-
-
-private List<ActivityAttender> getWhoNotArrangeTaix(Integer activityId) {
-
-List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-
-        try {
-
-        activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getWhoNotArrangeTaixUser(activityId);
-
-        } catch (Exception e) {
-
-            throw new RuntimeException("Fail to get activity attender info!", e);
-
-        } finally {
-
-            session.close();
-
-        }
-
-        
-
-        return activityAttenderList;
-
-}
-
-
-}
-
