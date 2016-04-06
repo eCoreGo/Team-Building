@@ -8,13 +8,13 @@
 	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.mobile.min.js"></script>
+	<script src="js/group-finance.js"></script>
 </head>
 <body>
-
+<div data-role="page" data-dom-cache="true">
 	<div data-role="header">
-		<h1>eCore 经费管理</h1>
-		<a href="group-item.html" data-icon="arrow-l" data-iconpos="notext" data-ajax = 'false'>Back</a>
-		<a href="group-item.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">确定</a>
+		<h1 id="financeTitle">eCore 经费管理</h1>
+		<a href="group-item.html" data-icon="arrow-l" data-iconpos="notext" data-ajax = 'false' id="backToGroup">Back</a>
 	</div>
 
 	<div role="main" class="ui-content">
@@ -29,11 +29,11 @@
 			<div id="one" class="ui-body-d ui-content">
 				<div data-role="fieldcontain">
 					<label for="group-finance">公共经费汇总</label>
-					<input type="text" disabled="disabled" name="group-finance" id="group-finance" value="¥ 5048.86">
+					<input type="text" disabled="disabled" name="group-finance" id="group-finance" value="">
 				</div>
 				<div data-role="fieldcontain">
 					<label for="group-funds">个人经费汇总</label>
-					<input type="text" disabled="disabled" name="group-funds" id="group-funds" value="¥ 3577.50">
+					<input type="text" disabled="disabled" name="group-funds" id="group-funds" value="">
 				</div>
 				<div data-role="fieldcontain">
 					<label for="personl-finance">个人经费明细</label>
@@ -45,22 +45,7 @@
 								<th data-priority="1">金额</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<th>1</th>
-								<td><a href="" data-rel="external">楚留香</a></td>
-								<td>¥ 68.43</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ 158.50</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23.45</td>
-							</tr>
+						<tbody id="members">
 						</tbody>
 					</table>
 				</div>
@@ -151,6 +136,6 @@
 			</ul>
 		</div>
 	</div>
-
+</div>
 </body>
 </html>

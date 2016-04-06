@@ -9,6 +9,9 @@ $(document).on("pageshow", function() {
 
     var url = $("#checkActivitiesByGroup").attr("href");
     $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId);
+
+    url = $("#group-totalUserBalance").attr("href");
+    $("#group-totalUserBalance").attr("href", url + "?id=" + teamId);
     $.ajax({
         type: "POST",
         dataType: "json",
