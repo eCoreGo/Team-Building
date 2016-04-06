@@ -2,10 +2,12 @@ package com.core.service;
 
 import com.core.bean.Activity;
 import com.core.bean.Member;
+import com.core.mapper.ActivityAttenderMapper;
 import com.core.mapper.ActivityMapper;
 import com.core.mapper.MemberMapper;
 import com.core.util.GetSqlSessionFactory;
 import com.core.util.StringUtils;
+
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -67,4 +69,59 @@ public class ActivityService {
         return activities;
     }
 
+    @SuppressWarnings("static-access")
+    public List<Activity> getTeamActivities(Integer teamID) throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getTeamActivities", teamID);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
+
+    @SuppressWarnings("static-access")
+    public List<Activity> getAllActivities() throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getAllActivities");
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
+
+    @SuppressWarnings("static-access")
+    public List<Activity> getAllActivitiesByStatus(Integer[] status) throws RuntimeException {
+        List<Activity> activities;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            activities = session.selectList("com.core.bean.ActivityMapper.getAllActivitiesByStatus",status);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get members!", e);
+        } finally {
+            session.close();
+        }
+        return activities;
+    }
+    
+    @SuppressWarnings("static-access")
+    public Activity getActivityById(Integer activityId) throws RuntimeException {
+        Activity activity;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+        	activity = session.getMapper(ActivityMapper.class).getActivitiesById(activityId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get activity!", e);
+        } finally {
+            session.close();
+        }
+        return activity;
+    }
 }

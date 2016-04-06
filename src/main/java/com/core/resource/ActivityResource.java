@@ -6,6 +6,7 @@ import com.core.bean.Team;
 import com.core.bean.TeamMember;
 import com.core.service.ActivityService;
 import com.core.service.MemberService;
+import com.core.service.TeamService;
 import com.core.util.StringUtils;
 
 import org.apache.log4j.Logger;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class ActivityResource {
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	private ActivityService activityService = new ActivityService();
 	private MemberService memberService = new MemberService();
+	private TeamService teamService = new TeamService();
 
 	private Logger logger = Logger.getLogger(ActivityResource.class);
 	private static final String SUCCESSFULLY = "操作成功！";
@@ -44,10 +47,13 @@ public class ActivityResource {
 			@FormParam(value = "endTime") String endTime,
 			@FormParam(value = "description") String description,
 			@FormParam(value = "teamId") Integer teamId,
+			@FormParam(value = "openCarSchedule") Boolean openCarSchedule,
+			@FormParam(value = "openExchangeModule") Boolean openExchangeModule,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 
 		try {
+			Team team = teamService.getTeamById(teamId);
 			Activity activity= new Activity();
 			activity.setName(name);
 			activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
@@ -55,8 +61,10 @@ public class ActivityResource {
 			activity.setStartTime(sdf.parse(startTime));
 			activity.setEndTime(sdf.parse(endTime));
 			activity.setDescription(description);
-			activity.setStatus(Activity.Status.TODO);
-			activity.setTeamId(0);
+			activity.setStatus(Activity.TODO);
+			activity.setTeam(team);
+			activity.setOpenCarSchedule(openCarSchedule);
+			activity.setOpenExchangeModule(openExchangeModule);
 			activityService.addActivity(activity);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,11 +90,53 @@ public class ActivityResource {
 
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "getAllActivities")
-	public String getAllActivities(@FormParam(value = "id") Integer teamID) {
+	@Path(value = "getTeamActivities")
+	public String getTeamActivities(@FormParam(value = "id") Integer teamID) {
 		String result = "[]";
 		try {
-			List<Activity> activities = activityService.getAllActivities(teamID);
+			//List<Activity> activities = activityService.getAllActivities(teamID);
+			List<Activity> activities = activityService.getTeamActivities(teamID);
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivities")
+	public String getAllActivities() {
+		String result = "[]";
+		try {
+			//List<Activity> activities = activityService.getAllActivities(teamID);
+			List<Activity> activities = activityService.getAllActivities();
+			result = objectMapper.writeValueAsString(activities);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getAllActivitiesByStatus")
+	public String getAllActivitiesByStatus(@FormParam(value = "status") String statusString) {
+		String result = "[]";
+		List<Activity> activities = new ArrayList<Activity>();
+		try {
+			if(StringUtils.isNullOrEmpty(statusString)) {
+				activities = activityService.getAllActivities();
+			} else {
+				String[] statusStr = statusString.split(",");
+				Integer[] status = new Integer[statusStr.length];
+				for(int i = 0; i < statusStr.length; i++) {
+					status[i] = Integer.valueOf(statusStr[i]);
+				}
+				activities = activityService.getAllActivitiesByStatus(status);
+			}
 			result = objectMapper.writeValueAsString(activities);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,5 +164,35 @@ public class ActivityResource {
 		}
 		return result;
 	}
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getActivityByActivityId")
+	public String getActivityByActivityId(@FormParam(value = "id") Integer id) {
+		String result = "[]";
+		try {
+			//Activity activity = activityService.getActivityById(id);
+			Activity activity = new Activity();
+			activity.setStatus(1);
+			activity.setName("haha");
+			activity.setDescription("ddddd");
+			activity.setStartTime(new Date());
+			
+			Team team = new Team();
+			List<Member> members = new ArrayList<Member>();
+			Member member = new Member();
+			member.setName("huyi");
+			member.setPhone("13916790975");
+			members.add(member);
+			team.setMembers(members);
+			activity.setTeam(team);
+			result = objectMapper.writeValueAsString(activity);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
 
 }

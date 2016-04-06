@@ -6,30 +6,36 @@ $(document).on("pageshow", function() {
     var queryString = raw.substr(1);
     var query = parseQueryString(queryString);
     var teamId = query["id"];
+    var url = $("#backToGroup").attr("href");
+    $("#backToGroup").attr("href", url + "?id=" + teamId);
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
             id: teamId
         },
-        url:"service/Activity/getAllActivities",
+        url:"service/Activity/getTeamActivities",
         success: function(result) {
             $("#activitiesListView").empty();
-            for(var i = 0; i < result.length; i++) {
-                $("#activitiesListView").append(function() {
-                    return "<li>" +
-                        "<a data-ajax = 'false' href='activity-item.html?id=" + result[i].id + "'>" +
-                        "<h1>" + result[i].name + "</h1>" +
-                        "<p><strong>" + result[i].startTime + "-" + result[i].endTime + "</strong></p>" +
-                        "<p>" + result[i].description + "</p>" +
-                        "<p class='ui-li-aside'><strong>" + result[i].status + "</strong></p>" +
-                        "</a></li>";
-                });
+            if(result.length == 0) {
+                $("#activitiesListView").append("<li><a href='javascript:void(0);'>No record!</a></li>");
+            } else {
+                for(var i = 0; i < result.length; i++) {
+                    $("#activitiesListView").append(function() {
+                        return "<li>" +
+                            "<a data-ajax = 'false' href='activity-item.html?id=" + result[i].id + "'>" +
+                            "<h1>" + result[i].name + "</h1>" +
+                            "<p><strong>" + result[i].startTime + " - " + result[i].endTime + "</strong></p>" +
+                            "<p>From <strong>" + result[i].team.name + "</strong></p>" +
+                            "<p>" + result[i].description + "</p>" +
+                            "<p class='ui-li-aside'><strong>" + result[i].status + "</strong></p>" +
+                            "</a></li>";
+                    });
+                }
             }
-            $("#activitiesListView").listview("refresh");
         },
         complete: function() {
-
+            $("#activitiesListView").listview("refresh");
         }
     });
 });

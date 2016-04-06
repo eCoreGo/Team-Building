@@ -8,61 +8,68 @@
 	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.mobile.min.js"></script>
+	<script src="js/activity-detail.js"></script>
 </head>
 <body>
 
 	<div data-role="header" data-position="fixed">
 		<h1>eCore 春游</h1>
 		<a href="activity.html" data-icon="arrow-l" data-iconpos="notext">Back</a>
-		<a href="activity.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
+		<a href="javascript:attendActivity();"
+			class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check">保存</a>
 	</div>
 
 	<div role="main" class="ui-content">
-		<div data-role="fieldcontain">
-			<label for="inorout">是否参加活动</label>
-			<select name="inorout" id="inorout" data-role="slider">
-				<option value="no" selected>不加</option>
-				<option value="yes">加入</option>
-			</select>
-		</div>
-		<div data-role="collapsible">
-			<h4>我要自主选座（活动参与后）</h4>
+		<div id="activity-begin">
 			<div data-role="fieldcontain">
-				<label for="hascar">是否自己开车</label>
-				<select name="hascar" id="hascar" data-role="slider" data-mini="true">
-					<option value="no" selected>否</option>
-					<option value="yes">是</option>
+				<label for="inorout">是否参加活动</label>
+				<select name="attended" id="attended" data-role="slider">
+					<option value="no" >不加</option>
+					<option value="yes" selected>加入</option>
 				</select>
-				<label for="carchoice">选择车辆（自己不开车用）</label>
-				<select name="carchoice" id="carchoice" data-native-menu="false" data-mini="true">
-					<option value="0">0</option>
-					<option value="1" disabled="disabled">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-				</select>
-				<label for="seat">座位数（自己开车用）</label>
+			</div>
+			<div id="carInfo" data-role="collapsible">
+				<h4>确认是否开车（活动参与后）</h4>
+				<div data-role="fieldcontain">
+					<label for="hascar">是否自己开车</label>
+					<select name="hascar" id="hascar" data-role="slider" data-mini="true">
+						<option value="no" selected>否</option>
+						<option value="yes">是</option>
+					</select>
+					<div id="comfirmseatno" style="display: none">
+						<label for="seatsleave">选择剩余座位数</label>
+						<select name="seatsleave" id="seatsleave" data-native-menu="false" data-mini="true">
+							<option value="0">0</option>
+							<option value="1" disabled="disabled">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+						</select>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div data-role="collapsible">
-			<h4>我要活动报销（活动结束后）</h4>
+		
+		<div data-role="collapsible" id="activity-end">
+			<h4>报销车费（活动结束后）</h4>
 			<div data-role="fieldcontain">
-				<label for="inandout">收支</label>
+				<!-- <label for="inandout">收支</label>
 				<select name="inandout" id="inandout" data-role="slider" data-mini="true">
 					<option value="in">收入</option>
 					<option value="out" selected>支出</option>
-				</select>
-				<label for="money">金额</label>
+				</select> -->
+				<label for="money">金额(车费大于40请线下报销))</label>
 				<input type="text" name="money" id="money" placeholder="请输入金额" value="">
 			</div>
-			<div data-role="fieldcontain">
+			<!-- <div data-role="fieldcontain">
 				<label for="description1">备注</label>
 				<input type="text" name="description1" id="description1" placeholder="请备注此次报销信息" value="">
-			</div>
-			<a class="ui-btn ui-corner-all">报销</a>
+			</div>-->
+			<a class="ui-btn ui-corner-all">报销</a> 
 		</div>
+		
 		<div data-role="fieldcontain">
 			<label for="activity-name">活动名称</label>
 			<input type="text" disabled="disabled" name="activity-name" id="activity-name" value="eCore 春游">
@@ -72,52 +79,38 @@
 			<textarea disabled="disabled" cols="40" rows="8" name="activity-description" id="activity-description">eCore 春游，公司组团一起出行</textarea>
 		</div>
 		<div data-role="fieldcontain">
-			<label for="start-time">开始时间（日期格式）</label>
-			<input type="date" disabled="disabled" name="date-1" id="date-1" value="">
+			<label for="start-time">开始时间</label>
+			<input type="date" disabled="disabled" name="start-time" id="start-time" value="">
 		</div>
 		<div data-role="fieldcontain">
-			<label for="end-time">结束时间（时间格式）</label>
+			<label for="end-time">结束时间</label>
 			<input type="datetime-local" disabled="disabled" name="end-time" id="end-time" value="">
 		</div>
-		<div class="ui-field-contain">
-			<label for="members">活动成员（管理员用）</label>
-			<select name="members" id="members" multiple="multiple" data-native-menu="false">							
-				<optgroup label="eCore Team">
-					<option value="value1" selected="selected">楚留香</option>
-					<option value="value2">陆小凤</option>
-					<option value="value3">西门吹雪</option>
-				</optgroup>
-				<optgroup label="Retail Team">
-					<option value="value4">萧十一郎</option>
-					<option value="value5" selected="selected">李寻欢</option>
-				</optgroup>
-			</select>
-		</div>
 		<div data-role="fieldcontain">
-			<label for="finance-items">活动成员（普通用户用）</label>
-			<table data-role="table" id="finance-items" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+			<label for="team-members">活动成员</label>
+			<table data-role="table" id="team-members" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
 				<thead>
 					<tr>
 						<th data-priority="1">编号</th>
 						<th data-priority="1">姓名</th>
-						<th data-priority="1">加入时间</th>
+						<th data-priority="1">手机</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<th>1</th>
 						<td><a href="" data-rel="external">楚留香</a></td>
-						<td>2016.03.20 17:20</td>
+						<td>13511111111</td>
 					</tr>
 					<tr>
 						<th>2</th>
 						<td><a href="" data-rel="external">李寻欢</a></td>
-						<td>2016.03.12 12:34</td>
+						<td>13511111111</td>
 					</tr>
 					<tr>
 						<th>3</th>
 						<td><a href="" data-rel="external">陆小凤</a></td>
-						<td>2016.01.05 10:20</td>
+						<td>13511111111</td>
 					</tr>
 				</tbody>
 			</table>

@@ -1,3 +1,6 @@
+/**
+ * Created by huihui.
+ */
 $(document).on("pageshow", function() {
 	initTeamList();
 	foundationCostChange();
@@ -24,16 +27,6 @@ function addActivity() {
         success: function(result) {
         	alert(result);
         	windows.location = "activity.html";
-        	
-        	var activities = result;
-            $("#activities").empty();
-            for(var i = 0; i < members.length; i++) {
-                $("#activities").append(function() {
-                    return "<option value='" + members[i].id + "'>" + members[i].name + "</option>";
-                });
-            }
-            $("#members").selectmenu("refresh");
-
         },
         complete: function() {
 
