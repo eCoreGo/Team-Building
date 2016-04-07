@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -17,26 +16,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
-import com.citi.test.Articles;
-import com.citi.test.Item;
-import com.citi.test.MessageUtil;
-import com.citi.test.NewsMessage;
-import com.citi.test.TextMessage;
 import com.core.bean.Member;
 import com.core.service.MemberService;
-
-import net.sf.json.JSONObject;
 
 public class WeiXinServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
 
-		// TOKEN ������΢��ƽ̨����ģʽ�����õ�Ŷ
 		public static final String TOKEN = "teambuilding";
 
 		/**
-		 * ����΢�ŷ�������֤
 		 * 
 		 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 		 *      response)
