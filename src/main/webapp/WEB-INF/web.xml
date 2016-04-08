@@ -51,7 +51,7 @@
     
     <servlet>
         <servlet-name>weiXinServlet</servlet-name>
-        <servlet-class>com.citi.test.WeiXinServlet</servlet-class>
+        <servlet-class>com.core.weixin.WeiXinServlet</servlet-class>
   </servlet>
   
   <servlet-mapping>
