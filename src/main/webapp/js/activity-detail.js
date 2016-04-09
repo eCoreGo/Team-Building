@@ -2,18 +2,23 @@
  * Created by huihui.
  */
 $(document).on("pageshow", function() {
+	var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var query = parseQueryString(queryString);
+    var id = query["id"];
+    
 	attendedChange();
 	carInfoChange();
-	initActivityInfo();
+	initActivityInfo(id);
 	initTeamList();
 });
 
-function attendActivity() {
+function attendActivity(id) {
 	var seatsleave = $("#hascar").val() == "no"? 0 : $("#seatsleave").val();
 	var data = {
-		//activityId: activityId,
-		//userId: userId,
-		activityId: 123,
+		activityId: id,
+//		userId: userId,
+//		activityId: 123,
 		userId: 456,
 		attended: $("#attended").val() == "no"?false:true,
 		seatsleave: seatsleave
@@ -134,4 +139,14 @@ function attendedChange() {
 			$("#carInfo").hide();
 		}
 	})
+}
+
+function parseQueryString(queryString) {
+    var params = queryString.split("&amp;");
+    var temp, query = {};
+    for(var i = 0, l = params.length; i < l; i++) {
+        temp = params[i].split("=");
+        query[temp[0]] = temp[1];
+    }
+    return query;
 }
