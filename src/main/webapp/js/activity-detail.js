@@ -1,11 +1,13 @@
 /**
  * Created by huihui.
  */
+
+var id;
 $(document).on("pageshow", function() {
 	var raw = window.location.search;
     var queryString = raw.substr(1);
     var query = parseQueryString(queryString);
-    var id = query["id"];
+    id = query["id"];
     
 	attendedChange();
 	carInfoChange();
@@ -13,13 +15,12 @@ $(document).on("pageshow", function() {
 	initTeamList();
 });
 
-function attendActivity(id) {
-	var seatsleave = $("#hascar").val() == "no"? 0 : $("#seatsleave").val();
+function attendActivity() {
+	var seatsleave = ($("#hascar").val() == "yes" && $("#attended").val() == "yes")? $("#seatsleave").val():0;
 	var data = {
 		activityId: id,
 //		userId: userId,
-//		activityId: 123,
-		userId: 456,
+		userId: 0,
 		attended: $("#attended").val() == "no"?false:true,
 		seatsleave: seatsleave
 	}
@@ -137,6 +138,7 @@ function attendedChange() {
 			$("#carInfo").show();
 		}else{
 			$("#carInfo").hide();
+			$("#seatsleave").val(0);
 		}
 	})
 }

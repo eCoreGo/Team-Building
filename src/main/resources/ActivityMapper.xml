@@ -20,6 +20,25 @@
             <result property="name" column="bname"/>
         </association>
     </resultMap>
+    
+    <resultMap id="activityMemberMap" type="com.core.bean.Activity">
+        <id column="aid" property="id"/>
+        <result property="name" column="aname"/>
+        <result property="totalCost" column="totalCost"/>
+        <result property="totalFoundationCost" column="totalFoundationCost"/>
+        <result property="description" column="adescription"/>
+        <result property="status" column="astatus"/>
+        <result property="startTime" column="startTime"/>
+        <result property="endTime" column="endTime"/>
+        <association property="team" javaType="com.core.bean.Team">
+            <id property="id" column="tid"/>
+            <collection property="members" ofType="com.core.bean.Member">
+	            <id property="id" column="mid"/>
+	            <result property="name" column="mname"/>
+	            <result property="phone" column="mphone"/>
+        	</collection>
+        </association>
+    </resultMap>
 
     <select id="getAllActivities" resultType="com.core.bean.Activity" resultMap="activityMap">
         select a.id as aid, a.name as aname, a.total_cost as totalCost, a.total_foundation_cost as totalFoundationCost, a.description as adescription, a.status as astatus, a.start_time as startTime, a.end_time as endTime, b.id as bid, b.name as bname from activity a, team b where a.team_id = b.id;
@@ -32,7 +51,27 @@
         </foreach>
     </select>
     
-    <select id="getActivitiesById" resultType="com.core.bean.Activity" resultMap="activityMap">
-        select a.id as aid, a.name as aname, a.total_cost as totalCost, a.total_foundation_cost as totalFoundationCost, a.description as adescription, a.status as astatus, a.start_time as startTime, a.end_time as endTime, b.id as bid, b.name as bname from activity a, team b where a.id = b.id;
+    <select id="getActivityById"  resultMap="activityMemberMap">
+        select 
+        a.id as aid, 
+        a.name as aname, 
+        a.total_cost as totalCost, 
+        a.total_foundation_cost as totalFoundationCost, 
+        a.description as adescription, 
+        a.status as astatus, 
+        a.start_time as startTime, 
+        a.end_time as endTime, 
+        t.id as tid, 
+        t.name as tname,
+        m.id as mid,
+        m.name as mname,
+        m.phone as mphone
+        
+        from activity a, team t, member m, team_member tm 
+        where 
+        a.id = #{id}
+        and a.team_id = t.id
+        and t.id = tm.team_id
+        and m.id = tm.member_id
     </select>
 </mapper>
