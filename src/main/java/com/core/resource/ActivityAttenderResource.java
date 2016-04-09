@@ -45,5 +45,26 @@ public class ActivityAttenderResource {
 				}
 				return SUCCESSFULLY;
 			}
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "initActivityAttender")
+	public String initActivityAttender(@FormParam(value = "activityId") Integer activityId,
+					@FormParam(value = "userId") Integer userId,
+					@FormParam(value = "seatsleave") Integer seatsleave,
+					@FormParam(value = "attended") Boolean attended,
+					@Context HttpServletResponse response) {
+			try {
+					ActivityAttender activityAttender = new ActivityAttender();
+					activityAttender.setActivityId(activityId);
+					activityAttender.setUserId(userId);
+					activityAttender.setSeatsleave(seatsleave);
+					activityAttender.setAttended(attended);
+					activityAttenderService.insertInitActivityAttender(activityAttender);
+			} catch (Exception e) {
+					e.printStackTrace();
+					return FAIL;
+			}
+				return SUCCESSFULLY;
+		}
 }
 

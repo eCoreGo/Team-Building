@@ -23,7 +23,8 @@ public interface ActivityMapper {
     @Select("select id, name, total_cost as totalCost, total_foundation_cost as totalFoundationCost, team_id as teamId, description, status, start_time as startTime, end_time as endTime from activity where team_id in(${teamIds})")
     List<Activity> getAllActivitiesByTeamIds(@Param(value = "teamIds") String teamIDs);
 
-    @Insert("insert into activity(name, total_foundation_cost, team_id, description, status, start_time, end_time) values(${activity.name}, ${activity.totalFoundationCost}, ${activity.team.id}, ${activity.description}, ${activity.status}, ${activity.startTime}, , ${activity.endTime})")
+    @Insert("insert into activity(name, total_foundation_cost, team_id, description, status, start_time, end_time) values(${activity.name}, ${activity.totalFoundationCost}, "
+    		+ "${activity.team.id}, ${activity.description}, ${activity.status},${activity.startTime}, , ${activity.endTime})")
     void addActivity(@Param(value = "activity") Activity activity);
 
     @Select("select id, name, total_cost as totalCost, total_foundation_cost as totalFoundationCost, team_id, description, status, start_time as startTime, end_time as endTime from activity where id = #{id}")

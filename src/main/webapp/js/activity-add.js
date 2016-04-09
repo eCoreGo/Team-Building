@@ -13,17 +13,25 @@ function addActivity() {
         type: "POST",
         dataType: "json",
         data: data,
-        /*{
-            name: $("#activity-name").val(),
-            desc: $("#activity-description").val(),
-            wholeday: $("#is-wholeday").val(),
-            starttime:$("#starttime").val(),
-            endtime:$("endtime").val(),
-            members: $("#members").val().toString(),
-            taixschedule:$("#iftaix").val(),
-            expensecompute:$("#expensecompute").val()
-        },*/
         url:"service/Activity/addActivity",
+        success: function(result) {
+        	alert(result);
+        	windows.location = "activity.html";
+        },
+        complete: function() {
+
+        }
+    });
+}
+
+function pushActivity() {
+	var data = $("#addActivityForm").serialize();
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
+        url:"service/ActivityAttender/initActivityAttender",
         success: function(result) {
         	alert(result);
         	windows.location = "activity.html";

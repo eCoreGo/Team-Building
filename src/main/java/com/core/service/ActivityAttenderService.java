@@ -126,4 +126,16 @@ public class ActivityAttenderService {
 		}
 		return activityAttenderList;
 	}
+	
+	@SuppressWarnings("static-access")
+	public void insertInitActivityAttender(ActivityAttender activityAttender) {
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			session.getMapper(ActivityAttenderMapper.class).initActivityAttender(activityAttender);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get activity attender info!", e);
+		} finally {
+			session.close();
+		}
+	}
 }
