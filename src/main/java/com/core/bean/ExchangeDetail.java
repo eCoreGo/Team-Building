@@ -36,6 +36,7 @@ public class ExchangeDetail {
     private Double exchange;
     private ExchangeStatus exchangeStatus;
     private Date date;
+    private Integer exchangeType;
     private Double teamTotal;
     private boolean expired;
 
@@ -93,6 +94,14 @@ public class ExchangeDetail {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Integer getExchangeType() {
+        return exchangeType;
+    }
+
+    public void setExchangeType(Integer exchangeType) {
+        this.exchangeType = exchangeType;
     }
 
     public Double getTeamTotal() {

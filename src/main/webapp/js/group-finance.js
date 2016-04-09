@@ -1,6 +1,14 @@
 /**
  * Created by stereomatrix on 2016/3/25.
  */
+var pair = {};
+pair[1] = "团队经费";
+pair[2] = "坏账";
+pair[3] = "充值";
+pair[4] = "出租车费"
+pair[5] = "退款";
+pair[6] = "均摊";
+pair[7] = "活动总开销";
 $(document).on("pageshow", function() {
     var raw = window.location.search;
     var queryString = raw.substr(1);
@@ -13,12 +21,40 @@ $(document).on("pageshow", function() {
     $("#target_account").bind("change", function() {
         $("#group-finance-add-desc").empty();
         var value = $("#target_account").val();
-        if(value == "1") {
+        if(value != "-1") {
             $("#group-finance-add-desc").append("<option value='3' forteam='0'>充值</option><option value='4'>出租车费</option><option value='5'>退款</option>");
         } else {
             $("#group-finance-add-desc").append("<option value='1' selected='selected'>群组经费</option><option value='2'>坏账</option>");
         }
         $("#group-finance-add-desc").selectmenu('refresh');
+    });
+
+    $("#addExchangeDetail").bind("click", function() {
+        var value = $("#money").val();
+        var target = $("#target_account").val();
+        var type = $("#group-finance-add-desc").val();
+
+        var data = {};
+        data["value"] = value;
+        data["type"] = type;
+        data["date"] = new Date();
+        data["team_id"] = teamId;
+
+        if(target != '-1') {
+            data["member_id"] = target;
+        }
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            data: data,
+            url:"service/Exchange/addExchange",
+            success: function(result) {
+
+            },
+            complete: function() {
+            }
+        });
     });
 
     $.ajax({
@@ -78,7 +114,7 @@ $(document).on("pageshow", function() {
             $("#exchange_detail").empty();
             for(var i = 0; i < result.length; i++) {
                 $("#exchange_detail").append(function() {
-                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].value + "</td><td>" + result[i].date + "</td><td>" + result[i].type + "</td></tr>";
+                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].value + "</td><td>" + result[i].date + "</td><td>" + pair[result[i].type] + "</td></tr>";
                 });
             }
         },

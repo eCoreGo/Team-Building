@@ -24,4 +24,16 @@ public class ExchangeService {
         return exchanges;
     }
 
+    public void addExchange(Exchange exchange) throws RuntimeException {
+        List<Exchange> exchanges;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            exchanges = session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to add exchange!", e);
+        } finally {
+            session.close();
+        }
+    }
+
 }

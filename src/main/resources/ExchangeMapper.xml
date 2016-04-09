@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.core.bean.ExchangeMapper">
     <select id="getExchangesByTeamId" resultType="com.core.bean.Exchange" resultMap="exchangeMap">
-      select e.exchange as exchange, e.exchange_status as exchange_status, e.date as exchange_date, e.team_total as team_total, t.name as team_name, m.name as member_name, a.name as activity_name from exchange_detail e, team t, member m, activity a where e.team_id = t.id and e.member_id = m.id and e.activity_id = a.id;
+      select e.exchange as exchange, e.exchange_status as exchange_status, e.date as exchange_date, e.team_total as team_total, t.name as team_name, m.name as member_name, a.name as activity_name from exchange_detail e, team t, member m, activity a where e.team_id = t.id and (e.activity_id = a.id or e.activity_id is null);
     </select>
     <resultMap id="exchangeMap" type="com.core.bean.Exchange">
         <result property="value" column="exchange"/>
@@ -20,4 +20,8 @@
             <result property="name" column="activity_name"/>
         </association>
     </resultMap>
+
+    <insert id="addExchange" parameterType="com.core.bean.ExchangeDetail">
+        insert into exchange_detail(member_id, activity_id, team_id, exchange, exchange_status, date) values(#{member.id}, #{activity.id}, #{team.id}, #{value}, #{type}, #{date});
+    </insert>
 </mapper>
