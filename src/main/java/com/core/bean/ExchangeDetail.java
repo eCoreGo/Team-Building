@@ -21,15 +21,26 @@ public class ExchangeDetail {
         READD(3);
 
         private int value;
+
         ExchangeStatus(int value) {
             this.value = value;
         }
         public int getValue() {
             return value;
         }
+        
+        public static String getName(int index) {
+            for (ExchangeStatus c : ExchangeStatus.values()) {
+                if (c.value == index) {
+                    return c.name();
+                }
+            }
+            return null;
+        }
+
     }
 
-    private String id;
+    private int id;
     private String memberId;
     private Integer activityId;
     private Integer teamId;
@@ -40,11 +51,11 @@ public class ExchangeDetail {
     private Double teamTotal;
     private boolean expired;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -84,8 +95,8 @@ public class ExchangeDetail {
         return exchangeStatus;
     }
 
-    public void setExchangeStatus(ExchangeStatus exchangeStatus) {
-        this.exchangeStatus = exchangeStatus;
+    public void setExchangeStatus(int exchangeStatus) {
+        this.exchangeStatus = ExchangeStatus.valueOf(ExchangeStatus.getName(exchangeStatus));
     }
 
     public Date getDate() {

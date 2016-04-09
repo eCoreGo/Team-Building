@@ -42,6 +42,42 @@ function pushActivity() {
     });
 }
 
+function invokeTaixSchedule() {
+	var data = $("#addActivityForm").serialize();
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
+        url:"service/ActivityAttender/initActivityAttender",
+        success: function(result) {
+        	alert(result);
+        	windows.location = "activity.html";
+        },
+        complete: function() {
+
+        }
+    });
+}
+
+//function invokeExchange() {
+//	var data = $("#addActivityForm").serialize();
+//	
+//	$.ajax({
+//        type: "POST",
+//        dataType: "json",
+//        data: data,
+//        url:"service/ActivityAttender/initActivityAttender",
+//        success: function(result) {
+//        	alert(result);
+//        	windows.location = "activity.html";
+//        },
+//        complete: function() {
+//
+//        }
+//    });
+//}
+
 function initTeamList() {
 	$.ajax({
         type: "POST",

@@ -13,18 +13,20 @@
 <body>
 
 	<div role="main" class="ui-content">
-		<ul data-role="listview" data-inset="true" data-split-icon="gear">
-			<li>
-				<a>
-					<img src="http://img5.imgtn.bdimg.com/it/u=785711253,4014583812&fm=11&gp=0.jpg">
-					<h1 id="member-name"></h1>
-					<p id="member-phone"></p>
-				</a>
-				<a href="mine-profile.html"></a>
-			</li>
-		</ul>
 		<div data-role="fieldcontain">
-			<a href="mine-finance.html" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right" data-ajax='false'>查看我的财务</a>
+			<ul data-role="listview" data-inset="true" data-split-icon="gear">
+				<li>
+					<a>
+						<img src="http://img5.imgtn.bdimg.com/it/u=785711253,4014583812&fm=11&gp=0.jpg">
+						<h1 id="member-name"></h1>
+						<p id="member-phone"></p>
+					</a>
+					<a href="mine-profile.html" data-ajax="false" id="mineProfile"></a>
+				</li>
+			</ul>
+		</div>
+		<div data-role="fieldcontain">
+			<a href="mine-finance.html" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right" data-ajax="false" id="mineFinance">查看我的财务</a>
 		</div>
 	</div>
 
@@ -41,3 +43,4 @@
 
 </body>
 </html>
+		

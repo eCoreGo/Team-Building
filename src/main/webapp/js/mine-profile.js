@@ -1,172 +1,82 @@
 $(document).on("pageshow", function() {
-	var teamsListDiv;
-	var userID = 1;
+        getTeamMembers();
+    filterFiananceDetail();
+});
+
+function filterFiananceDetail() {
+        var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var query = parseQueryString(queryString);
+    var userId = query["userId"];
+    var teamId = $("#groups").val();
+    var duration = $("#duration").val();
+    
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
-            id: "1"
+                memberId: userId,
+                teamId : teamId,
+                duration : duration
         },
-        url:"service/Member/getMemberById",
+        url:"service/ExchangeDetail/getExchangeDetails",
         success: function(result) {
-            $("#user-name").val(result.name);
-            $("#phone").val(result.phone);
+            $("#mine-finance-detail").empty();
+            for(var i = 0; i < result.length; i++) {
+                $("#mine-finance-detail").append(function() {
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchangeStatus + "</td><td>" + result[i].exchange + "</td><td>" + result[i].date "</td></tr>";
+                });
+            }
         },
         complete: function() {
-
+            $("#mine-finance-detail").table("refresh");
         }
     });
-    
-    $("#save").on("click", function() {
-		var selectedTeamIds = $('.teams-inputs').map(function(){
-			return $(this).is(':checked') ? $(this).val() : undefined;
-		}).get();
-
-
-		console.log("user name: " + $("#user-name").val());
-		console.log("phone no: " + $("#phone").val());
-		console.log("selected team ids: " +selectedTeamIds);
-		
-		$.ajax({
-       	 	type: "POST",
-       	 	dataType: "json",
-        	data: {
-            	id: "1",
-            	name: "sas",
-            	phone: "1212"
-        	},
-        	url:"service/Member/updateMember",
-        	success: function(result) {
-            	alert("success to set: " + $("#user-name").val());
-        	},
-        	complete: function() {
-            	        	}
-    	});
-	/*
-  		$.ajax({
-       	 	type: "POST",
-       	 	dataType: "json",
-        	data: {
-            	id: "1",
-            	name: "sas",
-            	phone: "1212"
-        	},
-        	url:"service/Member/updateMember",
-        	success: function(result) {
-            	alert("success to set: " + $("#user-name").val());
-        	},
-        	complete: function() {
-            	        	}
-    	});
-    	*/
-	});
-
-	getAllTeams(teamsListDiv);
-	//getCheckedTeams(teamsListDiv);
-
-	
-	
-});
-function getAllTeams(teamsListDiv) {
-	var demoData = [
-		{
-			"id": 1,
-			"temp": null,
-			"name": "eCore",
-			"description": "A wonderful team!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 2,
-			"temp": null,
-			"name": "CCAR",
-			"description": "ABC!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 3,
-			"temp": null,
-			"name": "retail",
-			"description": "sas!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		}
-	];
-
-	/**
-	 * Get all teams , and set toggle button to .teams-container
-	 */
-	$.ajax({
-		type: "POST",
-		dataType: "json",
-		url:"service/Team/getAllTeams",
-		complete: function(result) {
-			teamsListDiv = $(".teams-list .ui-controlgroup-controls");
-			$(demoData).each(function(index){
-				var checkId = this.id;
-				var checkLabel = this.name;
-				$('<input type="checkbox" name="checkbox-'+checkId+'" ' +
-				'id="checkbox-'+checkId+'" class="teams-inputs" value="'+checkId+'">' +
-				'<label for="checkbox-'+checkId+'">'+checkLabel+'</label>').appendTo(teamsListDiv);
-			});
-			getCheckedTeams(teamsListDiv);
-			teamsListDiv.enhanceWithin().controlgroup("refresh");
-		}
-	});
-	
-	
 }
 
-function getCheckedTeams(teamsListDiv) {
-	var demoMteams = [
-		{
-			"id": 1,
-			"temp": null,
-			"name": "eCore",
-			"description": "A wonderful team!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 2,
-			"temp": null,
-			"name": "CCAR",
-			"description": "ABC!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		}
-	];
-	
-	$.ajax({
-		type: "POST",
-		dataType: "json",
-		data: {
-            id: "1"
+function getTeamMembers() {
+        var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var query = parseQueryString(queryString);
+    var userId = query["userId"];
+    var teamId = $("#groups").val();
+    var duration = $("#duration").val();
+    
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: {
+                memberId: userId
         },
-		url:"service/Member/getTeams",
-		complete: function(result) {
-			$(demoMteams).each(function(index){
-				aa = $(".teams-list .ui-controlgroup-controls");
-				var checkId = this.id;
-				$("#checkbox-"+checkId).prop("checked",true).checkboxradio('refresh');
-			});
-		}
-	});
+        url:"service/TeamMember/getTeamMembersByMemberId",
+        success: function(result) {
+                var mineTotal = 0;
+            $("#mine-group-finance").empty();
+            $("#groups").empty();
+            for(var i = 0; i < result.length; i++) {
+                mineTotal = mineTotal + result[i].balance;
+                $("#mine-group-finance").append(function() {
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].team.name + "</td><td>" + result[i].balance + "</td></tr>";
+                });
+                $("#groups").append(function() {
+                    return "<option value='" + result[i].id + "'>" + result[i].team.name + "</option>";
+                });
+            }
+            $("#groups").selectmenu("refresh");
+            $("#group-funds").val(mineTotal);
+            $("#mine-group-finance").table("refresh");
+        },
+        complete: function() {
+        }
+    });
+}
+
+function parseQueryString(queryString) {
+    var params = queryString.split("&amp;");
+    var temp, query = {};
+    for(var i = 0, l = params.length; i < l; i++) {
+        temp = params[i].split("=");
+        query[temp[0]] = temp[1];
+    }
+    return query;
 }

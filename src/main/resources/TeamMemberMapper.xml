@@ -20,4 +20,8 @@
             <result property="name" column="bname"/>
         </association>
     </resultMap>
+    
+     <select id="getTeamMembersByMemberId" resultType="com.core.bean.TeamMember" resultMap="teamMemberMap">
+        select a.id as aid, a.name as aname, a.description as adescription, a.total_foundation as totalFoundation, a.total_user_balance as totalUserBalance , b.id as bid, b.name as bname, c.balance from team a, member b, team_member c where a.id = c.team_id and b.id = c.member_id and c.member_id=#{memberId};
+    </select>
 </mapper>

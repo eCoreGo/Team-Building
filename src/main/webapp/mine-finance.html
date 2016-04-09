@@ -8,113 +8,93 @@
 	<link rel="stylesheet" href="jquery/jquery.mobile.min.css">
 	<script src="jquery/jquery.min.js"></script>
 	<script src="jquery/jquery.mobile.min.js"></script>
+	<script src="js/mine-finance.js"></script>
 </head>
 <body>
-
-	<div data-role="header">
-		<h1>我的财务管理</h1>
-		<a href="mine.html" data-icon="arrow-l" data-iconpos="notext" data-ajax="false">Back</a>
-		<a href="mine.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check" data-ajax="false">确定</a>
-	</div>
-
-	<div role="main" class="ui-content">
-		<div data-role="tabs" id="tabs">
+	<div data-role="page" data-dom-cache="true">
+		<div data-role="header">
+			<h1>我的财务管理</h1>
+			<a href="mine.html" data-icon="arrow-l" data-iconpos="notext" data-ajax="false">Back</a>
+		</div>
+	
+		<div role="main" class="ui-content">
+			<div data-role="tabs" id="tabs">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#one">财务报表</a></li>
+						<li><a href="#two">财务明细</a></li>
+					</ul>
+				</div>
+				<!-- 财务报表选项卡 -->
+				<div id="one" class="ui-body-d ui-content">
+					<div data-role="fieldcontain">
+						<label for="group-funds">我的财务汇总</label>
+						<input type="text" disabled="disabled" name="group-funds" id="group-funds">
+					</div>
+					<div data-role="fieldcontain">
+						<label for="personl-finance">我的财务明细</label>
+						<table data-role="table" id="personl-finance" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+							<thead>
+								<tr>
+									<th data-priority="1">编号</th>
+									<th data-priority="1">群组</th>
+									<th data-priority="1">金额</th>
+								</tr>
+							</thead>
+							<tbody id="mine-group-finance">
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- 财务明细选项卡 -->
+				<div id="two">
+					<div class="ui-field-contain">
+			            <label for="groups">按组筛选</label>
+			            <select name="groups" id="groups" multiple="multiple" data-native-menu="false">
+				        </select>
+			        </div>
+			        <div class="ui-field-contain">
+			            <label for="duration">按时间筛选</label>
+			            <select name="duration" id="duration" data-native-menu="false">
+	 		                <option value=1>过去一周</option>
+	 		                <option value=2>过去一月</option>
+	 		                <option value=3>过去一年</option> 
+			            </select>
+			        </div>
+			        <a href="javascript:filterFiananceDetail();" class="ui-btn ui-corner-all">确定</a>
+					<!-- 历史收支明细表格 -->
+					<div data-role="fieldcontain">
+						<label for="finance-items">历史收支明细</label>
+						<table data-role="table" id="finance-items" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
+							<thead>
+								<tr>
+									<th data-priority="1">编号</th>
+									<th data-priority="1">活动</th>
+									<th data-priority="1">明细类型</th>
+									<th data-priority="1">金额</th>
+									<th data-priority="1">时间</th>
+									<th data-priority="1">备注</th>
+								</tr>
+							</thead>
+							<tbody id="mine-finance-detail">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<div data-role="footer" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#one">财务报表</a></li>
-					<li><a href="#two">财务明细</a></li>
+					<li><a href="home.html" data-icon="home" data-ajax="false">主页</a></li>
+					<li><a href="activity.html" data-icon="star" data-ajax="false">活动</a></li>
+					<li><a href="group.html" data-icon="gear" class="ui-btn-active" data-ajax="false">群组</a></li>
+					<li><a href="mine.html" data-icon="user" data-ajax="false">我的</a></li>
 				</ul>
 			</div>
-			<!-- 财务报表选项卡 -->
-			<div id="one" class="ui-body-d ui-content">
-				<div data-role="fieldcontain">
-					<label for="group-funds">我的财务汇总</label>
-					<input type="text" disabled="disabled" name="group-funds" id="group-funds" value="¥ 3577.50">
-				</div>
-				<div data-role="fieldcontain">
-					<label for="personl-finance">我的财务明细</label>
-					<table data-role="table" id="personl-finance" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
-						<thead>
-							<tr>
-								<th data-priority="1">编号</th>
-								<th data-priority="1">群组</th>
-								<th data-priority="1">金额</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>1</th>
-								<td><a href="group-item.html" data-rel="external">eCore Team</a></td>
-								<td>¥ 68.43</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td><a href="group-item.html" data-rel="external">Lattice</a></td>
-								<td>¥ 158.50</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td><a href="group-item.html" data-rel="external">Retail Alpha</a></td>
-								<td>¥ -23.45</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-			<!-- 财务明细选项卡 -->
-			<div id="two">
-				<!-- 历史收支明细表格 -->
-				<div data-role="fieldcontain">
-					<label for="finance-items">历史收支明细</label>
-					<table data-role="table" id="finance-items" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="筛选属性">
-						<thead>
-							<tr>
-								<th data-priority="3">编号</th>
-								<th data-priority="1">活动</th>
-								<th data-priority="1">金额</th>
-								<th data-priority="1">时间</th>
-								<th data-priority="3">备注</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th>1</th>
-								<td><a href="activity-item.html" data-rel="external">eCore 玩一夏</a></td>
-								<td>¥ -200</td>
-								<td>2016.03.20 17:20</td>
-								<td>充值</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td><a href="activity-item.html" data-rel="external">Lattice 聚餐</a></td>
-								<td>¥ -40.56</td>
-								<td>2016.03.12 12:34</td>
-								<td>活动费用均摊</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td><a href="activity-item.html" data-rel="external">周末一起去哪儿</a></td>
-								<td>¥ -23</td>
-								<td>2016.01.05 10:20</td>
-								<td>打车</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
 		</div>
 	</div>
-
-	<div data-role="footer" data-position="fixed">
-		<div data-role="navbar">
-			<ul>
-				<li><a href="home.html" data-icon="home" data-ajax="false">主页</a></li>
-				<li><a href="activity.html" data-icon="star" data-ajax="false">活动</a></li>
-				<li><a href="group.html" data-icon="gear" class="ui-btn-active" data-ajax="false">群组</a></li>
-				<li><a href="mine.html" data-icon="user" data-ajax="false">我的</a></li>
-			</ul>
-		</div>
-	</div>
-
 </body>
 </html>
+		
