@@ -10,6 +10,17 @@ $(document).on("pageshow", function() {
     var url = $("#backToGroup").attr("href");
     $("#backToGroup").attr("href", url + "?id=" + teamId);
 
+    $("#target_account").bind("change", function() {
+        $("#group-finance-add-desc").empty();
+        var value = $("#target_account").val();
+        if(value == "1") {
+            $("#group-finance-add-desc").append("<option value='3' forteam='0'>充值</option><option value='4'>出租车费</option><option value='5'>退款</option>");
+        } else {
+            $("#group-finance-add-desc").append("<option value='1' selected='selected'>群组经费</option><option value='2'>坏账</option>");
+        }
+        $("#group-finance-add-desc").selectmenu('refresh');
+    });
+
     $.ajax({
         type: "POST",
         dataType: "json",
@@ -21,9 +32,18 @@ $(document).on("pageshow", function() {
             $("#backToGroup").val(result.name + "经费管理");
             $("#group-finance").val(result.totalUserBalance + "RMB");
             $("#group-funds").val(result.totalUserBalance + "RMB");
+
+            $("#target_account").empty();
+            $("#target_account").append("<option value='-1' selected='selected'>群组经费</option>");
+            var members = result.members;
+            for(var i = 0; i < members.length; i++) {
+                $("#target_account").append(function() {
+                    return "<option value='" + members[i].id + "'>" + members[i].name + "</option>";
+                });
+            }
         },
         complete: function() {
-
+            $("#target_account").selectmenu("refresh");
         }
     });
 
