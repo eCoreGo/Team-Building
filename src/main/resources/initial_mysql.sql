@@ -93,14 +93,14 @@ create table team_member
 
 create table exchange_detail
 (
-	id					int auto_increment, 
-	member_id			varchar(50) not null, 
-	activity_id			int	not null, 
-	team_id				int not null, 
+	id					int auto_increment,
+	member_id			varchar(50) not null,
+	activity_id			int	not null,
+	team_id				int not null,
 	exchange			decimal not null,
 	exchange_status		smallint not null,
-	date				timestamp default current_timestamp, 
-	team_total			int not null, 
-	expired				boolean,  
+	date				timestamp default current_timestamp,
+	team_total			int not null,
+	expired				boolean,
 	primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

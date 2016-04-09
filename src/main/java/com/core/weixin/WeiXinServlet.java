@@ -1,10 +1,11 @@
-package com.core.weixin;
+package com.citi.test;
 
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -16,8 +17,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.core.bean.Member;
-import com.core.service.MemberService;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import com.citi.test.Articles;
+import com.citi.test.Item;
+import com.citi.test.MessageUtil;
+import com.citi.test.NewsMessage;
+import com.citi.test.TextMessage;
+
+import net.sf.json.JSONObject;
 
 public class WeiXinServlet extends HttpServlet {
 		private static final long serialVersionUID = 1L;
@@ -82,7 +90,7 @@ public class WeiXinServlet extends HttpServlet {
 					text.setToUserName(fromUserName);
 					text.setMsgType("text");
 					text.setCreateTime(new Date().getTime()+"");
-					text.setContent("请按菜单项进行选择");
+					text.setContent("请按菜单项进行�?�择");
 					message = MessageUtil.textMessageToXML(text);
 				}
 				else if("event".equals(msgType)){
@@ -103,19 +111,19 @@ public class WeiXinServlet extends HttpServlet {
 							item1.setTitle("活动");
 							item1.setDescription("发布群组里的各种活动");
 							item1.setPicUrl("http://cms.yl-blog.com/themes/blue/images/logo.png");
-							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/");
+							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/activity.html?id="+fromUserName);
 						}
 						if("group".equals(eventKey.trim())){
 							item1.setTitle("群组");
 							item1.setDescription("查看个人群组信息");
 							item1.setPicUrl("http://cms.yl-blog.com/themes/blue/images/logo.png");
-							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/");
+							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/group.html?id="+fromUserName);
 						}
 						if("aboutMe".equals(eventKey.trim())){
 							item1.setTitle("我的");
 							item1.setDescription("个人信息");
 							item1.setPicUrl("http://cms.yl-blog.com/themes/blue/images/logo.png");
-							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/");
+							item1.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/mine.html?id="+fromUserName);
 						}
 						articles.setItem(item1);
 						news.setArticles(articles );

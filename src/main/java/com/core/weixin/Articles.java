@@ -1,4 +1,4 @@
-package com.core.weixin;
+package com.citi.test;
 
 public class Articles {
 	private Item item;

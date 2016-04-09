@@ -1,12 +1,8 @@
-package com.core.weixin;
+package com.citi.test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimerTask;
-
-import com.core.bean.Member;
-import com.core.bean.Team;
-import com.core.service.TeamService;
 
 import net.sf.json.JSONObject;
 
@@ -20,9 +16,17 @@ public class SendTask extends TimerTask {
 	WeiXinUtil weiXinUtil = new WeiXinUtil();
 	private List<String> sendMessageStrs = new ArrayList<String>();
 	
-	public void getSendMessage(String type, List<Data> datas, String touser){
+	public List<String> getSendMessageStrs() {
+		return sendMessageStrs;
+	}
+
+	public void setSendMessageStrs(List<String> sendMessageStrs) {
+		this.sendMessageStrs = sendMessageStrs;
+	}
+
+	public void getSendMessage(String type, Data data, List<String> tousers){
 		
-		for(Data data : datas){
+		for(String touser : tousers){
 			SendMessage sendMessage = null;
 			String sendMessageStr = "";
 			if(null == type || "".equals(type)){
