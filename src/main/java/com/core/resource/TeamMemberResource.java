@@ -69,7 +69,7 @@ public class TeamMemberResource {
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "getTeamMemberBalance")
+	@Path(value = "getTeamMemberInfo")
 	public String getTeamMemberInfo(@FormParam(value = "teamId") Integer teamId,
 			@FormParam(value = "memberId") String memberId) {
 		String result = "{}";
