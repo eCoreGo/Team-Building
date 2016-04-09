@@ -1,5 +1,8 @@
 package com.core.bean;
 
+import com.core.json.CustomDateSerializer;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import java.util.Date;
 
 /**
@@ -54,6 +57,7 @@ public class Exchange {
         this.value = value;
     }
 
+    @JsonSerialize(using = CustomDateSerializer.class)
     public Date getDate() {
         return date;
     }

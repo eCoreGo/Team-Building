@@ -21,7 +21,6 @@ $(document).on("pageshow", function() {
             $("#backToGroup").val(result.name + "经费管理");
             $("#group-finance").val(result.totalUserBalance + "RMB");
             $("#group-funds").val(result.totalUserBalance + "RMB");
-            $("#members").selectmenu("refresh");
         },
         complete: function() {
 
@@ -44,7 +43,7 @@ $(document).on("pageshow", function() {
             }
         },
         complete: function() {
-            $("#members").table("refresh");
+            $("#personl-finance").table("refresh");
         }
     });
 
@@ -56,15 +55,15 @@ $(document).on("pageshow", function() {
         },
         url:"service/Exchange/getExchangesByTeamId",
         success: function(result) {
-            /*$("#members").empty();
+            $("#exchange_detail").empty();
             for(var i = 0; i < result.length; i++) {
-                $("#members").append(function() {
-                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].balance + "</td></tr>";
+                $("#exchange_detail").append(function() {
+                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].value + "</td><td>" + result[i].date + "</td><td>" + result[i].type + "</td></tr>";
                 });
-            }*/
+            }
         },
         complete: function() {
-            //$("#members").table("refresh");
+            $("#finance-items").table("refresh");
         }
     });
 
