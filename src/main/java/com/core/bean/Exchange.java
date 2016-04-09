@@ -9,6 +9,15 @@ import java.util.Date;
  * Created by stereomatrix on 2016/4/9.
  */
 public class Exchange {
+
+    public static final Integer TEAM_FOUNDATION = 1;        //团队经费
+    public static final Integer BAD_DEBT = 2;               //坏账
+    public static final Integer RECHARGE = 3;               //充值
+    public static final Integer TAXI_FEE = 4;               //出租车费
+    public static final Integer DRAWBACK = 5;               //退款
+    public static final Integer SHARE_EQUALLY = 6;          //均摊
+    public static final Integer ACTIVITY_TOTAL_COST = 7;    //活动总开销
+
     private Integer id;
     private Member member;
     private Activity activity;
