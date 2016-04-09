@@ -1,5 +1,6 @@
 package com.core.resource;
 
+import com.core.bean.TeamMember;
 import com.core.service.TeamMemberService;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -9,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 @Path(value = "/TeamMember")
 public class TeamMemberResource {
@@ -33,5 +35,19 @@ public class TeamMemberResource {
 		return SUCCESSFULLY;
 	}
 
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getTeamMembersByTeamId")
+	public String getTeamMembersByTeamId(@FormParam(value = "id") Integer teamId) {
+		String result = "[]";
+		try {
+			List<TeamMember> teamMembers = teamMemberService.getTeamMembersByTeamId(teamId);
+			result = objectMapper.writeValueAsString(teamMembers);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 
 }
