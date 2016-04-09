@@ -58,4 +58,18 @@ public class TeamMemberService {
         }
         return teamMembers;
     }
+    
+    @SuppressWarnings("static-access")
+    public TeamMember getTeamMemberInfo(Integer teamId, String memberId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        TeamMember teamMember;
+        try {
+        	teamMember = session.getMapper(TeamMemberMapper.class).getTeamMemberInfo(teamId, memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get team members!", e);
+        } finally {
+            session.close();
+        }
+        return teamMember;
+    }
 }
