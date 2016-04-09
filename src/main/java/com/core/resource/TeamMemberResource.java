@@ -99,4 +99,19 @@ public class TeamMemberResource {
 		return result;
 	}
 
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getTeams")
+	public String getTeams(@FormParam(value = "memberId") String memberId) {
+		String result = "{}";
+		try {
+			List<Team> teams;
+			teams = teamMemberService.getTeams(memberId);
+			result = objectMapper.writeValueAsString(teams);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 }
