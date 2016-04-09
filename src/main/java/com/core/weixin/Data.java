@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 public class Data {
 	private Vad first;

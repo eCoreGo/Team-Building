@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 import java.util.ArrayList;
 import java.util.List;

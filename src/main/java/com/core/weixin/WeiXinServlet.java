@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 
 import java.io.IOException;
@@ -19,11 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.citi.test.Articles;
-import com.citi.test.Item;
-import com.citi.test.MessageUtil;
-import com.citi.test.NewsMessage;
-import com.citi.test.TextMessage;
+import com.core.bean.Member;
+import com.core.service.MemberService;
+import com.core.weixin.Articles;
+import com.core.weixin.Item;
+import com.core.weixin.MessageUtil;
+import com.core.weixin.NewsMessage;
+import com.core.weixin.TextMessage;
 
 import net.sf.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

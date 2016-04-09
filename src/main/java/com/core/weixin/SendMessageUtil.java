@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 import java.sql.Time;
 import java.util.Date;

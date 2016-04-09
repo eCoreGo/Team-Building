@@ -1,4 +1,4 @@
-package com.citi.test;
+package com.core.weixin;
 
 import java.io.IOException;
 
@@ -52,8 +52,8 @@ public class WeiXinUtil {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(url);
 		JSONObject jsonObject = null;
-		httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
 		try {
+			httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
 			HttpResponse response = httpClient.execute(httpPost);
 			String result = EntityUtils.toString(response.getEntity(),"UTF-8");
 			jsonObject = JSONObject.fromObject(result);
