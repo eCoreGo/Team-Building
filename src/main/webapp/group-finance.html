@@ -76,7 +76,13 @@
 					</div>
 					<div data-role="fieldcontain">
 						<label for="description1">备注</label>
-						<input type="text" name="description1" id="description1" placeholder="请备注此次收支明细" value="">
+						<select name="name" id="group-finance-add-desc" data-native-menu="false" data-mini="true">
+							<option value="value1" selected="selected">群组经费</option>
+							<option value="value2">充值</option>
+							<option value="value3">打车</option>
+							<option value="value4">退款</option>
+							<option value="value5">坏账</option>
+						</select>
 					</div>
 					<a class="ui-btn ui-corner-all" data-ajax = 'false'>添加收支明细</a>
 				</div>
