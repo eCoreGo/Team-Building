@@ -48,6 +48,26 @@ $(document).on("pageshow", function() {
         }
     });
 
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: {
+            id: teamId
+        },
+        url:"service/Exchange/getExchangesByTeamId",
+        success: function(result) {
+            /*$("#members").empty();
+            for(var i = 0; i < result.length; i++) {
+                $("#members").append(function() {
+                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].balance + "</td></tr>";
+                });
+            }*/
+        },
+        complete: function() {
+            //$("#members").table("refresh");
+        }
+    });
+
 });
 
 function parseQueryString(queryString) {

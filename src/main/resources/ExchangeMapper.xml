@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.bean.ExchangeMapper">
+    <select id="getExchangesByTeamId" resultType="com.core.bean.Exchange" resultMap="exchangeMap">
+      select e.exchange as exchange, e.exchange_status as exchange_status, e.date as exchange_date, e.team_total as team_total, t.name as team_name, m.name as member_name, a.name as activity_name from exchange_detail e, team t, member m, activity a where e.team_id = t.id and e.member_id = m.id and e.activity_id = a.id;
+    </select>
+    <resultMap id="exchangeMap" type="com.core.bean.Exchange">
+        <result property="value" column="exchange"/>
+        <result property="type" column="exchange_status"/>
+        <result property="date" column="exchange_date"/>
+        <association property="team" javaType="com.core.bean.Team">
+            <result property="name" column="team_name"/>
+        </association>
+        <association property="member" javaType="com.core.bean.Member">
+            <result property="name" column="member_name"/>
+        </association>
+        <association property="activity" javaType="com.core.bean.Activity">
+            <result property="name" column="activity_name"/>
+        </association>
+    </resultMap>
+</mapper>
