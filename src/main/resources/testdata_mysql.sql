@@ -11,4 +11,4 @@ insert into activity(id, name, total_cost, total_foundation_cost, description, s
 insert into activity(id, name, total_cost, total_foundation_cost, description, status, start_time, end_time, team_id) values(2, "烧烤2", 2200, 1200, "desc", 2, '2016/03/20 11:11:11', '2016/03/24 11:11:11', 1);
 insert into activity(id, name, total_cost, total_foundation_cost, description, status, start_time, end_time, team_id) values(3, "烧烤3", 2400, 1400, "desc", 3, '2016/03/20 11:11:11', '2016/03/24 11:11:11', 2);
 
-insert into exchange_detail(id, member_id, activity_id, team_id, exchange, exchange_status, date, team_total, expired) values(1, 1, 1, 1, 200, 2, '2016/03/20 11:11:11', 500, false);
+insert into exchange_detail(id, member_id, activity_id, team_id, exchange, exchange_status, date, team_total, expired) values(1, 1, 1, 1, 200, 3, '2016/03/20 11:11:11', 500, false);
