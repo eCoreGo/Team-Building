@@ -28,6 +28,7 @@ function addActivity() {
         success: function(result) {
         	alert("活动创建成功，可以去activity页面选择发布");
         	$("#activityId").val(result.activityId);
+        	pushActivity();
         },
         complete: function() {
         	window.location = "activity.html";

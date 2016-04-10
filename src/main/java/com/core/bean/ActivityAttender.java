@@ -11,7 +11,7 @@ public class ActivityAttender {
     private String userName;
     private Integer seatsleave;
     private Boolean attended;
-    private Integer seatsNo;
+    private Integer carNo;
 
     public Integer getActivityId() {
         return activityId;
@@ -53,11 +53,11 @@ public class ActivityAttender {
         this.attended = attended;
     }
 
-    public Integer getSeatsNo() {
-        return seatsNo;
+    public Integer getCarNo() {
+        return carNo;
     }
 
-    public void setSeatsNo(Integer seatsNo) {
-        this.seatsNo = seatsNo;
+    public void setCarNo(Integer carNo) {
+        this.carNo = carNo;
     }
 }

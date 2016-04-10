@@ -51,7 +51,7 @@ public class ActivityAttenderService {
 				.getSqlSessionFactory().openSession(true);
 		try {
 			activityAttenderList = session.getMapper(
-					ActivityAttenderMapper.class).getSeatNoByActivityId(activityId);
+					ActivityAttenderMapper.class).getSeatNumberByActivityId(activityId);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to get seat info!", e);
 		} finally {

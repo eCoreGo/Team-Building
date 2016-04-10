@@ -28,13 +28,15 @@
     <insert id="initActivityAttender" parameterType="java.util.List">
         insert into activity_attender(acitivity_id,user_id,attended,seats,seatnumber,user_name )
         values
-        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+        <foreach collection="list" item="item" index="index" separator=",">
+		    (
 		    #{item.activityId},
 		    #{item.userId},
-		    true,
+		    1,
 		    -1,
 		    -1,
 		    #{item.userName}
+		    )
        </foreach>  
     </insert>
 </mapper>

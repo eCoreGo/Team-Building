@@ -12,6 +12,9 @@ $(document).on("pageshow", function() {
     activityId = findParameterValue("id");
     userId = findParameterValue("userId");
     
+    var carArrangementUrl = $("#car-arrangement").attr("href");
+	$("#car-arrangement").attr("href", carArrangementUrl + "?userId=" + userId+ "?activityId=" + activityId);
+    
 	attendedChange();
 	carInfoChange();
 	initActivityInfo(activityId);
@@ -23,7 +26,7 @@ function attendActivity() {
 	var seatsleave = ($("#hascar").val() == "yes" && $("#attended").val() == "yes")? $("#seatsleave").val():0;
 	var data = {
 		activityId: activityId,
-//		userId: userId,
+		userId: userId,
 		userId: 0,
 		attended: $("#attended").val() == "no"?false:true,
 		seatsleave: seatsleave
@@ -57,6 +60,7 @@ function initActivityInfo(activityId) {
             $("#start-time").val(activity.startTime.substr(0,10));
             
             var teambody = $("#team-members tbody");
+            teamId= activity.team.id;
             var members = activity.team.members;
             teambody.empty();
             for(var i=0; i<members.length; i++){
@@ -155,18 +159,18 @@ function attendedChange() {
 function initAction() {
 	$("#refund").on("click", function() {
 		var data = {
-			activityId:	activityId,
-			memberId: userId,
-			teamId:teamId,
-			exchange:$("#exchange").val(),
-			exchangeStatus:$("#exchangeStatus").val() ,
+			activity_id: activityId,
+			member_id: userId,
+			team_id:teamId,
+			value:$("#exchange").val(),
+			type:$("#exchangeStatus").val() ,
 			date: new Date()		
 		};
 		$.ajax({
 	        type: "POST",
 	        dataType: "json",
 	        data: data,
-	        url:"service/ExchangeDetail/insertExchangeDetail",
+	        url:"service/Exchange/addExchange",
 	        success: function(result) {
 	        	alert(result);
 	        },

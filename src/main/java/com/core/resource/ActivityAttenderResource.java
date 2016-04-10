@@ -1,7 +1,9 @@
 package com.core.resource;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.FormParam;
@@ -15,6 +17,7 @@ import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.core.bean.ActivityAttender;
+import com.core.bean.CarArrange;
 import com.core.bean.Member;
 import com.core.service.ActivityAttenderService;
 import com.core.service.TeamService;
@@ -121,12 +124,54 @@ public class ActivityAttenderResource {
 		String result = "[]";
 		try {
 			List<ActivityAttender> activityAttenders = activityAttenderService.getArangeTaixInfo(activityId);
-			result = objectMapper.writeValueAsString(activityAttenders);
+			
+			result = objectMapper.writeValueAsString(convert(activityAttenders));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
 		}
 		return result;
+	}
+	
+	private List<CarArrange> convert(List<ActivityAttender> attenders) {
+		Map<Integer, CarArrange> map = new HashMap<Integer, CarArrange>();
+		
+		for (ActivityAttender attender : attenders) {
+			Integer carNo = attender.getCarNo();
+			String userName = attender.getUserName();
+			
+			CarArrange carArrange = null;
+			
+			if(!map.containsKey(carNo)) {
+				// 初始化车辆编号map
+				carArrange = new CarArrange();
+				carArrange.setPassengers(userName);
+				map.put(carNo, carArrange);
+			}else{
+				// 追加拼车人员
+				carArrange = map.get(carNo);
+				String passengers = carArrange.getPassengers();
+				passengers = passengers + ", " + userName;
+				carArrange.setPassengers(passengers);
+			}
+			
+			// 设置车主
+			if(attender.getSeatsleave() >= 0) {
+				carArrange.setDriver(userName);
+			}
+				
+		}
+		
+		int size = map.size();
+		
+		// 构造页面车辆安排列表
+		List<CarArrange> carArranges = new ArrayList<CarArrange>();
+		for(int i = 1; i <= size; ++i) {
+			CarArrange carArrange = map.get(i);
+			carArranges.add(carArrange);
+		}
+		
+		return carArranges;
 	}
 }
 

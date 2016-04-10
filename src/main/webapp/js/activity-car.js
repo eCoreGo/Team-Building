@@ -22,13 +22,15 @@ $(document).on("pageshow", function() {
         	userId: userId,
         },
         url:"service/ActivityAttender/getArangeTaixInfo",
-        success: function(activityAttenders) {
+        success: function(carArranges) {
         	var activityCarBody = $("#activity-car tbody");
-            for(var i=0; i<activityAttenders.length; i++){
+        	activityCarBody.empty();
+            for(var i=0; i<carArranges.length; i++){
             	var tr = "<tr>" +
             			"<th>" + i + "</th>" +
-            			"<td><a href='' data-rel='external'>" + activityAttenders[i].seatnumber + "</a></td>" +
-            			"<td>" + activityAttenders[i].user_name + "</td>" +
+            			"<td><a href='' data-rel='external'>" + carArranges[i].carNo + "</a></td>" +
+            			"<td>" + carArranges[i].passengers + "</td>" +
+            			"<td>" + carArranges[i].drivers + "</td>" +
             			"</tr>";
             	activityCarBody.append(tr);
             }

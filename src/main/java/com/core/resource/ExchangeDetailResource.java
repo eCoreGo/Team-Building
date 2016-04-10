@@ -46,7 +46,7 @@ public class ExchangeDetailResource {
 
         try {
             ExchangeDetail exchangeDetail= new ExchangeDetail();
-            exchangeDetail.setId(id);
+           // exchangeDetail.setId(id);
             exchangeDetail.setMemberId(memberId);
             exchangeDetail.setActivityId(activityId);
             exchangeDetail.setTeamId(teamId);
