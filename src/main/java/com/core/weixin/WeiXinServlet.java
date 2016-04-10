@@ -41,10 +41,10 @@ public class WeiXinServlet extends HttpServlet {
 		 */
 		protected void doGet(HttpServletRequest request,
 				HttpServletResponse response) throws ServletException, IOException {
-			String signature = "56f79458a1bfb1164f6c9831550c89ddf6257c90";
-			String timestamp = "1457964881";
-			String nonce = "983366937";
-			String echostr = "7965823133216669681";
+			String signature = request.getParameter("signature");// 微信加密签名
+			String timestamp = request.getParameter("timestamp");// 时间戳
+			String nonce = request.getParameter("nonce");// 随机数
+			String echostr = request.getParameter("echostr");// 随机字符串
 			
 			List<String> list = new ArrayList<String>(3) {
 				private static final long serialVersionUID = 2621444383666420433L;

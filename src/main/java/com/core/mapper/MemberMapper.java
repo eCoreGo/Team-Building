@@ -23,7 +23,7 @@ public interface MemberMapper {
     @Select("select id, name, phone from member where id = ${id}")
     Member getMemberById(@Param("id") String id);
     
-    @Update("update member set name = ${name}, phone = ${phone} where id = ${id}")
-    Member updateMemberById(@Param(value = "id") String id, @Param(value = "name") String name, @Param(value = "phone") String phone);
+    @Update("update member set name = #{name}, phone = #{phone} where id = #{id}")
+    void updateMemberById(@Param(value = "id") String id, @Param(value = "name") String name, @Param(value = "phone") String phone);
 
 }
