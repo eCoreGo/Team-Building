@@ -74,7 +74,7 @@ create table member
 (
    id                   int not null,
    name                 varchar(50) not null,
-   wechat_no            varchar(50) not null,
+   wechat_no            varchar(50),
    phone                varchar(20),
    primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

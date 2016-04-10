@@ -86,6 +86,14 @@ public class MemberResource {
 		String result = "{}";
 		try {
 			Member member = memberService.getMemberById(id);
+			if(member==null) {
+				member= new Member();
+				member.setId(id);
+				member.setName("'Change to your name'");
+				member.setPhone("'0'");
+				memberService.addMember(member);
+			}
+			
 			result = objectMapper.writeValueAsString(member);
 		} catch (Exception e) {
 			e.printStackTrace();

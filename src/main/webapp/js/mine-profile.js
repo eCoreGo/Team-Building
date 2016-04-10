@@ -1,11 +1,21 @@
+
+var userId;
 $(document).on("pageshow", function() {
+	userId = findParameterValue("userId");
+	
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+    $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+    
 	var teamsListDiv;
-	var userID = 1;
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
-            id: userID
+            id: userId
         },
         url:"service/Member/getMemberById",
         success: function(result) {
@@ -18,10 +28,10 @@ $(document).on("pageshow", function() {
     });
     
     $("#save").on("click", function() {
-		saveBasicInfo(userID);   	
+		saveBasicInfo(userId);   	
 	});
 
-	getAllTeams(teamsListDiv,userID);
+	getAllTeams(teamsListDiv,userId);
 
 });
 function getAllTeams(teamsListDiv,userID) {

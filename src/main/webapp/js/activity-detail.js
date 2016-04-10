@@ -6,14 +6,22 @@ var activityId;
 var userId;
 var teamId;
 $(document).on("pageshow", function() {
-	var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
+//	var raw = window.location.search;
+//    var queryString = raw.substr(1);
+//    var query = parseQueryString(queryString);
     activityId = findParameterValue("id");
     userId = findParameterValue("userId");
     
     var carArrangementUrl = $("#car-arrangement").attr("href");
 	$("#car-arrangement").attr("href", carArrangementUrl + "?userId=" + userId+ "?activityId=" + activityId);
+    
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
     
 	attendedChange();
 	carInfoChange();
