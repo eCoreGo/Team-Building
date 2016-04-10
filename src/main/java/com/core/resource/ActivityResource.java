@@ -171,21 +171,7 @@ public class ActivityResource {
 	public String getActivityByActivityId(@FormParam(value = "id") Integer id) {
 		String result = "[]";
 		try {
-			//Activity activity = activityService.getActivityById(id);
-			Activity activity = new Activity();
-			activity.setStatus(1);
-			activity.setName("haha");
-			activity.setDescription("ddddd");
-			activity.setStartTime(new Date());
-			
-			Team team = new Team();
-			List<Member> members = new ArrayList<Member>();
-			Member member = new Member();
-			member.setName("huyi");
-			member.setPhone("13916790975");
-			members.add(member);
-			team.setMembers(members);
-			activity.setTeam(team);
+			Activity activity = activityService.getActivityById(id);
 			result = objectMapper.writeValueAsString(activity);
 		} catch (Exception e) {
 			e.printStackTrace();

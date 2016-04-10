@@ -7,6 +7,21 @@ public class Data {
 	private Vad keyword3;
 	private Vad remark;
 	
+	public Data(Vad first, Vad keyword1, Vad keyword2, Vad remark) {
+		this.first = first;
+		this.keyword1 = keyword1;
+		this.keyword2 = keyword2;
+		this.remark = remark;
+	}
+	
+	public Data(Vad first, Vad keyword1, Vad keyword2, Vad keyword3, Vad remark) {
+		this.first = first;
+		this.keyword1 = keyword1;
+		this.keyword2 = keyword2;
+		this.keyword3 = keyword3;
+		this.remark = remark;
+	}
+	
 	public Vad getFirst() {
 		return first;
 	}

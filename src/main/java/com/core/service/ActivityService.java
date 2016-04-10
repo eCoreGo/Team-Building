@@ -116,7 +116,7 @@ public class ActivityService {
         Activity activity;
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
         try {
-        	activity = session.getMapper(ActivityMapper.class).getActivitiesById(activityId);
+        	activity = session.selectOne("com.core.bean.ActivityMapper.getActivityById",activityId);
         } catch (Exception e) {
             throw new RuntimeException("Fail to get activity!", e);
         } finally {

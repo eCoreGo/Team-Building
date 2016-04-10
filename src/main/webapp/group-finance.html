@@ -56,13 +56,8 @@
 				<div data-role="collapsible">
 					<h4>添加收支明细</h4>
 					<div data-role="fieldcontain">
-						<label for="name" class="select">报账账户</label>
-						<select name="name" id="name" data-native-menu="false" data-mini="true">
-							<option value="value1" selected="selected">群组经费</option>
-							<option value="value2">陆小凤</option>
-							<option value="value3">西门吹雪</option>
-							<option value="value4">萧十一郎</option>
-							<option value="value5">李寻欢</option>
+						<label for="target_account" class="select">报账账户</label>
+						<select name="target_account" id="target_account" data-native-menu="false" data-mini="true">
 						</select>
 					</div>
 					<div data-role="fieldcontain">
@@ -75,10 +70,16 @@
 						<input type="text" name="money" id="money" placeholder="请输入金额" value="">
 					</div>
 					<div data-role="fieldcontain">
-						<label for="description1">备注</label>
-						<input type="text" name="description1" id="description1" placeholder="请备注此次收支明细" value="">
+						<label for="group-finance-add-desc">备注</label>
+						<select name="group-finance-add-desc" id="group-finance-add-desc" data-native-menu="false" data-mini="true">
+							<option value="1" selected="selected">群组经费</option>
+							<option value="2">坏账</option>
+							<!--<option value="3" forteam="0">充值</option>
+							<option value="4" forteam="0">出租车费</option>
+							<option value="5" forteam="0">退款</option>-->
+						</select>
 					</div>
-					<a class="ui-btn ui-corner-all" data-ajax = 'false'>添加收支明细</a>
+					<a class="ui-btn ui-corner-all" data-ajax = 'false' id="addExchangeDetail">添加收支明细</a>
 				</div>
 				<!-- 历史收支明细表格 -->
 				<div data-role="fieldcontain">
@@ -90,35 +91,11 @@
 								<th data-priority="1">姓名</th>
 								<th data-priority="1">金额</th>
 								<th data-priority="1">时间</th>
-								<th data-priority="3">操作人</th>
+								<!--<th data-priority="3">操作人</th>-->
 								<th data-priority="3">备注</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<th>1</th>
-								<td><a href="" data-rel="external">楚留香</a></td>
-								<td>¥ +200</td>
-								<td>2016.03.20 17:20</td>
-								<td>石观音（管理员）</td>
-								<td>充值</td>
-							</tr>
-							<tr>
-								<th>2</th>
-								<td><a href="" data-rel="external">李寻欢</a></td>
-								<td>¥ -40.56</td>
-								<td>2016.03.12 12:34</td>
-								<td>系统</td>
-								<td>活动费用均摊</td>
-							</tr>
-							<tr>
-								<th>3</th>
-								<td><a href="" data-rel="external">陆小凤</a></td>
-								<td>¥ -23</td>
-								<td>2016.01.05 10:20</td>
-								<td>陆小凤</td>
-								<td>打车</td>
-							</tr>
+						<tbody id="exchange_detail">
 						</tbody>
 					</table>
 				</div>

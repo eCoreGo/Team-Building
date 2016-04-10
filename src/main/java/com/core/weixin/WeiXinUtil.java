@@ -1,7 +1,6 @@
 package com.core.weixin;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,10 +22,10 @@ public class WeiXinUtil {
 	private static final String ACCESSTOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";
 	private static final String CREATEMENU_URL = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN";
 	private static final String SEND_UTL = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN";
-	private static final String CREATE_ACTIVITY_TEMPLEID = "Xk7LhG2lr22kCspQ6VfBw86FDZUOGp2_RBd95saZKzI";
-	private static final String ACTIVITY_INFO_TEMPLEID = "yIEWizOhZ1hsOQ_nbAYy6DmMsqmygJLII9ORJUBOO3s";
-	private static final String INFORMATION_TEMPLEID = "OA9bb__W7jE8-uj16jPdStsQzqUvzhBcsGeIGLjuYPM";
-	private static final String ACTIVITY_TEMPLEID = "vabTiAjCFpNCbjFDe2IAvQ2DOEh6Z6ERSW4FukELeSI";
+	private static final String CREATE_ACTIVITY_TEMPLEID = "nz7ICb4U5D5U-w8MomZVVytyKYBVra2jdLvihh3jQ-s";
+	private static final String ACTIVITY_INFO_TEMPLEID = "qG7cu0Nru0gHj65W3pFulBSkgPoZIr9IKRvgo08mjA4";
+	private static final String INFORMATION_TEMPLEID = "N6q13IYGwXjLiBUUODPUxjXi-kg3XmTV2kJbFYVLPcU";
+	private static final String ACTIVITY_TEMPLEID = "zgJ5a0xivrZBJYdQvc7h2gQpI59fAKhaRHEjzKth9tA";
 	
 	public JSONObject doGetStr(String url){
 		DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -49,12 +48,12 @@ public class WeiXinUtil {
 		return jsonObject;
 	}
 	
-	public JSONObject doPostStr(String url,String outStr) throws UnsupportedEncodingException{
+	public JSONObject doPostStr(String url,String outStr){
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(url);
 		JSONObject jsonObject = null;
-		httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
 		try {
+			httpPost.setEntity(new StringEntity(outStr,"UTF-8"));
 			HttpResponse response = httpClient.execute(httpPost);
 			String result = EntityUtils.toString(response.getEntity(),"UTF-8");
 			jsonObject = JSONObject.fromObject(result);
@@ -93,7 +92,7 @@ public class WeiXinUtil {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setTouser(touser);
 		sendMessage.setTemplate_id(this.CREATE_ACTIVITY_TEMPLEID);
-		sendMessage.setUrl("http://www.mogujie.com/");
+		sendMessage.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/home.html");
 		sendMessage.setData(data);
 		return sendMessage;
 	}
@@ -102,7 +101,7 @@ public class WeiXinUtil {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setTouser(touser);
 		sendMessage.setTemplate_id(this.ACTIVITY_INFO_TEMPLEID);
-		sendMessage.setUrl("http://www.mogujie.com/");
+		sendMessage.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/home.html");
 		sendMessage.setData(data);
 		return sendMessage;
 	}
@@ -111,7 +110,7 @@ public class WeiXinUtil {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setTouser(touser);
 		sendMessage.setTemplate_id(this.INFORMATION_TEMPLEID);
-		sendMessage.setUrl("http://www.mogujie.com/");
+		sendMessage.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/home.html");
 		sendMessage.setData(data);
 		return sendMessage;
 	}
@@ -120,7 +119,7 @@ public class WeiXinUtil {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setTouser(touser);
 		sendMessage.setTemplate_id(this.ACTIVITY_TEMPLEID);
-		sendMessage.setUrl("http://www.mogujie.com/");
+		sendMessage.setUrl("http://teambuilding.campusclub.cn:8080/team-building-assistant/home.html");
 		sendMessage.setData(data);
 		return sendMessage;
 	}
@@ -136,16 +135,10 @@ public class WeiXinUtil {
 		return token;
 	}
 	
-	public int createMenu(String token, String menu) {
+	public int createMenu(String token, String menu){
 		int result = 0;
 		String url = CREATEMENU_URL.replace("ACCESS_TOKEN", token);
-		JSONObject jsonObject = null;
-		try {
-			jsonObject = doPostStr(url, menu);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JSONObject jsonObject = doPostStr(url, menu);
 		if(jsonObject != null){
 			result = jsonObject.getInt("errcode");
 		}
@@ -155,13 +148,7 @@ public class WeiXinUtil {
 	public int createSendMessage(String token, String sendMessage){
 		int result = 0;
 		String url = SEND_UTL.replace("ACCESS_TOKEN", token);
-		JSONObject jsonObject = null;
-		try {
-			jsonObject = doPostStr(url, sendMessage);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		JSONObject jsonObject = doPostStr(url, sendMessage);
 		if(jsonObject != null){
 			result = jsonObject.getInt("errcode");
 		}

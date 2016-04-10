@@ -39,9 +39,9 @@ public interface ActivityAttenderMapper {
 	@Select("select seatsNo,user_id,user_name from activity_attender where activityId=${activityId} and in=true and seatNo =0")
 	List<ActivityAttender> getWhoNotArrangeTaixUser(@Param(value  = "activityId") Integer activityId);
 	
-	@Update("update activity_attender set seatsleave=#{activityAttender.seatsleave}, attended=#{activityAttender.attended}"
-			+ " where activityId=#{activityAttender.activityId} and userId=#{activityAttender.userId}")
-	void updateActivityAttender(ActivityAttender activityAttender);
+	@Update("update activity_attender set seats=#{activityAttender.seatsleave}, attended=#{activityAttender.attended}"
+			+ " where acitivity_id=#{activityAttender.activityId} and user_id=#{activityAttender.userId}")
+	void updateActivityAttender(@Param(value = "activityAttender") ActivityAttender activityAttender);
 	
 
 }
