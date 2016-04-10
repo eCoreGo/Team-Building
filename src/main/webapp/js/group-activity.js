@@ -2,16 +2,28 @@
  * Created by stereomatrix on 2016/3/25.
  */
 $(document).on("pageshow", function() {
-    var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var teamId = query["id"];
+	var userId = findParameterValue("userId");
+	
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+	
+//    var raw = window.location.search;
+//    var queryString = raw.substr(1);
+//    var query = parseQueryString(queryString);
+//    var teamId = query["id"];
+    var teamId = findParameterValue("id");
     var url = $("#backToGroup").attr("href");
-    $("#backToGroup").attr("href", url + "?id=" + teamId);
+    $("#backToGroup").attr("href", url + "?id=" + teamId + "&userId=" + userId);
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
+        	userId: userId,
             id: teamId
         },
         url:"service/Activity/getTeamActivities",
@@ -23,7 +35,7 @@ $(document).on("pageshow", function() {
                 for(var i = 0; i < result.length; i++) {
                     $("#activitiesListView").append(function() {
                         return "<li>" +
-                            "<a data-ajax = 'false' href='activity-detail.html?id=" + result[i].id + "'>" +
+                            "<a data-ajax = 'false' href='activity-detail.html?userId=" + userId + "&id=" + result[i].id + "'>" +
                             "<h1>" + result[i].name + "</h1>" +
                             "<p><strong>" + result[i].startTime + " - " + result[i].endTime + "</strong></p>" +
                             "<p>From <strong>" + result[i].team.name + "</strong></p>" +

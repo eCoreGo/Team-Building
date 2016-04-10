@@ -10,13 +10,24 @@ pair[5] = "退款";
 pair[6] = "均摊";
 pair[7] = "活动总开销";
 $(document).on("pageshow", function() {
-    var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var teamId = query["id"];
+//    var raw = window.location.search;
+//    var queryString = raw.substr(1);
+//    var query = parseQueryString(queryString);
+//    var teamId = query["id"];
+	var teamId = findParameterValue("id");
+	
+	var userId = findParameterValue("userId");
+	
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
 
     var url = $("#backToGroup").attr("href");
-    $("#backToGroup").attr("href", url + "?id=" + teamId);
+    $("#backToGroup").attr("href", url + "?id=" + teamId + "&userId=" + userId);
 
     $("#target_account").bind("change", function() {
         $("#group-finance-add-desc").empty();
@@ -35,6 +46,7 @@ $(document).on("pageshow", function() {
         var type = $("#group-finance-add-desc").val();
 
         var data = {};
+        data["userId"] = userId;
         data["value"] = value;
         data["type"] = type;
         data["date"] = new Date();
@@ -61,6 +73,7 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         data: {
+        	userId: userId,
             id: teamId
         },
         url:"service/Team/getTeamDetail",
@@ -87,6 +100,7 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         data: {
+        	userId: userId,
             id: teamId
         },
         url:"service/TeamMember/getTeamMembersByTeamId",
@@ -107,6 +121,7 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         data: {
+        	userId: userId,
             id: teamId
         },
         url:"service/Exchange/getExchangesByTeamId",

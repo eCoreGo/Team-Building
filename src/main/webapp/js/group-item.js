@@ -12,10 +12,12 @@ $(document).on("pageshow", function() {
 	var activityLinkUrl = $("#activityLink").attr("href");
 	var groupLinkUrl = $("#groupLink").attr("href");
 	var mineLinkUrl = $("#mineLink").attr("href");
+	var back2GroupLinkUrl = $("#back2GroupLink").attr("href");
 	
     $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
     $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
     $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+    $("#back2GroupLink").attr("href", back2GroupLinkUrl + "?userId=" + userId);
 
     var url = $("#checkActivitiesByGroup").attr("href");
     $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId + "&userId=" + userId);
