@@ -33,11 +33,9 @@ public class ActivityAttenderService {
 	public List<ActivityAttender> getArangeTaixInfo(Integer activityId)
 			throws RuntimeException {
 		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-		SqlSession session = GetSqlSessionFactory.getInstance()
-				.getSqlSessionFactory().openSession(true);
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
-			activityAttenderList = session.getMapper(
-					ActivityAttenderMapper.class).getSeatNoByActivityId(activityId);
+			activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getArangeTaixInfoByActivityId(activityId);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to get seat info!", e);
 		} finally {

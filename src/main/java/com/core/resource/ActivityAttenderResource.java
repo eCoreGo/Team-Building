@@ -112,5 +112,21 @@ public class ActivityAttenderResource {
 		}
 		return SUCCESSFULLY;
 	}
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getArangeTaixInfo")
+	public String getArangeTaixInfo(@FormParam(value = "activityId") Integer activityId,
+					@Context HttpServletResponse response) {
+		String result = "[]";
+		try {
+			List<ActivityAttender> activityAttenders = activityAttenderService.getArangeTaixInfo(activityId);
+			result = objectMapper.writeValueAsString(activityAttenders);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 }
 
