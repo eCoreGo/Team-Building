@@ -2,21 +2,33 @@
  * Created by stereomatrix on 2016/3/25.
  */
 $(document).on("pageshow", function() {
-    var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var teamId = query["id"];
+//    var raw = window.location.search;
+//    var queryString = raw.substr(1);
+//    var query = parseQueryString(queryString);
+//    var teamId = query["id"];
+    var teamId = findParameterValue("id");
+    var userId = findParameterValue("userId");
+	
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+    $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
 
     var url = $("#checkActivitiesByGroup").attr("href");
-    $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId);
+    $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId + "&userId=" + userId);
 
     url = $("#group-totalUserBalance").attr("href");
-    $("#group-totalUserBalance").attr("href", url + "?id=" + teamId);
+    $("#group-totalUserBalance").attr("href", url + "?id=" + teamId + "&userId=" + userId);
+    
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
-            id: teamId
+            id: teamId,
+            userId: userId
         },
         url:"service/Team/getTeamDetail",
         success: function(result) {
@@ -45,6 +57,7 @@ $(document).on("pageshow", function() {
             type: "POST",
             dataType: "json",
             data: {
+            	userId: userId,
                 id: $("#group-id").val(),
                 name: $("#group-name").val(),
                 desc: $("#group-description").val(),
