@@ -12,7 +12,7 @@ $(document).on("pageshow", function() {
             $("#user-name").val(result.name);
             $("#phone").val(result.phone);
         },
-        complete: function() {
+        complete: function(result) {
 
         }
     });
@@ -25,43 +25,6 @@ $(document).on("pageshow", function() {
 
 });
 function getAllTeams(teamsListDiv,userID) {
-	/*
-	var demoData = [
-		{
-			"id": 1,
-			"temp": null,
-			"name": "eCore",
-			"description": "A wonderful team!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 2,
-			"temp": null,
-			"name": "CCAR",
-			"description": "ABC!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 3,
-			"temp": null,
-			"name": "retail",
-			"description": "sas!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		}
-	];*/
-
 	/**
 	 * Get all teams , and set toggle button to .teams-container
 	 */
@@ -69,7 +32,7 @@ function getAllTeams(teamsListDiv,userID) {
 		type: "POST",
 		dataType: "json",
 		url:"service/Team/getAllTeams",
-		complete: function(result) {
+		success: function(result) {
 			teamsListDiv = $(".teams-list .ui-controlgroup-controls");
 			$(result).each(function(index){
 				var checkId = this.id;
@@ -79,48 +42,25 @@ function getAllTeams(teamsListDiv,userID) {
 				'<label for="checkbox-'+checkId+'">'+checkLabel+'</label>').appendTo(teamsListDiv);
 			});
 			getCheckedTeams(teamsListDiv,userID);
+			
+		},
+		complete: function(result) {
 			teamsListDiv.enhanceWithin().controlgroup("refresh");
-		}
+        }
 	});
 	
 	
 }
 
 function getCheckedTeams(teamsListDiv,userID) {
-	/*
-	var demoMteams = [
-		{
-			"id": 1,
-			"temp": null,
-			"name": "eCore",
-			"description": "A wonderful team!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		},
-		{
-			"id": 2,
-			"temp": null,
-			"name": "CCAR",
-			"description": "ABC!",
-			"totalFoundation": 100,
-			"totalUserBalance": 200,
-			"creationTime": null,
-			"teamMembers": null,
-			"members": null
-		}
-	];*/
-	
 	$.ajax({
 		type: "POST",
 		dataType: "json",
 		data: {
-            id: "1"
+            memberId: userID
         },
 		url:"service/TeamMember/getTeams",
-		complete: function(result) {
+		success: function(result) {
 			$(result).each(function(index){
 				aa = $(".teams-list .ui-controlgroup-controls");
 				var checkId = this.id;
@@ -128,8 +68,10 @@ function getCheckedTeams(teamsListDiv,userID) {
 			});
 			
 			updateTeam(userID);
-			teamsListDiv.enhanceWithin().controlgroup("refresh");
-		}
+		},
+		complete: function(result) {
+			//teamsListDiv.enhanceWithin().controlgroup("refresh");
+        }
 	});
 }
 
@@ -146,10 +88,8 @@ function saveBasicInfo(userID) {
             	phone: $("#phone").val()
         	},
         	url:"service/Member/updateMember",
-        	success: function(result) {
-            	alert("success to set: " + $("#user-name").val() + $("#phone").val());
-        	},
-        	complete: function() {
+        	complete: function(result) {
+        		alert("修改成功：" + $("#user-name").val() + ", " +$("#phone").val());
         	}
     	});
 	
@@ -191,26 +131,26 @@ function leaveTeam(teamID,userID,teamName) {
 		data: {
     		teamId: teamID,
     		memberId: userID
+    		
 		},
 		cache:false,
 		async:false,
 		url:"service/TeamMember/getTeamMemberInfo",
 		success: function(result) {
     			var balance = parseFloat(result.balance);
-    			if (balance > parseFloat(0)) {
-    				alert("You still have balance in these teams : " + teamName + " . Please contact admin to leave team.");
+    			if (balance != parseFloat(0)) {
+    				alert("别离开 : " + teamName + " . 因为你还有余额...详情请咨询管理员吧.");
     				$("#checkbox-"+teamID).prop("checked",true).checkboxradio('refresh');
     			} else {
     				deleteTeamMember(teamID, userID, teamName);
     			}
 		},
-		complete: function() {
+		complete: function(result) {
 		}
 	});
 }
 
 function addTeamMember(teamId, memberId, teamName) {
-		var date = Date();
 		$.ajax({
        	 		type: "POST",
        	 		dataType: "json",
@@ -218,15 +158,13 @@ function addTeamMember(teamId, memberId, teamName) {
             		teamId: teamId,
             		memberId: memberId,
             		balance: 0.00,
-            		Date: date
+            		Date: new Date()
             		
         		},
         		url:"service/TeamMember/join",
-        		success: function(result) {
+        		complete: function(result) {
         			$("#checkbox-"+teamId).prop("checked",true).checkboxradio('refresh');
-           	 		alert("success to join team " + teamName );
-        		},
-        		complete: function() {
+           	 		alert("成功入会： " + teamName );
         		}
     		});
 }
@@ -240,10 +178,8 @@ function deleteTeamMember(teamId, memberId, teamName) {
             		memberId: memberId
         		},
         		url:"service/TeamMember/leave",
-        		success: function(result) {
-           	 		alert("success to leave " + teamName + " , " +result.memberId);
-        		},
-        		complete: function() {
+        		complete: function(result) {
+        			alert("绿水长流 下次再见：" + teamName);
         		}
     		});
 }
