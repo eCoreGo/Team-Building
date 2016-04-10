@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.bean.ActivityAttenderMapper">
+    <select id="getTeamMembersByTeamId" resultType="com.core.bean.TeamMember" resultMap="teamMemberMap">
+        select a.id as aid, a.name as aname, a.description as adescription, a.total_foundation as totalFoundation, a.total_user_balance as totalUserBalance , b.id as bid, b.name as bname, c.balance from team a, member b, team_member c where a.id = c.team_id and b.id = c.member_id and c.team_id=#{teamId};
+    </select>
+    <resultMap id="teamMemberMap" type="com.core.bean.TeamMember">
+        <result property="balance" column="balance"/>
+        <association property="team" javaType="com.core.bean.Team">
+            <id column="aid" property="id"/>
+            <result property="name" column="aname"/>
+            <result property="description" column="adescription"/>
+            <result property="totalUserBalance" column="totalUserBalance"/>
+            <result property="totalFoundation" column="totalFoundation"/>
+        </association>
+        <association property="member" javaType="com.core.bean.Member">
+            <id column="id" property="bid"/>
+            <result property="name" column="bname"/>
+        </association>
+    </resultMap>
+    
+     <select id="getTeamMembersByMemberId" resultType="com.core.bean.TeamMember" resultMap="teamMemberMap">
+        select a.id as aid, a.name as aname, a.description as adescription, a.total_foundation as totalFoundation, a.total_user_balance as totalUserBalance , b.id as bid, b.name as bname, c.balance from team a, member b, team_member c where a.id = c.team_id and b.id = c.member_id and c.member_id=#{memberId};
+    </select>
+    
+    <insert id="initActivityAttender" parameterType="java.util.List">
+        insert into activity_attender(acitivity_id,user_id,attended,seats,seatnumber,user_name )
+        values
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+		    #{item.activityId},
+		    #{item.userId},
+		    true,
+		    -1,
+		    -1,
+		    #{item.userName}
+       </foreach>  
+    </insert>
+</mapper>
