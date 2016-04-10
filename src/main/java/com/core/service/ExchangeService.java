@@ -1,16 +1,23 @@
 package com.core.service;
 
+import com.core.bean.ActivityAttender;
 import com.core.bean.Exchange;
-import com.core.mapper.TeamMemberMapper;
+import com.core.bean.Member;
+import com.core.bean.Team;
 import com.core.util.GetSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by wanglan on 16/3/29.
  */
 public class ExchangeService {
+
+    private static TeamService teamService = new TeamService();
+    private static TeamMemberService teamMemberService = new TeamMemberService();
+    private static ActivityAttenderService activityAttenderService = new ActivityAttenderService();
 
     public List<Exchange> getExchangesByTeamId(Integer teamId) throws RuntimeException {
         List<Exchange> exchanges;
@@ -26,25 +33,94 @@ public class ExchangeService {
     }
 
     public void addExchange(Exchange exchange) throws RuntimeException {
-        List<Exchange> exchanges;
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
         try {
-            exchanges = session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange);
-
-            String memberId = exchange.getMember().getId();
-            Integer teamId = exchange.getTeam().getId();
-            Double delta = exchange.getValue();
-
-            Integer type = exchange.getType();
-            if(!Exchange.ACTIVITY_TOTAL_COST.equals(type) && !Exchange.BAD_DEBT.equals(type)) {
-                session.getMapper(TeamMemberMapper.class).updateMemberFee(memberId, teamId, delta);
-            }
-
+            session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange);
+            doExtraUpdate(session, exchange);
             session.commit();
         } catch (Exception e) {
             throw new RuntimeException("Fail to add exchange!", e);
         } finally {
             session.close();
+        }
+    }
+
+    private void doExtraUpdate(SqlSession session, Exchange exchange) {
+        Integer type = exchange.getType();
+
+        Integer teamId = exchange.getTeam().getId();
+        Integer activityId = exchange.getActivity().getId();
+        String memberId = exchange.getMember().getId();
+        Double value = exchange.getValue();
+        Date date = exchange.getDate();
+
+
+        switch (type) {
+            //TEAM_FOUNDATION
+            case 1:
+                Team team1 = teamService.getTeamById(teamId);
+                team1.setTotalFoundation(team1.getTotalFoundation() + value);
+                teamService.updateTeam(team1);
+                break;
+            //BAD_DEBT
+            case 2:
+                Team team2 = teamService.getTeamById(teamId);
+                team2.setTotalUserBalance(team2.getTotalUserBalance() - value);
+                teamService.updateTeam(team2);
+
+                List<Member> members2 = team2.getMembers();
+                Double average2 = value / members2.size();
+                for(Member member : members2) {
+                    teamMemberService.updateMemberFee(member.getId(), teamId, average2);
+                    Exchange exchange2 = new Exchange();
+                    exchange2.setTeam(team2);
+                    exchange2.setMember(member);
+                    exchange2.setDate(date);
+                    exchange2.setValue(average2);
+                    exchange2.setType(Exchange.BAD_DEBT);
+                    session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange2);
+                }
+                break;
+            //RECHARGE
+            case 3:
+                //TAXI_FEE
+            case 4:
+                Team team4 = teamService.getTeamById(teamId);
+                team4.setTotalUserBalance(team4.getTotalUserBalance() + value);
+                teamService.updateTeam(team4);
+
+                teamMemberService.updateMemberFee(memberId, teamId, value);
+                break;
+            //DRAWBACK
+            case 5:
+                Team team5 = teamService.getTeamById(teamId);
+                team5.setTotalUserBalance(team5.getTotalUserBalance() - value);
+                teamService.updateTeam(team5);
+
+                teamMemberService.updateMemberFee(memberId, teamId, 0 - value);
+                break;
+            //SHARE_EQUALLY
+            case 6:
+                Team team6 = teamService.getTeamById(teamId);
+                team6.setTotalUserBalance(team6.getTotalUserBalance() - value);
+                teamService.updateTeam(team6);
+
+                List<ActivityAttender> attenders = activityAttenderService.getAttendersByActivityId(activityId);
+
+                Double average6 = value / attenders.size();
+                for(ActivityAttender attender : attenders) {
+                    teamMemberService.updateMemberFee(attender.getUserId(), teamId, average6);
+                    Exchange exchange6 = new Exchange();
+                    exchange6.setTeam(team6);
+                    Member member = new Member();
+                    member.setId(attender.getUserId());
+                    exchange6.setMember(member);
+                    exchange6.setDate(date);
+                    exchange6.setValue(average6);
+                    exchange6.setType(Exchange.SHARE_EQUALLY);
+                    session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange6);
+                }
+                break;
         }
     }
 

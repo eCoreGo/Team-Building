@@ -1,15 +1,12 @@
 package com.core.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-
-import com.core.bean.Activity;
 import com.core.bean.ActivityAttender;
 import com.core.mapper.ActivityAttenderMapper;
-import com.core.mapper.ActivityMapper;
 import com.core.util.GetSqlSessionFactory;
+import org.apache.ibatis.session.SqlSession;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Huihui
@@ -17,25 +14,44 @@ import com.core.util.GetSqlSessionFactory;
 
 public class ActivityAttenderService {
 
-    @SuppressWarnings("static-access")
-    public void updateActivityAttender(ActivityAttender activityAttender) throws RuntimeException {
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
-        try {
-            session.getMapper(ActivityAttenderMapper.class).updateActivityAttender(activityAttender);
-        } catch (Exception e) {
-            throw new RuntimeException("Fail to update activityAttender!", e);
-        } finally {
-            session.close();
-        }
-    }
-	
+	@SuppressWarnings("static-access")
+	public List<ActivityAttender> getAttendersByActivityId(Integer activityId)
+			throws RuntimeException {
+		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
+		SqlSession session = GetSqlSessionFactory.getInstance()
+				.getSqlSessionFactory().openSession(true);
+		try {
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getAttendersByActivityId(activityId);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get seat info!", e);
+		} finally {
+			session.close();
+		}
+		return activityAttenderList;
+	}
+
+	@SuppressWarnings("static-access")
+	public void updateActivityAttender(ActivityAttender activityAttender) throws RuntimeException {
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			session.getMapper(ActivityAttenderMapper.class).updateActivityAttender(activityAttender);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to update activityAttender!", e);
+		} finally {
+			session.close();
+		}
+	}
+
 	@SuppressWarnings("static-access")
 	public List<ActivityAttender> getArangeTaixInfo(Integer activityId)
 			throws RuntimeException {
 		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		SqlSession session = GetSqlSessionFactory.getInstance()
+				.getSqlSessionFactory().openSession(true);
 		try {
-			activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getArangeTaixInfoByActivityId(activityId);
+			activityAttenderList = session.getMapper(
+					ActivityAttenderMapper.class).getSeatNoByActivityId(activityId);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to get seat info!", e);
 		} finally {
@@ -100,7 +116,7 @@ public class ActivityAttenderService {
 		return activityAttenderList;
 	}
 
-	private void insertSeatNo(Integer user_id, Integer seatNo) {
+	private void insertSeatNo(Integer seatNo, String user_id) {
 		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
 			session.getMapper(ActivityAttenderMapper.class).insertSeartNo(seatNo, user_id);
@@ -124,12 +140,12 @@ public class ActivityAttenderService {
 		}
 		return activityAttenderList;
 	}
-	
+
 	@SuppressWarnings("static-access")
 	public void insertInitActivityAttender(List<ActivityAttender> activityAttenders) {
 		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
-			session.selectList("com.core.bean.ActivityAttenderMapper.initActivityAttender",activityAttenders);
+			session.selectList("com.core.bean.ActivityAttenderMapper.initActivityAttender", activityAttenders);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to get activity attender info!", e);
 		} finally {

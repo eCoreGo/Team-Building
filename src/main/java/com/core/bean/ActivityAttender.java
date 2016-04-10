@@ -7,7 +7,7 @@ package com.core.bean;
 public class ActivityAttender {
 
     private Integer activityId;
-    private Integer userId;
+    private String userId;
     private String userName;
     private Integer seatsleave;
     private Boolean attended;
@@ -21,11 +21,11 @@ public class ActivityAttender {
         this.activityId = activityId;
     }
 
-    public Integer getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

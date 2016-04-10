@@ -34,7 +34,7 @@ public class ActivityAttenderResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path(value = "updateActivityAttender")
 	public String updateActivityAttender(@FormParam(value = "activityId") Integer activityId,
-					@FormParam(value = "userId") Integer userId,
+					@FormParam(value = "userId") String userId,
 					@FormParam(value = "seatsleave") Integer seatsleave,
 					@FormParam(value = "attended") Boolean attended,
 					@Context HttpServletResponse response) {
@@ -71,7 +71,7 @@ public class ActivityAttenderResource {
 			for (Member member : members) {
 				ActivityAttender activityAttender = new ActivityAttender();
 				activityAttender.setActivityId(activityId);
-				activityAttender.setUserId(Integer.valueOf(member.getId()));
+				activityAttender.setUserId(member.getId());
 				activityAttender.setUserName(member.getName());
 				activityAttender.setSeatsleave(seatsleave);
 				activityAttender.setAttended(attended);
@@ -91,7 +91,7 @@ public class ActivityAttenderResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path(value = "invokeTaixSchedule")
 	public String invokeTaixSchedule(@FormParam(value = "activityId") Integer activityId,
-					@FormParam(value = "userId") Integer userId,
+					@FormParam(value = "userId") String userId,
 					@FormParam(value = "seatsleave") Integer seatsleave,
 					@FormParam(value = "attended") Boolean attended,
 					@Context HttpServletResponse response) {
