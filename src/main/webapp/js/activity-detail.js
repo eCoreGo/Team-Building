@@ -2,23 +2,27 @@
  * Created by huihui.
  */
 
-var id;
+var activityId;
+var userId;
+var teamId;
 $(document).on("pageshow", function() {
 	var raw = window.location.search;
     var queryString = raw.substr(1);
     var query = parseQueryString(queryString);
-    id = query["id"];
+    activityId = findParameterValue("id");
+    userId = findParameterValue("userId");
     
 	attendedChange();
 	carInfoChange();
-	initActivityInfo(id);
+	initActivityInfo(activityId);
 	initTeamList();
+	initAction();
 });
 
 function attendActivity() {
 	var seatsleave = ($("#hascar").val() == "yes" && $("#attended").val() == "yes")? $("#seatsleave").val():0;
 	var data = {
-		activityId: id,
+		activityId: activityId,
 //		userId: userId,
 		userId: 0,
 		attended: $("#attended").val() == "no"?false:true,
@@ -39,10 +43,10 @@ function attendActivity() {
 }
 
 
-function initActivityInfo(id) {
+function initActivityInfo(activityId) {
 	$.ajax({
         type: "POST",
-        data: {id:id},
+        data: {id:activityId},
         dataType: "json",
         url:"service/Activity/getActivityByActivityId",
         success: function(activity) {
@@ -148,8 +152,39 @@ function attendedChange() {
 	})
 }
 
+function initAction() {
+	$("#refund").on("click", function() {
+		var data = {
+			activityId:	activityId,
+			memberId: userId,
+			teamId:teamId,
+			exchange:$("#exchange").val(),
+			exchangeStatus:$("#exchangeStatus").val() ,
+			date: new Date()		
+		};
+		$.ajax({
+	        type: "POST",
+	        dataType: "json",
+	        data: data,
+	        url:"service/ExchangeDetail/insertExchangeDetail",
+	        success: function(result) {
+	        	alert(result);
+	        },
+	        complete: function() {
+	        }
+	    });
+	});
+}
+
+function findParameterValue(parameterKey) {
+	var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var queryParameterMap = parseQueryString(queryString);
+    return queryParameterMap[parameterKey];
+}
+
 function parseQueryString(queryString) {
-    var params = queryString.split("&amp;");
+    var params = queryString.split("&");
     var temp, query = {};
     for(var i = 0, l = params.length; i < l; i++) {
         temp = params[i].split("=");

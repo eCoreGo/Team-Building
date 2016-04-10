@@ -34,7 +34,7 @@ public class ExchangeDetailResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Path(value = "insertExchangeDetail")
-    public String addActivity(@FormParam(value = "id") int id,
+    public String insertExchangeDetail(@FormParam(value = "id") int id,
                               @FormParam(value = "memberId") String memberId,
                               @FormParam(value = "activityId") Integer activityId,
                               @FormParam(value = "teamId") Integer teamId,

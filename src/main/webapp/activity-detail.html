@@ -11,13 +11,12 @@
 	<script src="js/activity-detail.js"></script>
 </head>
 <body>
-
 	<div data-role="header" data-position="fixed">
 		<h1>eCore 春游</h1>
 		<a href="activity.html" data-icon="arrow-l" data-iconpos="notext" data-ajax="false">Back</a>
 <!-- 		<a href="activity.html" class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check" 
 		data-ajax="false" id="attendActivity">确定</a> -->
-	<a href="javascript:attendActivity();"
+	<a href="javascript:attendActivity();" id="buttonType"
 			class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check" data-ajax="false">确定</a>
 	</div>
 
@@ -55,21 +54,24 @@
 		</div>
 		
 		<div data-role="collapsible" id="activity-end">
-			<h4>报销车费（活动结束后）</h4>
-			<div data-role="fieldcontain">
-				<!-- <label for="inandout">收支</label>
-				<select name="inandout" id="inandout" data-role="slider" data-mini="true">
-					<option value="in">收入</option>
-					<option value="out" selected>支出</option>
-				</select> -->
+			<h4>报销费用（活动结束后）</h4>
+				<div data-role="fieldcontain">
+				<div class="ui-field-contain">
+<!-- 				<label for="exchangeType">邀请活动成员</label> -->
+					<select name="exchangeStatus" id="exchangeStatus" data-native-menu="false" data-mini="true">
+						<option selected disabled>请选择活动经费类型</option>
+						<option value="4">车费</option>
+						<option value="7">活动支出</option>
+					</select>
+				</div>
 				<label for="money">金额(车费大于40请线下报销))</label>
-				<input type="text" name="money" id="money" placeholder="请输入金额" value="">
+				<input type="text" name="exchange" id="exchange" placeholder="请输入金额" value="">
 			</div>
 			<!-- <div data-role="fieldcontain">
 				<label for="description1">备注</label>
 				<input type="text" name="description1" id="description1" placeholder="请备注此次报销信息" value="">
 			</div>-->
-			<a class="ui-btn ui-corner-all">报销</a> 
+			<a class="ui-btn ui-corner-all" id="refund">报销</a> 
 		</div>
 		<div data-role="fieldcontain" id ="car-arrangement">
             <label for="car-arrangement">车辆安排情况</label>
