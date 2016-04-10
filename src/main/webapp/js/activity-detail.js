@@ -14,7 +14,7 @@ $(document).on("pageshow", function() {
 	carInfoChange();
 	initActivityInfo();
 	initTeamList();
-	initAction();
+	computeCostAction();
 });
 
 function attendActivity() {
@@ -202,7 +202,7 @@ function invokeArrangeCar() {
     });
 }
 
-function initAction() {
+function computeCostAction() {
 	$("#refund").on("click", function() {
 		var data = {
 			activity_id: activityId,

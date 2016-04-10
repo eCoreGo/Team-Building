@@ -66,8 +66,14 @@ public class ActivityAttenderService {
 		List<ActivityAttender> nocarAttenderList = getNoCarAttender(activityId);
 		int seatNo = 1;
 		for (ActivityAttender carInfo : carAttenderList) {
+			if(carInfo ==null) {
+				return;
+			}
 			int i = 0;
 			for (ActivityAttender nocarInfo : nocarAttenderList) {
+				if(nocarInfo == null) {
+					return;
+				}
 				if (i == carInfo.getSeatsleave()) {
 					break;
 				}
@@ -89,8 +95,7 @@ public class ActivityAttenderService {
 
 	private List<ActivityAttender> getNoCarAttender(Integer activityId) {
 		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-		SqlSession session = GetSqlSessionFactory.getInstance()
-				.getSqlSessionFactory().openSession(true);
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
 			activityAttenderList = session.getMapper(
 					ActivityAttenderMapper.class).getNoCarAttendByActivityId(activityId);
