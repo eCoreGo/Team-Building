@@ -25,7 +25,7 @@ public interface TeamMapper {
     @Insert("insert into team(temp, name, description, total_foundation, total_user_balance, creation_time) values(#{team.temp}, #{team.name}, #{team.description}, #{team.totalFoundation}, #{team.totalUserBalance}, #{team.creationTime})")
     void addTeam(@Param(value = "team") Team team);
 
-    @Update("update team set name=#{team.name}, description=#{team.description} where id = ${team.id}")
+    @Update("update team set name=#{team.name}, description=#{team.description}, total_foundation=#{team.totalFoundation}, total_user_balance=#{team.totalUserBalance} where id = ${team.id}")
     void updateTeam(@Param(value = "team") Team team);
 
     @Delete("delete from team where id = ${id}")

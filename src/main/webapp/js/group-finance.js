@@ -80,7 +80,7 @@ $(document).on("pageshow", function() {
         url:"service/Team/getTeamDetail",
         success: function(result) {
             $("#backToGroup").val(result.name + "经费管理");
-            $("#group-finance").val(result.totalUserBalance + "RMB");
+            $("#group-finance").val(result.totalFoundation + "RMB");
             $("#group-funds").val(result.totalUserBalance + "RMB");
 
             $("#target_account").empty();
