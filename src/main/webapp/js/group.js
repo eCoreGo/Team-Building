@@ -42,3 +42,13 @@ function findParameterValue(parameterKey) {
     var queryParameterMap = parseQueryString(queryString);
     return queryParameterMap[parameterKey];
 }
+
+function parseQueryString(queryString) {
+    var params = queryString.split("&amp;");
+    var temp, query = {};
+    for(var i = 0, l = params.length; i < l; i++) {
+        temp = params[i].split("=");
+        query[temp[0]] = temp[1];
+    }
+    return query;
+}

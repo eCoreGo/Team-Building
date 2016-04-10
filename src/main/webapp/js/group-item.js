@@ -77,6 +77,13 @@ $(document).on("pageshow", function() {
 
 });
 
+function findParameterValue(parameterKey) {
+	var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var queryParameterMap = parseQueryString(queryString);
+    return queryParameterMap[parameterKey];
+}
+
 function parseQueryString(queryString) {
     var params = queryString.split("&amp;");
     var temp, query = {};
