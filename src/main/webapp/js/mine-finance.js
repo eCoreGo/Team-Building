@@ -26,7 +26,7 @@ function filterFiananceDetail() {
             $("#mine-finance-detail").empty();
             for(var i = 0; i < result.length; i++) {
                 $("#mine-finance-detail").append(function() {
-                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchangeStatus + "</td><td>" + result[i].exchange + "</td><td>" + result[i].date "</td></tr>";
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchangeStatus + "</td><td>" + result[i].exchange + "</td><td>" + result[i].date + "</td></tr>";
                 });
             }
         },
