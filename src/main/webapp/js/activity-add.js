@@ -15,11 +15,10 @@ function addActivity() {
         data: data,
         url:"service/Activity/addActivity",
         success: function(result) {
-        	alert(result);
-        	windows.location = "activity.html";
+        	$("#activityId").val(result.activityId);
         },
         complete: function() {
-
+        	
         }
     });
 }
@@ -94,7 +93,8 @@ function initTeamList() {
             }
         },
         complete: function() {
-            $("#teamList").listview("refresh");
+        	$("#teamList").selectmenu();
+        	$("#teamList").selectmenu("refresh", true);
         }
     });	
 }

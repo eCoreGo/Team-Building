@@ -16,7 +16,8 @@ public class ActivityService {
 
     @SuppressWarnings("static-access")
     public void addActivity(Activity activity) throws RuntimeException {
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+
+    	SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
         try {
             session.getMapper(ActivityMapper.class).addActivity(activity);
         } catch (Exception e) {

@@ -29,4 +29,7 @@ public interface TeamMemberMapper {
 
     @Select("select b.id as id, b.name as name, b.description as description, b.total_user_balance as totalUserBalance, b.total_foundation as totalFoundation from team_member a, team b where a.team_id = b.id and a.member_id = ${memberId}")
     List<Team> getTeams(@Param("memberId") String memberId);
+    
+    @Select("select * from team_member where team_id = ${teamId} and member_id = ${memberId}")
+    TeamMember getTeamMemberInfo(@Param("teamId") Integer teamId, @Param("memberId") String memberId);
 }

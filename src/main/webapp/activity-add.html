@@ -23,6 +23,7 @@
 
 	<form id="addActivityForm">
 	<div role="main" class="ui-content">
+		<input type="hidden" name="activityId" id="activityId"/>
 		<div data-role="fieldcontain">
 			<label for="name">活动名称</label> <input type="text"
 				name="name" id="name" placeholder="活动名称" value="">
@@ -64,8 +65,8 @@
 			<label for="members">邀请活动成员</label>
 				<select name="teamId" id="teamList" data-native-menu="false" data-mini="true">
 					<option selected disabled>请选择组</option>
-					<option value="1">eCore</option>
-					<option value="2">CCAR</option>
+					<!-- <option value="1">eCore</option>
+					<option value="2">CCAR</option> -->
 				</select>
 			</select>
 		</div>

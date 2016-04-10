@@ -18,6 +18,7 @@
     </environments>
     <mappers>
         <mapper resource="ActivityMapper.xml"></mapper>
+        <mapper resource="ActivityAttenderMapper.xml"></mapper>
         <mapper resource="TeamMemberMapper.xml"></mapper>
         <mapper resource="ExchangeMapper.xml"></mapper>
     </mappers>

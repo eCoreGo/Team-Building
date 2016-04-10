@@ -2,8 +2,8 @@ package com.core.mapper;
 
 import java.util.List;
 
-
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -35,9 +35,5 @@ public interface ActivityAttenderMapper {
 			+ " where acitivity_id=#{activityAttender.activityId} and user_id=#{activityAttender.userId}")
 	void updateActivityAttender(@Param(value = "activityAttender") ActivityAttender activityAttender);
 	
-	@Insert("insert into activity_attender(acitivity_id,user_id,attended,seats,seatnumber,user_name ) "
-			+ "values(${activityAttender.activityId}, ${activityAttender.userId},true,-1,-1,'aa'")
-    void initActivityAttender(@Param(value = "activityAttender") ActivityAttender activityAttender);
-
 }
 
