@@ -29,8 +29,7 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         data: {
-            id: teamId,
-            userId: userId
+            id: teamId
         },
         url:"service/Team/getTeamDetail",
         success: function(result) {
@@ -85,7 +84,7 @@ function findParameterValue(parameterKey) {
 }
 
 function parseQueryString(queryString) {
-    var params = queryString.split("&amp;");
+    var params = queryString.split("&");
     var temp, query = {};
     for(var i = 0, l = params.length; i < l; i++) {
         temp = params[i].split("=");
