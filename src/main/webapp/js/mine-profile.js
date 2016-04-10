@@ -5,7 +5,7 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         data: {
-            id: "1"
+            id: userID
         },
         url:"service/Member/getMemberById",
         success: function(result) {
@@ -21,13 +21,11 @@ $(document).on("pageshow", function() {
 		saveBasicInfo(userID);   	
 	});
 
-	getAllTeams(teamsListDiv);
-	//getCheckedTeams(teamsListDiv);
+	getAllTeams(teamsListDiv,userID);
 
-	
-	
 });
-function getAllTeams(teamsListDiv) {
+function getAllTeams(teamsListDiv,userID) {
+	/*
 	var demoData = [
 		{
 			"id": 1,
@@ -62,7 +60,7 @@ function getAllTeams(teamsListDiv) {
 			"teamMembers": null,
 			"members": null
 		}
-	];
+	];*/
 
 	/**
 	 * Get all teams , and set toggle button to .teams-container
@@ -73,14 +71,14 @@ function getAllTeams(teamsListDiv) {
 		url:"service/Team/getAllTeams",
 		complete: function(result) {
 			teamsListDiv = $(".teams-list .ui-controlgroup-controls");
-			$(demoData).each(function(index){
+			$(result).each(function(index){
 				var checkId = this.id;
 				var checkLabel = this.name;
 				$('<input type="checkbox" name="checkbox-'+checkId+'" ' +
 				'id="checkbox-'+checkId+'" class="teams-inputs" value="'+checkId+'">' +
 				'<label for="checkbox-'+checkId+'">'+checkLabel+'</label>').appendTo(teamsListDiv);
 			});
-			getCheckedTeams(teamsListDiv);
+			getCheckedTeams(teamsListDiv,userID);
 			teamsListDiv.enhanceWithin().controlgroup("refresh");
 		}
 	});
@@ -88,7 +86,8 @@ function getAllTeams(teamsListDiv) {
 	
 }
 
-function getCheckedTeams(teamsListDiv) {
+function getCheckedTeams(teamsListDiv,userID) {
+	/*
 	var demoMteams = [
 		{
 			"id": 1,
@@ -112,7 +111,7 @@ function getCheckedTeams(teamsListDiv) {
 			"teamMembers": null,
 			"members": null
 		}
-	];
+	];*/
 	
 	$.ajax({
 		type: "POST",
@@ -122,17 +121,19 @@ function getCheckedTeams(teamsListDiv) {
         },
 		url:"service/TeamMember/getTeams",
 		complete: function(result) {
-			$(demoMteams).each(function(index){
+			$(result).each(function(index){
 				aa = $(".teams-list .ui-controlgroup-controls");
 				var checkId = this.id;
 				$("#checkbox-"+checkId).prop("checked",true).checkboxradio('refresh');
 			});
+			
+			updateTeam(userID);
+			teamsListDiv.enhanceWithin().controlgroup("refresh");
 		}
 	});
 }
 
 function saveBasicInfo(userID) {
-	
 		console.log("user name: " + $("#user-name").val());
 		console.log("phone no: " + $("#phone").val());
 		
@@ -140,109 +141,75 @@ function saveBasicInfo(userID) {
        	 	type: "POST",
        	 	dataType: "json",
         	data: {
-            	id: "1",
-            	name: "sas",
-            	phone: "1212"
+            	id: userID,
+            	name: $("#user-name").val(),
+            	phone: $("#phone").val()
         	},
         	url:"service/Member/updateMember",
         	success: function(result) {
             	alert("success to set: " + $("#user-name").val() + $("#phone").val());
-            	updateTeam(userID);
         	},
         	complete: function() {
-        		updateTeam(userID);
         	}
     	});
 	
 }
 
 function updateTeam(userID) {
+	/*
 		var selectedTeamIds = $('.teams-inputs').map(function(){
 			return $(this).is(':checked') ? $(this).val() : undefined;
 		}).get();
 
 		console.log("selected team ids: " +selectedTeamIds);
 		
-		var failedToUpdateTeamMember = '';
-//		$.each(selectedTeamIds,function(n,value) {
-//			console.log("for teamId: " +value + " userId : " + userID );
-//			updateEachTeam(value,userID,failedToUpdateTeamMember);
-//			
-//		});
-		
-		
-		
-		completed(failedToUpdateTeamMember);
-        			
+		$.each(selectedTeamIds,function(n,value) {
+			console.log("for teamId: " +value + " userId : " + userID );
+			updateEachTeam(value,userID,failedToUpdateTeamMember);
+			
+		});
+		*/
+		$('.teams-inputs').each(function() {
+			$(this).click(function() {
+				if(!$(this).is(':checked')) {
+					console.log("for teamId: " +$(this).val() + " teamname: " +  $(this).parent().text() );
+					leaveTeam($(this).val(),userID,$(this).parent().text() );
+				} else {
+					addTeamMember($(this).val(), userID, $(this).parent().text());
+				}
+				
+			});
+			
+			
+		});
 }
 
-function completed(failedToUpdateTeamMember) {
-	if (failedToUpdateTeamMember == '') {
-        	alert("success to update team");
-        } else {
-        	alert("You still have balance in these teams : " + failedToUpdateTeamMember + " . Please contact admin to leave team.");
-        }
-}
-
-function updateEachTeam(value,userID,failedToUpdateTeamMember) {
-	var demoTeamMember='{"team_id":value,"member_id":"1","balance":value,"attend_time":null}';
-	var obj = eval('(' + demoTeamMember + ')'); 
+function leaveTeam(teamID,userID,teamName) {
 	$.ajax({
-       	 		type: "POST",
-       	 		dataType: "json",
-       	 		async:false,
-        		data: {
-            		teamId: value,
-            		memberId: userID
-        		},
-        		url:"service/TeamMember/getTeamMemberInfo",
-        		success: function(result) {
-        			if(value == "3") {
-        				result = null;
-        			} else {
-        				result = obj;
-        			}
-        			
-        			if(result !== '') {
-            			var balance = parseFloat(result.balance);
-            			if (balance > parseFloat(0)) {
-            				failedToUpdate(result.memberId,failedToUpdateTeamMember);
-            			} else {
-            				alert("success to delete " + result.teamId + " , " +result.memberId);
-            				//deleteTeamMember(result.teamId, result.memberId);
-            			}
-        			} else {
-        				alert("success to add " + value + " , " +userID);
-        				//addTeamMember(value, userID);
-        			}
-           	 		
-        		},
-        		complete: function() {
-        			var result;
-        			if(value == "3") {
-        				result = null;
-        			} else {
-        				result = obj;
-        			}
-        			
-        			if(result !== undefined) {
-            			var balance = parseFloat(1);
-            			if (balance > parseFloat(0)) {
-            				failedToUpdate(value,failedToUpdateTeamMember);
-            			} else {
-            				alert("success to delete " + + value + " , " +userID);
-            				//deleteTeamMember(result.teamId, result.memberId);
-            			}
-        			} else {
-        				alert("success to add " + value + " , " +userID);
-        				//addTeamMember(value, userID);
-        			}
-        		}
-    		});
-	
+ 		type: "POST",
+ 		dataType: "json",
+		data: {
+    		teamId: teamID,
+    		memberId: userID
+		},
+		cache:false,
+		async:false,
+		url:"service/TeamMember/getTeamMemberInfo",
+		success: function(result) {
+    			var balance = parseFloat(result.balance);
+    			if (balance > parseFloat(0)) {
+    				alert("You still have balance in these teams : " + teamName + " . Please contact admin to leave team.");
+    				$("#checkbox-"+teamID).prop("checked",true).checkboxradio('refresh');
+    			} else {
+    				deleteTeamMember(teamID, userID, teamName);
+    			}
+		},
+		complete: function() {
+		}
+	});
 }
 
-function addTeamMember(teamId, memberId) {
+function addTeamMember(teamId, memberId, teamName) {
 		var date = Date();
 		$.ajax({
        	 		type: "POST",
@@ -256,14 +223,15 @@ function addTeamMember(teamId, memberId) {
         		},
         		url:"service/TeamMember/join",
         		success: function(result) {
-           	 		
+        			$("#checkbox-"+teamId).prop("checked",true).checkboxradio('refresh');
+           	 		alert("success to join team " + teamName );
         		},
         		complete: function() {
         		}
     		});
 }
 
-function deleteTeamMember(teamId, memberId) {
+function deleteTeamMember(teamId, memberId, teamName) {
 		$.ajax({
        	 		type: "POST",
        	 		dataType: "json",
@@ -273,27 +241,9 @@ function deleteTeamMember(teamId, memberId) {
         		},
         		url:"service/TeamMember/leave",
         		success: function(result) {
-           	 		
+           	 		alert("success to leave " + teamName + " , " +result.memberId);
         		},
         		complete: function() {
-        		}
-    		});
-}
-
-function failedToUpdate(teamId, failedToUpdateTeamMember) {
-		$.ajax({
-       	 		type: "POST",
-       	 		dataType: "json",
-        		data: {
-            		teamId: teamId
-        		},
-        		url:"service/Team/getTeamDetail",
-        		success: function(result) {
-           	 		failedToUpdateTeamMember = failedToUpdateTeamMember + result.name + " ";
-        		},
-        		complete: function() {
-        			alert("failedToUpdateTeamMember  "+teamId + " ");
-        			failedToUpdateTeamMember = failedToUpdateTeamMember + teamId + " ";
         		}
     		});
 }
