@@ -65,6 +65,7 @@ $(document).on("pageshow", function() {
 
             },
             complete: function() {
+                getExchangesByTeamId();
             }
         });
     });
@@ -117,12 +118,17 @@ $(document).on("pageshow", function() {
         }
     });
 
+    getExchangesByTeamId();
+
+});
+
+function getExchangesByTeamId() {
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
-        	userId: userId,
-            id: teamId
+            userId: findParameterValue("userId"),
+            id: findParameterValue("id")
         },
         url:"service/Exchange/getExchangesByTeamId",
         success: function(result) {
@@ -137,8 +143,7 @@ $(document).on("pageshow", function() {
             $("#finance-items").table("refresh");
         }
     });
-
-});
+}
 
 function findParameterValue(parameterKey) {
 	var raw = window.location.search;
