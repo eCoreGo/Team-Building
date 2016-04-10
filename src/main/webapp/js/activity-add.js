@@ -7,18 +7,29 @@ $(document).on("pageshow", function() {
 });
 
 function addActivity() {
-	var data = $("#addActivityForm").serialize();
+//	var data = $("#addActivityForm").serialize();
 	
 	$.ajax({
         type: "POST",
         dataType: "json",
-        data: data,
+        data:
+        {
+	        name: $("#name").val(),
+	        description: $("#description").val(),
+	        totalFoundationCost:$("#totalFoundationCost").val(),
+	        teamId:$("#teamList").val(),
+	        startTime:new Date($("#startTime").val()),
+	        endTime:new Date($("#endTime").val()),
+	        hasFoundationCost:$("#hasFoundationCost").val(),
+	        openCarSchedule:$("#openCarSchedule").val(),
+	        openExchangeModule:$("#openExchangeModule").val(),
+        },
         url:"service/Activity/addActivity",
         success: function(result) {
         	$("#activityId").val(result.activityId);
         },
         complete: function() {
-        	
+        	window.location = "activity.html";
         }
     });
 }
