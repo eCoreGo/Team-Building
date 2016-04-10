@@ -126,4 +126,16 @@ public class ActivityAttenderService {
 		}
 		return activityAttenderList;
 	}
+	
+	@SuppressWarnings("static-access")
+	public void insertInitActivityAttender(List<ActivityAttender> activityAttenders) {
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+		try {
+			session.selectList("com.core.bean.ActivityAttenderMapper.initActivityAttender",activityAttenders);
+		} catch (Exception e) {
+			throw new RuntimeException("Fail to get activity attender info!", e);
+		} finally {
+			session.close();
+		}
+	}
 }

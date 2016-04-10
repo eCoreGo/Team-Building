@@ -42,7 +42,7 @@ create table activity
 /*==============================================================*/
 create table activity_attender
 (
-   id                   int not null,
+   id                   int auto_increment,
    acitivity_id         int not null,
    user_id              int not null,
    attended             boolean,

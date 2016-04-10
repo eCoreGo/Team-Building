@@ -1,17 +1,18 @@
 package com.core.util;
 
-import com.core.mapper.ActivityAttenderMapper;
-import com.core.mapper.ActivityMapper;
-import com.core.mapper.MemberMapper;
-import com.core.mapper.TeamMapper;
-import com.core.mapper.TeamMemberMapper;
+import java.io.IOException;
+import java.io.Reader;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.IOException;
-import java.io.Reader;
+import com.core.mapper.ActivityAttenderMapper;
+import com.core.mapper.ActivityMapper;
+import com.core.mapper.ExchangeDetailMapper;
+import com.core.mapper.MemberMapper;
+import com.core.mapper.TeamMapper;
+import com.core.mapper.TeamMemberMapper;
 
 public class GetSqlSessionFactory
 {
@@ -37,6 +38,7 @@ public class GetSqlSessionFactory
         sqlSessionFactory.getConfiguration().addMapper(TeamMemberMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(ActivityMapper.class);
         sqlSessionFactory.getConfiguration().addMapper(ActivityAttenderMapper.class);
+        sqlSessionFactory.getConfiguration().addMapper(ExchangeDetailMapper.class);
     }
 
     public static GetSqlSessionFactory getInstance()

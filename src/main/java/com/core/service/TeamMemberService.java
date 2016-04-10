@@ -61,6 +61,19 @@ public class TeamMemberService {
         return teamMembers;
     }
     
+    public List<TeamMember> getTeamMembersByMemberId(String memberId) throws RuntimeException {
+        List<TeamMember> teamMembers;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+                teamMembers = session.selectList("com.core.bean.TeamMemberMapper.getTeamMembersByMemberId", memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get teamMembers!", e);
+        } finally {
+            session.close();
+        }
+        return teamMembers;
+    }
+
     @SuppressWarnings("static-access")
     public TeamMember getTeamMemberInfo(Integer teamId, String memberId) throws RuntimeException {
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);

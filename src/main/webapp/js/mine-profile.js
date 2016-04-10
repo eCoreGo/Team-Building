@@ -1,21 +1,43 @@
 $(document).on("pageshow", function() {
-	var teamsListDiv;
-	var userID = 1;
+        getTeamMembers();
+    filterFiananceDetail();
+});
+
+function filterFiananceDetail() {
+        var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var query = parseQueryString(queryString);
+    var userId = query["userId"];
+    var teamId = $("#groups").val();
+    var duration = $("#duration").val();
+    
     $.ajax({
         type: "POST",
         dataType: "json",
         data: {
+<<<<<<< HEAD
+                memberId: userId,
+                teamId : teamId,
+                duration : duration
+=======
             id: userID
+>>>>>>> branch 'master' of https://github.com/eCoreGo/Team-Building.git
         },
-        url:"service/Member/getMemberById",
+        url:"service/ExchangeDetail/getExchangeDetails",
         success: function(result) {
-            $("#user-name").val(result.name);
-            $("#phone").val(result.phone);
+            $("#mine-finance-detail").empty();
+            for(var i = 0; i < result.length; i++) {
+                $("#mine-finance-detail").append(function() {
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchangeStatus + "</td><td>" + result[i].exchange + "</td><td>" + result[i].date "</td></tr>";
+                });
+            }
         },
         complete: function() {
-
+            $("#mine-finance-detail").table("refresh");
         }
     });
+<<<<<<< HEAD
+=======
     
     $("#save").on("click", function() {
 		saveBasicInfo(userID);   	
@@ -84,8 +106,24 @@ function getAllTeams(teamsListDiv,userID) {
 	});
 	
 	
+>>>>>>> branch 'master' of https://github.com/eCoreGo/Team-Building.git
 }
 
+<<<<<<< HEAD
+function getTeamMembers() {
+        var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var query = parseQueryString(queryString);
+    var userId = query["userId"];
+    var teamId = $("#groups").val();
+    var duration = $("#duration").val();
+    
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        data: {
+                memberId: userId
+=======
 function getCheckedTeams(teamsListDiv,userID) {
 	/*
 	var demoMteams = [
@@ -118,7 +156,42 @@ function getCheckedTeams(teamsListDiv,userID) {
 		dataType: "json",
 		data: {
             id: "1"
+>>>>>>> branch 'master' of https://github.com/eCoreGo/Team-Building.git
         },
+<<<<<<< HEAD
+        url:"service/TeamMember/getTeamMembersByMemberId",
+        success: function(result) {
+                var mineTotal = 0;
+            $("#mine-group-finance").empty();
+            $("#groups").empty();
+            for(var i = 0; i < result.length; i++) {
+                mineTotal = mineTotal + result[i].balance;
+                $("#mine-group-finance").append(function() {
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].team.name + "</td><td>" + result[i].balance + "</td></tr>";
+                });
+                $("#groups").append(function() {
+                    return "<option value='" + result[i].id + "'>" + result[i].team.name + "</option>";
+                });
+            }
+            $("#groups").selectmenu("refresh");
+            $("#group-funds").val(mineTotal);
+            $("#mine-group-finance").table("refresh");
+        },
+        complete: function() {
+        }
+    });
+}
+
+function parseQueryString(queryString) {
+    var params = queryString.split("&amp;");
+    var temp, query = {};
+    for(var i = 0, l = params.length; i < l; i++) {
+        temp = params[i].split("=");
+        query[temp[0]] = temp[1];
+    }
+    return query;
+}
+=======
 		url:"service/TeamMember/getTeams",
 		complete: function(result) {
 			$(result).each(function(index){
@@ -247,3 +320,4 @@ function deleteTeamMember(teamId, memberId, teamName) {
         		}
     		});
 }
+>>>>>>> branch 'master' of https://github.com/eCoreGo/Team-Building.git

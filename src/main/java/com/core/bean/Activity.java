@@ -19,8 +19,8 @@ public class Activity {
     private Double totalFoundationCost;
     private String description;
     private Integer status;
-    private Date startTime;
-    private Date endTime;
+    private String startTime;
+    private String endTime;
     private Team team;
     private Boolean openCarSchedule;
     private Boolean openExchangeModule;
@@ -74,20 +74,20 @@ public class Activity {
     }
 
     @JsonSerialize(using = CustomDateSerializer.class)
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @JsonSerialize(using = CustomDateSerializer.class)
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

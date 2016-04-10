@@ -51,26 +51,36 @@ public class ActivityResource {
 			@FormParam(value = "openExchangeModule") Boolean openExchangeModule,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
+		
+		String result = String.format("{\"status\":%s}", FAIL);;
 
 		try {
 			Team team = teamService.getTeamById(teamId);
 			Activity activity= new Activity();
 			activity.setName(name);
-			activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			activity.setStartTime(sdf.parse(startTime));
-			activity.setEndTime(sdf.parse(endTime));
+			
+			activity.setTotalCost(0.0);
+			
+			if(StringUtils.isNullOrEmpty(totalFoundationCost))
+				activity.setTotalFoundationCost(0.0);
+			else
+				activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
+			activity.setStartTime(startTime);
+			activity.setEndTime(endTime);
 			activity.setDescription(description);
 			activity.setStatus(Activity.TODO);
 			activity.setTeam(team);
 			activity.setOpenCarSchedule(openCarSchedule);
 			activity.setOpenExchangeModule(openExchangeModule);
 			activityService.addActivity(activity);
+			
+			result = String.format("{\"activityId\":%d}", activity.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
-			return FAIL;
 		}
-		return SUCCESSFULLY;
+		
+
+		return result;
 	}
 
 	@POST
