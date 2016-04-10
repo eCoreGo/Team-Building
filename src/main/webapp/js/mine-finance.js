@@ -26,7 +26,10 @@ function filterFiananceDetail() {
             $("#mine-finance-detail").empty();
             for(var i = 0; i < result.length; i++) {
                 $("#mine-finance-detail").append(function() {
-                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchangeStatus + "</td><td>" + result[i].exchange + "</td><td>" + result[i].date + "</td></tr>";
+                        var date = new Date(result[i].date);
+                        var dateTime = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
+                                        + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchange + "</td><td>" + result[i].exchangeType + "</td><td>" + result[i].exchangeStatus + "</td><td>" + dateTime + "</td></tr>";
                 });
             }
         },
@@ -36,10 +39,6 @@ function filterFiananceDetail() {
 }
 
 function getTeamMembers() {
-//  var raw = window.location.search;
-//  var queryString = raw.substr(1);
-//  var query = parseQueryString(queryString);
-//  var userId = query["userId"];
 	var userId = findParameterValue("userId");
 	
 	var activityLinkUrl = $("#activityLink").attr("href");
@@ -71,10 +70,11 @@ function getTeamMembers() {
                         return "<tr><th>" + (i + 1) + "</th><td>" + result[i].team.name + "</td><td>" + result[i].balance + "</td></tr>";
                 });
                 $("#groups").append(function() {
-                    return "<option value='" + result[i].id + "'>" + result[i].team.name + "</option>";
+                    return "<option value='" + result[i].team.id + "'>" + result[i].team.name + "</option>";
                 });
             }
-            $("#groups").selectmenu("refresh");
+            $("#groups").selectmenu();
+            $("#groups").selectmenu("refresh", true);
             $("#group-funds").val(mineTotal);
         },
         complete: function() {
