@@ -6,26 +6,13 @@ var activityId;
 var userId;
 var teamId;
 $(document).on("pageshow", function() {
-//	var raw = window.location.search;
-//    var queryString = raw.substr(1);
-//    var query = parseQueryString(queryString);
     activityId = findParameterValue("id");
     userId = findParameterValue("userId");
-    
-    var carArrangementUrl = $("#car-arrangement").attr("href");
-	$("#car-arrangement").attr("href", carArrangementUrl + "?userId=" + userId+ "?activityId=" + activityId);
-    
-	var activityLinkUrl = $("#activityLink").attr("href");
-	var groupLinkUrl = $("#groupLink").attr("href");
-	var mineLinkUrl = $("#mineLink").attr("href");
-	
-	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
-    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
-    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+    addUserItoLink();
     
 	attendedChange();
 	carInfoChange();
-	initActivityInfo(activityId);
+	initActivityInfo();
 	initTeamList();
 	initAction();
 });
@@ -35,7 +22,6 @@ function attendActivity() {
 	var data = {
 		activityId: activityId,
 		userId: userId,
-		userId: 0,
 		attended: $("#attended").val() == "no"?false:true,
 		seatsleave: seatsleave
 	}
@@ -46,7 +32,7 @@ function attendActivity() {
         url:"service/ActivityAttender/updateActivityAttender",
         success: function(result) {
         	alert(result);
-        	windows.location = "activity.html";
+        	windows.location = "activity.html?userId=" + userId;
         },
         complete: function() {
         }
@@ -54,7 +40,7 @@ function attendActivity() {
 }
 
 
-function initActivityInfo(activityId) {
+function initActivityInfo() {
 	$.ajax({
         type: "POST",
         data: {id:activityId},
@@ -90,30 +76,40 @@ function initActivityStatus(status) {
 	switch(status) {
 	// activity draft
 	case 0:
+		$("#pushActivity").show();
+		$("#invokeArrangeCar").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
 		$("#car-arrangement").hide();
 		break;
 	// activity todo
 	case 1:
+		$("#pushActivity").hide();
+		$("#invokeArrangeCar").show();
 		$("#activity-begin").show();
 		$("#activity-end").hide();
 		$("#car-arrangement").hide();
 		break;
 	// activity doing
 	case 2:
+		$("#pushActivity").hide();
+		$("#invokeArrangeCar").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
 		$("#car-arrangement").show();
 		break;
 	// activity done
 	case 3:
+		$("#pushActivity").hide();
+		$("#invokeArrangeCar").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").show();
 		$("#car-arrangement").show();
 		break;
 	// activity overtime
 	case 4:
+		$("#pushActivity").hide();
+		$("#invokeArrangeCar").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
 		$("#car-arrangement").show();
@@ -164,6 +160,48 @@ function attendedChange() {
 	})
 }
 
+function pushActivity() {
+	var data = {
+			activityId: activityId,
+			teamId:teamId
+	}
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
+        url:"service/ActivityAttender/initActivityAttender",
+        success: function(result) {
+        	alert(result);
+        	windows.location = "activity.html?userId=" + userId;
+        },
+        complete: function() {
+
+        }
+    });
+}
+
+function invokeArrangeCar() {
+	var data = {
+			activityId: activityId,
+			teamId:teamId
+	}
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
+        url:"service/ActivityAttender/invokeCarSchedule",
+        success: function(result) {
+        	alert(result);
+        	windows.location = "activity.html?userId=" + userId;
+        },
+        complete: function() {
+
+        }
+    });
+}
+
 function initAction() {
 	$("#refund").on("click", function() {
 		var data = {
@@ -203,4 +241,16 @@ function parseQueryString(queryString) {
         query[temp[0]] = temp[1];
     }
     return query;
+}
+
+function addUserItoLink(){
+	var carArrangementUrl = $("#car-arrangement").attr("href");
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+	$("#car-arrangement").attr("href", carArrangementUrl + "?userId=" + userId+ "&activityId=" + activityId);
+	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
 }

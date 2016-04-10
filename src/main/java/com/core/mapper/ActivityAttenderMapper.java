@@ -13,22 +13,22 @@ import java.util.List;
 
 public interface ActivityAttenderMapper {
 
-	@Select("select seats,user_id,user_name from activity_attender where activity_id=${activityId} and attended=1 and seats = -1")
+	@Select("select seats,user_id,user_name from activity_attender where acitivity_id=${activityId} and attended=1 and seats = -1")
 	List<ActivityAttender> getNoCarAttendByActivityId(@Param(value  = "activityId") Integer activityId);
 
-	@Select("select seats,user_id,user_name from activity_attender where activity_id=${activityId} and attended=1 and seats >=0")
+	@Select("select seats,user_id,user_name from activity_attender where acitivity_id=${activityId} and attended=1 and seats >=0")
 	List<ActivityAttender> getCarByActivityId(@Param(value  = "activityId") Integer activityId);
 
 	@Select("select seatnumber,user_id,user_name from activity_attender where activity_id=${activityId} and attended=1 and seatnumber >=0")
 	List<ActivityAttender> getSeatNumberByActivityId(@Param(value  = "activityId") Integer activityId);
 
-	@Select("select seatsNo,user_id,user_name from activity_attender where activity_id=${activityId} and attended=1")
+	@Select("select seatsNo,user_id,user_name from activity_attender where acitivity_id=${activityId} and attended=1")
 	List<ActivityAttender> getAttendersByActivityId(@Param(value  = "activityId") Integer activityId);
 
 	@Update("update activity_attender(seatnumber) values(${seatnumber}) where user_id = ${user_id}")
 	void insertSeartNo(@Param(value  = "seatnumber") Integer seatNo,@Param(value  = "user_id") String user_id);
 
-	@Select("select seatnumber,user_id,user_name from activity_attender where activity_id=${activityId} and attended=1 and seatnumber =-1")
+	@Select("select seatnumber,user_id,user_name from activity_attender where acitivity_id=${activityId} and attended=1 and seatnumber =-1")
 	List<ActivityAttender> getWhoNotArrangeTaixUser(@Param(value  = "activityId") Integer activityId);
 
 	@Update("update activity_attender set seats=#{activityAttender.seatsleave}, attended=#{activityAttender.attended}"

@@ -106,8 +106,7 @@ public class ActivityAttenderService {
 		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
 		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
-			activityAttenderList = session.getMapper(
-					ActivityAttenderMapper.class).getCarByActivityId(activityId);
+			activityAttenderList = session.getMapper(ActivityAttenderMapper.class).getCarByActivityId(activityId);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to get activity attender info!", e);
 		} finally {

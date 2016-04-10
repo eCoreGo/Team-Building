@@ -16,10 +16,12 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import com.core.bean.Activity;
 import com.core.bean.ActivityAttender;
 import com.core.bean.CarArrange;
 import com.core.bean.Member;
 import com.core.service.ActivityAttenderService;
+import com.core.service.ActivityService;
 import com.core.service.TeamService;
 
 
@@ -28,6 +30,7 @@ public class ActivityAttenderResource {
 	private static ObjectMapper objectMapper = new ObjectMapper();
 	private TeamService teamService = new TeamService();
 	private ActivityAttenderService activityAttenderService = new ActivityAttenderService();
+	private ActivityService activityService = new ActivityService();
 	
 	private Logger logger = Logger.getLogger(ActivityAttenderResource.class);
 	private static final String SUCCESSFULLY = "操作成功！";
@@ -60,29 +63,30 @@ public class ActivityAttenderResource {
 	@Path(value = "initActivityAttender")
 	public String initActivityAttender(@FormParam(value = "activityId") Integer activityId,
 					@FormParam(value = "teamId") Integer teamId,
-					@FormParam(value = "seatsleave") Integer seatsleave,
-					@FormParam(value = "attended") Boolean attended,
 					@Context HttpServletResponse response) {
 		if(activityId == null || teamId == null) {
 			return FAIL;
 		}
 		
 		try {
-			List<ActivityAttender> activityAttenders = new ArrayList<ActivityAttender>();
-			
-			List<Member> members = teamService.getMembers(teamId);
-			for (Member member : members) {
-				ActivityAttender activityAttender = new ActivityAttender();
-				activityAttender.setActivityId(activityId);
-				activityAttender.setUserId(member.getId());
-				activityAttender.setUserName(member.getName());
-				activityAttender.setSeatsleave(seatsleave);
-				activityAttender.setAttended(attended);
+			activityService.updateActivityStatus(activityId, 1);
+			Activity activity=activityService.getActivityById(activityId);
+			//if(activity.getOpenCarSchedule()!=null && activity.getOpenCarSchedule()==true) {
+				List<ActivityAttender> activityAttenders = new ArrayList<ActivityAttender>();
 				
-				activityAttenders.add(activityAttender);
-			}
+				List<Member> members = teamService.getMembers(teamId);
+				for (Member member : members) {
+					ActivityAttender activityAttender = new ActivityAttender();
+					activityAttender.setActivityId(activityId);
+					activityAttender.setUserId(member.getId());
+					activityAttender.setUserName(member.getName());
+					
+					activityAttenders.add(activityAttender);
+				}
+				
+				activityAttenderService.insertInitActivityAttender(activityAttenders);
+			//}
 			
-			activityAttenderService.insertInitActivityAttender(activityAttenders);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
@@ -92,23 +96,13 @@ public class ActivityAttenderResource {
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path(value = "invokeTaixSchedule")
-	public String invokeTaixSchedule(@FormParam(value = "activityId") Integer activityId,
+	@Path(value = "invokeCarSchedule")
+	public String invokeCarSchedule(@FormParam(value = "activityId") Integer activityId,
 					@FormParam(value = "userId") String userId,
-					@FormParam(value = "seatsleave") Integer seatsleave,
-					@FormParam(value = "attended") Boolean attended,
 					@Context HttpServletResponse response) {
 		try {
-			List<ActivityAttender> activityAttenders = new ArrayList<ActivityAttender>();
-			
-			ActivityAttender activityAttender = new ActivityAttender();
-			activityAttender.setActivityId(activityId);
-			activityAttender.setUserId(userId);
-			activityAttender.setSeatsleave(seatsleave);
-			activityAttender.setAttended(attended);
-			
-			activityAttenders.add(activityAttender);
-			activityAttenderService.insertInitActivityAttender(activityAttenders);
+			activityService.updateActivityStatus(activityId, 2);
+			activityAttenderService.arangeTaix(activityId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;

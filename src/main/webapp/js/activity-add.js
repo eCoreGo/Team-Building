@@ -5,21 +5,13 @@
 var userId;
 $(document).on("pageshow", function() {
 	userId = findParameterValue("userId");
+	addUserItoLink();
 	
-	var activityLinkUrl = $("#activityLink").attr("href");
-	var groupLinkUrl = $("#groupLink").attr("href");
-	var mineLinkUrl = $("#mineLink").attr("href");
-	
-	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
-    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
-    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
-    
 	initTeamList();
 	foundationCostChange();
 });
 
 function addActivity() {
-//	var data = $("#addActivityForm").serialize();
 	
 	$.ajax({
         type: "POST",
@@ -40,67 +32,12 @@ function addActivity() {
         success: function(result) {
         	alert("活动创建成功，可以去activity页面选择发布");
         	$("#activityId").val(result.activityId);
-        	pushActivity();
         },
         complete: function() {
         	window.location = "activity.html";
         }
     });
 }
-
-function pushActivity() {
-	var data = $("#addActivityForm").serialize();
-	
-	$.ajax({
-        type: "POST",
-        dataType: "json",
-        data: data,
-        url:"service/ActivityAttender/initActivityAttender",
-        success: function(result) {
-        	alert(result);
-        	windows.location = "activity.html";
-        },
-        complete: function() {
-
-        }
-    });
-}
-
-function invokeTaixSchedule() {
-	var data = $("#addActivityForm").serialize();
-	
-	$.ajax({
-        type: "POST",
-        dataType: "json",
-        data: data,
-        url:"service/ActivityAttender/initActivityAttender",
-        success: function(result) {
-        	alert(result);
-        	windows.location = "activity.html";
-        },
-        complete: function() {
-
-        }
-    });
-}
-
-//function invokeExchange() {
-//	var data = $("#addActivityForm").serialize();
-//	
-//	$.ajax({
-//        type: "POST",
-//        dataType: "json",
-//        data: data,
-//        url:"service/ActivityAttender/initActivityAttender",
-//        success: function(result) {
-//        	alert(result);
-//        	windows.location = "activity.html";
-//        },
-//        complete: function() {
-//
-//        }
-//    });
-//}
 
 function initTeamList() {
 	$.ajax({
@@ -132,6 +69,16 @@ function foundationCostChange() {
 			$("#totalFoundationCostDiv").hide();
 		}
 	})
+}
+
+function addUserItoLink(){
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	
+	$("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
 }
 
 function findParameterValue(parameterKey) {

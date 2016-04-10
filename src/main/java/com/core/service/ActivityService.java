@@ -125,4 +125,16 @@ public class ActivityService {
         }
         return activity;
     }
+    
+    @SuppressWarnings("static-access")
+    public void updateActivityStatus(Integer activityId,Integer status) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+        	session.getMapper(ActivityMapper.class).updateActivityStatus(activityId, status);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get activity!", e);
+        } finally {
+            session.close();
+        }
+    }
 }

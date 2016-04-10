@@ -19,7 +19,14 @@
 	<a href="javascript:attendActivity();" id="buttonType"
 			class="ui-btn-right ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-right ui-icon-check" data-ajax="false">确定</a>
 	</div>
-
+	<div id="pushActivity" style="display: none">
+	<a href="javascript:pushActivity();" data-role="button" id="deploy" data-ajax="false">发布</a>
+	</div>
+	
+	<div id="invokeArrangeCar" style="display: none">
+	<a href="javascript:invokeArrangeCar();" data-role="button" id="send" data-ajax="false">发送车辆信息</a>
+	</div>
+	
 	<div role="main" class="ui-content">
 		<div id="activity-begin">
 			<div data-role="fieldcontain">
@@ -67,13 +74,9 @@
 				<label for="money">金额(车费大于40请线下报销))</label>
 				<input type="text" name="exchange" id="exchange" placeholder="请输入金额" value="">
 			</div>
-			<!-- <div data-role="fieldcontain">
-				<label for="description1">备注</label>
-				<input type="text" name="description1" id="description1" placeholder="请备注此次报销信息" value="">
-			</div>-->
 			<a class="ui-btn ui-corner-all" id="refund">报销</a> 
 		</div>
-		<div data-role="fieldcontain" id ="car-arrangement">
+		<div data-role="fieldcontain" id ="carinfo">
             <label for="car-arrangement">车辆安排情况</label>
             <a href="activity-car.html" class="ui-btn ui-corner-all ui-icon-carat-r ui-btn-icon-right" data-ajax="false" id="car-arrangement">查看车辆安排情况</a>
         </div>

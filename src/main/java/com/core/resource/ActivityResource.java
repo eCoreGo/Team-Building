@@ -68,7 +68,7 @@ public class ActivityResource {
 			activity.setStartTime(startTime);
 			activity.setEndTime(endTime);
 			activity.setDescription(description);
-			activity.setStatus(Activity.TODO);
+			activity.setStatus(Activity.DRAFT);
 			activity.setTeam(team);
 			activity.setOpenCarSchedule(openCarSchedule);
 			activity.setOpenExchangeModule(openExchangeModule);
