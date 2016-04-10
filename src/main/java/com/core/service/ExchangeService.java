@@ -1,6 +1,7 @@
 package com.core.service;
 
 import com.core.bean.Exchange;
+import com.core.mapper.TeamMemberMapper;
 import com.core.util.GetSqlSessionFactory;
 import org.apache.ibatis.session.SqlSession;
 
@@ -26,9 +27,20 @@ public class ExchangeService {
 
     public void addExchange(Exchange exchange) throws RuntimeException {
         List<Exchange> exchanges;
-        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
         try {
             exchanges = session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange);
+
+            String memberId = exchange.getMember().getId();
+            Integer teamId = exchange.getTeam().getId();
+            Double delta = exchange.getValue();
+
+            Integer type = exchange.getType();
+            if(!Exchange.ACTIVITY_TOTAL_COST.equals(type) && !Exchange.BAD_DEBT.equals(type)) {
+                session.getMapper(TeamMemberMapper.class).updateMemberFee(memberId, teamId, delta);
+            }
+
+            session.commit();
         } catch (Exception e) {
             throw new RuntimeException("Fail to add exchange!", e);
         } finally {

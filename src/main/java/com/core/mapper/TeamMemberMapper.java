@@ -3,10 +3,7 @@ package com.core.mapper;
 import com.core.bean.Member;
 import com.core.bean.Team;
 import com.core.bean.TeamMember;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,4 +29,7 @@ public interface TeamMemberMapper {
     
     @Select("select * from team_member where team_id = ${teamId} and member_id = ${memberId}")
     TeamMember getTeamMemberInfo(@Param("teamId") Integer teamId, @Param("memberId") String memberId);
+
+    @Update("update team_member set balance = balance + ${delta} where team_id = ${teamId} and member_id = ${memberId};")
+    void updateMemberFee(@Param("memberId") String memberId, @Param("teamId") Integer teamId, @Param("delta") Double delta);
 }

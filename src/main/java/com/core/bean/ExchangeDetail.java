@@ -21,9 +21,11 @@ public class ExchangeDetail {
         READD(3);
 
         private int value;
+
         ExchangeStatus(int value) {
             this.value = value;
         }
+
         public int getValue() {
             return value;
         }

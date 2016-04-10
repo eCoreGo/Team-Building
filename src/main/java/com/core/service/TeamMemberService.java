@@ -88,4 +88,16 @@ public class TeamMemberService {
         }
         return teams;
     }
+
+    @SuppressWarnings("static-access")
+    public void updateMemberFee(String memberId, Integer teamId, Double delta) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            session.getMapper(TeamMemberMapper.class).updateMemberFee(memberId, teamId, delta);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to leave!", e);
+        } finally {
+            session.close();
+        }
+    }
 }
