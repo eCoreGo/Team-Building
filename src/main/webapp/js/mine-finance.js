@@ -8,7 +8,7 @@ function filterFiananceDetail() {
 //    var queryString = raw.substr(1);
 //    var query = parseQueryString(queryString);
 //    var userId = query["userId"];
-	var userId = parseQueryString("userId");
+	var userId = findParameterValue("userId");
 	
     var teamId = $("#groups").val();
     var duration = $("#duration").val();
@@ -31,7 +31,6 @@ function filterFiananceDetail() {
             }
         },
         complete: function() {
-            $("#mine-finance-detail").table("refresh");
         }
     });
 }
@@ -41,7 +40,7 @@ function getTeamMembers() {
 //  var queryString = raw.substr(1);
 //  var query = parseQueryString(queryString);
 //  var userId = query["userId"];
-	var userId = parseQueryString("userId");
+	var userId = findParameterValue("userId");
 	
 	var activityLinkUrl = $("#activityLink").attr("href");
 	var groupLinkUrl = $("#groupLink").attr("href");
@@ -77,7 +76,6 @@ function getTeamMembers() {
             }
             $("#groups").selectmenu("refresh");
             $("#group-funds").val(mineTotal);
-            $("#mine-group-finance").table("refresh");
         },
         complete: function() {
         }
