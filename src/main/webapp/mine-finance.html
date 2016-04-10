@@ -14,7 +14,7 @@
 	<div data-role="page" data-dom-cache="true">
 		<div data-role="header">
 			<h1>我的财务管理</h1>
-			<a href="mine.html" data-icon="arrow-l" data-iconpos="notext" data-ajax="false">Back</a>
+			<a href="mine.html" id="backToMine" data-icon="arrow-l" data-iconpos="notext" data-ajax="false">Back</a>
 		</div>
 	
 		<div role="main" class="ui-content">
@@ -87,10 +87,10 @@
 		<div data-role="footer" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="home.html" data-icon="home" data-ajax="false">主页</a></li>
-					<li><a href="activity.html" data-icon="star" data-ajax="false">活动</a></li>
-					<li><a href="group.html" data-icon="gear" class="ui-btn-active" data-ajax="false">群组</a></li>
-					<li><a href="mine.html" data-icon="user" data-ajax="false">我的</a></li>
+					<li><a href="home.html" id="homeLink" data-icon="home" data-ajax='false'>主页</a></li>
+					<li><a href="activity.html" id="activityLink" data-icon="star" data-ajax='false'>活动</a></li>
+					<li><a href="group.html" id="groupLink" data-icon="gear" data-ajax='false'>群组</a></li>
+					<li><a href="mine.html" id="mineLink" data-icon="user" data-ajax='false' class="ui-btn-active">我的</a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,13 +1,15 @@
 $(document).on("pageshow", function() {
-        getTeamMembers();
+    getTeamMembers();
     filterFiananceDetail();
 });
 
 function filterFiananceDetail() {
-        var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var userId = query["userId"];
+//    var raw = window.location.search;
+//    var queryString = raw.substr(1);
+//    var query = parseQueryString(queryString);
+//    var userId = query["userId"];
+	var userId = parseQueryString("userId");
+	
     var teamId = $("#groups").val();
     var duration = $("#duration").val();
     
@@ -35,10 +37,21 @@ function filterFiananceDetail() {
 }
 
 function getTeamMembers() {
-        var raw = window.location.search;
-    var queryString = raw.substr(1);
-    var query = parseQueryString(queryString);
-    var userId = query["userId"];
+//  var raw = window.location.search;
+//  var queryString = raw.substr(1);
+//  var query = parseQueryString(queryString);
+//  var userId = query["userId"];
+	var userId = parseQueryString("userId");
+	
+	var activityLinkUrl = $("#activityLink").attr("href");
+	var groupLinkUrl = $("#groupLink").attr("href");
+	var mineLinkUrl = $("#mineLink").attr("href");
+	var backToMineUrl = $("#backToMine").attr("href");
+    $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
+    $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
+    $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+    $("#backToMine").attr("href", backToMineUrl + "?userId=" + userId);
+    
     var teamId = $("#groups").val();
     var duration = $("#duration").val();
     
@@ -69,6 +82,13 @@ function getTeamMembers() {
         complete: function() {
         }
     });
+}
+
+function findParameterValue(parameterKey) {
+	var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var queryParameterMap = parseQueryString(queryString);
+    return queryParameterMap[parameterKey];
 }
 
 function parseQueryString(queryString) {
