@@ -9,6 +9,7 @@ import java.util.Date;
  * Created by stereomatrix on 2016/3/20.
  */
 public class Activity {
+    public static final Integer DRAFT = 0;
     public static final Integer TODO = 1;
     public static final Integer DOING = 2;
     public static final Integer DONE = 3;
