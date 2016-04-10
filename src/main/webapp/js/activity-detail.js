@@ -76,26 +76,31 @@ function initActivityStatus(status) {
 	case 0:
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
+		$("#car-arrangement").hide();
 		break;
 	// activity todo
 	case 1:
 		$("#activity-begin").show();
 		$("#activity-end").hide();
+		$("#car-arrangement").hide();
 		break;
 	// activity doing
 	case 2:
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
+		$("#car-arrangement").show();
 		break;
 	// activity done
 	case 3:
 		$("#activity-begin").hide();
 		$("#activity-end").show();
+		$("#car-arrangement").show();
 		break;
 	// activity overtime
 	case 4:
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
+		$("#car-arrangement").show();
 		break;	
 	}
 	
