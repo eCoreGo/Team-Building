@@ -1,8 +1,10 @@
 package com.core.service;
 
+import com.core.bean.Team;
 import com.core.bean.TeamMember;
 import com.core.mapper.TeamMemberMapper;
 import com.core.util.GetSqlSessionFactory;
+
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.List;
@@ -57,5 +59,33 @@ public class TeamMemberService {
             session.close();
         }
         return teamMembers;
+    }
+    
+    @SuppressWarnings("static-access")
+    public TeamMember getTeamMemberInfo(Integer teamId, String memberId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        TeamMember teamMember;
+        try {
+        	teamMember = session.getMapper(TeamMemberMapper.class).getTeamMemberInfo(teamId, memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get team members!", e);
+        } finally {
+            session.close();
+        }
+        return teamMember;
+    }
+    
+    @SuppressWarnings("static-access")
+    public List<Team> getTeams(String memberId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        List<Team> teams;
+        try {
+        	teams = session.getMapper(TeamMemberMapper.class).getTeams(memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get team members!", e);
+        } finally {
+            session.close();
+        }
+        return teams;
     }
 }
