@@ -120,7 +120,7 @@ function getCheckedTeams(teamsListDiv) {
 		data: {
             id: "1"
         },
-		url:"service/Member/getTeams",
+		url:"service/TeamMember/getTeams",
 		complete: function(result) {
 			$(demoMteams).each(function(index){
 				aa = $(".teams-list .ui-controlgroup-controls");
@@ -164,11 +164,13 @@ function updateTeam(userID) {
 		console.log("selected team ids: " +selectedTeamIds);
 		
 		var failedToUpdateTeamMember = '';
-		$.each(selectedTeamIds,function(n,value) {
-			console.log("for teamId: " +value + " userId : " + userID );
-			updateEachTeam(value,userID,failedToUpdateTeamMember);
-			
-		});
+//		$.each(selectedTeamIds,function(n,value) {
+//			console.log("for teamId: " +value + " userId : " + userID );
+//			updateEachTeam(value,userID,failedToUpdateTeamMember);
+//			
+//		});
+		
+		
 		
 		completed(failedToUpdateTeamMember);
         			
