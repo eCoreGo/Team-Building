@@ -19,6 +19,9 @@ $(document).on("pageshow", function() {
         type: "POST",
         dataType: "json",
         url:"service/Team/getAllTeams",
+        data: {
+            userId: userId
+        },
         success: function(result) {
             $("#teamList").empty();
             for(var i = 0; i < result.length; i++) {
