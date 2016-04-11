@@ -1,12 +1,18 @@
 package com.core.service;
 
+import com.core.bean.Activity;
 import com.core.bean.ActivityAttender;
 import com.core.bean.Exchange;
 import com.core.bean.Member;
 import com.core.bean.Team;
 import com.core.util.GetSqlSessionFactory;
+import com.core.weixin.Data;
+import com.core.weixin.SendMessageUtil;
+import com.core.weixin.Vad;
+
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +44,27 @@ public class ExchangeService {
             session.selectList("com.core.bean.ExchangeMapper.addExchange", exchange);
             doExtraUpdate(session, exchange);
             session.commit();
+            
+            Activity activity = exchange.getActivity();
+            List<Member> members = teamService.getMembers(activity.getTeam().getId());
+            List<String> tousers = new ArrayList<String>();
+			for (Member member : members) {
+				tousers.add(member.getId());
+			}
+			Double aa = activity.getTotalCost()/activity.getTeam().getMembers().size();
+			if(exchange.getType()==6){
+	            Data data = new Data(
+	    				new Vad("账单通知出来啦！", "#173177"),
+	    				new Vad(activity.getName(), "#173177"),
+	    				new Vad(activity.getTotalCost().toString(), "#173177"),
+	    				new Vad(aa.toString(), "#173177"),
+	    				new Vad("", "#173177")
+	    				);
+	            SendMessageUtil sendMessageUtil = new SendMessageUtil("activity", data, tousers);
+				//即时推送
+				sendMessageUtil.sendMessageByTask();
+			}
+            
         } catch (Exception e) {
             throw new RuntimeException("Fail to add exchange!", e);
         } finally {

@@ -52,10 +52,9 @@ function getAllTeams(teamsListDiv,userID) {
 				'<label for="checkbox-'+checkId+'">'+checkLabel+'</label>').appendTo(teamsListDiv);
 			});
 			getCheckedTeams(teamsListDiv,userID);
-			
+			teamsListDiv.enhanceWithin().controlgroup("refresh");
 		},
 		complete: function(result) {
-			teamsListDiv.enhanceWithin().controlgroup("refresh");
         }
 	});
 	
@@ -192,4 +191,21 @@ function deleteTeamMember(teamId, memberId, teamName) {
         			alert("绿水长流 下次再见：" + teamName);
         		}
     		});
+}
+
+function findParameterValue(parameterKey) {
+	var raw = window.location.search;
+    var queryString = raw.substr(1);
+    var queryParameterMap = parseQueryString(queryString);
+    return queryParameterMap[parameterKey];
+}
+
+function parseQueryString(queryString) {
+    var params = queryString.split("&");
+    var temp, query = {};
+    for(var i = 0, l = params.length; i < l; i++) {
+        temp = params[i].split("=");
+        query[temp[0]] = temp[1];
+    }
+    return query;
 }

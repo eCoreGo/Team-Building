@@ -1,5 +1,6 @@
 package com.core.resource;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,6 +24,9 @@ import com.core.bean.Member;
 import com.core.service.ActivityAttenderService;
 import com.core.service.ActivityService;
 import com.core.service.TeamService;
+import com.core.weixin.Data;
+import com.core.weixin.SendMessageUtil;
+import com.core.weixin.Vad;
 
 
 @Path(value = "/ActivityAttender")
@@ -75,6 +79,7 @@ public class ActivityAttenderResource {
 				List<ActivityAttender> activityAttenders = new ArrayList<ActivityAttender>();
 				
 				List<Member> members = teamService.getMembers(teamId);
+				List<String> tousers = new ArrayList<String>();
 				for (Member member : members) {
 					ActivityAttender activityAttender = new ActivityAttender();
 					activityAttender.setActivityId(activityId);
@@ -82,11 +87,23 @@ public class ActivityAttenderResource {
 					activityAttender.setUserName(member.getName());
 					
 					activityAttenders.add(activityAttender);
+					tousers.add(member.getId());
 				}
 				
 				activityAttenderService.insertInitActivityAttender(activityAttenders);
 			//}
-			
+				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+				Data data = new Data(
+						new Vad("欢迎参加 "+activity.getName(), "#173177"),
+						new Vad(activity.getName(), "#173177"),
+						new Vad(formatter.format(activity.getStartTime()), "#173177"),
+						new Vad(activity.getTeam().getName(), "#173177"),
+						new Vad("速速报名，位置有限", "#173177")
+						);
+				SendMessageUtil sendMessageUtil = new SendMessageUtil("create_activity", data, tousers);
+				//即时推送
+				sendMessageUtil.sendMessageByTask();
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 			return FAIL;
