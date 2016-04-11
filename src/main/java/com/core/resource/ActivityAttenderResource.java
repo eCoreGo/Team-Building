@@ -171,6 +171,7 @@ public class ActivityAttenderResource {
 			if(!map.containsKey(carNo)) {
 				// 初始化车辆编号map
 				carArrange = new CarArrange();
+				carArrange.setCarNo(carNo);
 				carArrange.setPassengers(userName);
 				map.put(carNo, carArrange);
 			}else{
@@ -179,6 +180,7 @@ public class ActivityAttenderResource {
 				String passengers = carArrange.getPassengers();
 				passengers = passengers + ", " + userName;
 				carArrange.setPassengers(passengers);
+				map.put(carNo, carArrange);
 			}
 			
 			// 设置车主
