@@ -89,8 +89,8 @@ public class MemberResource {
 			if(member==null) {
 				member= new Member();
 				member.setId(id);
-				member.setName("'Change to your name'");
-				member.setPhone("'0'");
+				member.setName("Change to your name");
+				member.setPhone("0");
 				memberService.addMember(member);
 			}
 			

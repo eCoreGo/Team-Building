@@ -72,7 +72,7 @@ create table team
 /*==============================================================*/
 create table member
 (
-   id                   int not null,
+   id                   varchar(100) not null,
    name                 varchar(50) not null,
    wechat_no            varchar(50),
    phone                varchar(20),

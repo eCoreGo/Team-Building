@@ -17,10 +17,10 @@ public interface MemberMapper {
     @Select("select * from member")
     List<Member> getMembers();
 
-    @Insert("insert into member(id, name, wechat_no, phone) values(${member.id}, ${member.name}, '0',${member.phone})")
+    @Insert("insert into member(id, name, wechat_no, phone) values(#{member.id}, #{member.name}, '0',#{member.phone})")
     void addMember(@Param(value = "member") Member member);
 
-    @Select("select id, name, phone from member where id = ${id}")
+    @Select("select id, name, phone from member where id = #{id}")
     Member getMemberById(@Param("id") String id);
     
     @Update("update member set name = #{name}, phone = #{phone} where id = #{id}")
