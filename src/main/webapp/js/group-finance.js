@@ -104,12 +104,12 @@ $(document).on("pageshow", function() {
         	userId: userId,
             id: teamId
         },
-        url:"service/TeamMember/getTeamMembersByTeamId",
+        url:"service/TeamMember/getMemberBalancesByTeamId",
         success: function(result) {
             $("#members").empty();
             for(var i = 0; i < result.length; i++) {
                 $("#members").append(function() {
-                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].member.name + "</a></td><td>" + result[i].balance + "</td></tr>";
+                    return "<tr><th>" + i + "</th><td><a href='' data-rel='external'>" + result[i].name + "</a></td><td>" + result[i].balance + "</td></tr>";
                 });
             }
         },

@@ -135,4 +135,34 @@ public class TeamMemberResource {
 		}
 		return result;
 	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getMemberBalancesByTeamId")
+	public String getMemberBalancesByTeamId(@FormParam(value = "id") Integer teamId) {
+		String result = "[]";
+		try {
+			List<TeamMember.MemberBalance> memberBalances = teamMemberService.getMemberBalancesByTeamId(teamId);
+			result = objectMapper.writeValueAsString(memberBalances);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
+
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "getTeamBalancesByMemberId")
+	public String getTeamBalancesByMemberId(@FormParam(value = "id") String memberId) {
+		String result = "[]";
+		try {
+			List<TeamMember.TeamBalance> teamBalances = teamMemberService.getTeamBalancesByMemberId(memberId);
+			result = objectMapper.writeValueAsString(teamBalances);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return result;
+	}
 }

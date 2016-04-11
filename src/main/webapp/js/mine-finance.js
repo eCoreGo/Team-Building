@@ -57,9 +57,9 @@ function getTeamMembers() {
         type: "POST",
         dataType: "json",
         data: {
-                memberId: userId
+                id: userId
         },
-        url:"service/TeamMember/getTeamMembersByMemberId",
+        url:"service/TeamMember/getTeamBalancesByMemberId",
         success: function(result) {
                 var mineTotal = 0;
             $("#mine-group-finance").empty();
@@ -67,10 +67,10 @@ function getTeamMembers() {
             for(var i = 0; i < result.length; i++) {
                 mineTotal = mineTotal + result[i].balance;
                 $("#mine-group-finance").append(function() {
-                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].team.name + "</td><td>" + result[i].balance + "</td></tr>";
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].name + "</td><td>" + result[i].balance + "</td></tr>";
                 });
                 $("#groups").append(function() {
-                    return "<option value='" + result[i].team.id + "'>" + result[i].team.name + "</option>";
+                    return "<option value='" + result[i].id + "'>" + result[i].name + "</option>";
                 });
             }
             $("#groups").selectmenu();

@@ -33,4 +33,10 @@ public interface TeamMemberMapper {
 
     @Update("update team_member set balance = balance + #{delta} where team_id = #{teamId} and member_id = #{memberId};")
     void updateMemberFee(@Param("memberId") String memberId, @Param("teamId") Integer teamId, @Param("delta") Double delta);
+
+    @Select("select b.id as id, b.name as name, c.balance as balance from team a, member b, team_member c where a.id = c.team_id and b.id = c.member_id and c.team_id=#{teamId}")
+    List<TeamMember.MemberBalance> getMemberBalancesByTeamId(@Param("teamId") Integer teamId);
+
+    @Select("select a.id as id, a.name as name, c.balance as balance from team a, member b, team_member c where a.id = c.team_id and b.id = c.member_id and c.member_id=#{memberId}")
+    List<TeamMember.TeamBalance> getTeamBalancesByMemberId(@Param("memberId") String memberId);
 }

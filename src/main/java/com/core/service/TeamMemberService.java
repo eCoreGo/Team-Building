@@ -113,4 +113,30 @@ public class TeamMemberService {
             session.close();
         }
     }
+
+    public List<TeamMember.MemberBalance> getMemberBalancesByTeamId(Integer teamId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        List<TeamMember.MemberBalance> memberBalances;
+        try {
+            memberBalances = session.getMapper(TeamMemberMapper.class).getMemberBalancesByTeamId(teamId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get member balance!", e);
+        } finally {
+            session.close();
+        }
+        return memberBalances;
+    }
+
+    public List<TeamMember.TeamBalance> getTeamBalancesByMemberId(String memberId) throws RuntimeException {
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        List<TeamMember.TeamBalance> teamBalances;
+        try {
+            teamBalances = session.getMapper(TeamMemberMapper.class).getTeamBalancesByMemberId(memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get member balance!", e);
+        } finally {
+            session.close();
+        }
+        return teamBalances;
+    }
 }
