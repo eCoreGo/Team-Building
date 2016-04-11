@@ -85,7 +85,7 @@ create table member
 create table team_member
 (
    team_id              int not null,
-   member_id              int not null,
+   member_id            varchar(100) not null,
    balance              decimal not null,
    attend_time          timestamp not null,
    primary key (team_id, member_id)
