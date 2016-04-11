@@ -1,7 +1,7 @@
 /**
  * Created by stereomatrix on 2016/3/25.
  */
-$(document).on("pageshow", function() {
+$(document).on("pageinit", function() {
 	var userId = findParameterValue("userId");
 	
 	var activityLinkUrl = $("#activityLink").attr("href");
