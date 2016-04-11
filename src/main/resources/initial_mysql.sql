@@ -32,8 +32,8 @@ create table activity
    start_time           timestamp default current_timestamp,
    end_time             timestamp default current_timestamp,
    team_id              int,
-   openTaixSchedule		boolean,
-   openExchangeModule   boolean,
+   openTaixSchedule		tinyint(1),
+   openExchangeModule   tinyint(1),
    primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

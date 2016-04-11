@@ -129,6 +129,21 @@ public class ActivityAttenderResource {
 	
 	@POST
 	@Produces(MediaType.TEXT_PLAIN)
+	@Path(value = "endActivity")
+	public String endActivity(@FormParam(value = "activityId") Integer activityId,
+					@FormParam(value = "userId") String userId,
+					@Context HttpServletResponse response) {
+		try {
+			activityService.updateActivityStatus(activityId, 3);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return FAIL;
+		}
+		return SUCCESSFULLY;
+	}
+	
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
 	@Path(value = "getArangeTaixInfo")
 	public String getArangeTaixInfo(@FormParam(value = "activityId") Integer activityId,
 					@Context HttpServletResponse response) {

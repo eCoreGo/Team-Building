@@ -26,7 +26,7 @@ public interface ActivityAttenderMapper {
 	List<ActivityAttender> getAttendersByActivityId(@Param(value  = "activityId") Integer activityId);
 
 	@Update("update activity_attender(seatnumber) values(${seatnumber}) where user_id = ${user_id}")
-	void insertSeartNo(@Param(value  = "seatnumber") Integer seatNo,@Param(value  = "user_id") String user_id);
+	void insertCarNo(@Param(value  = "seatnumber") Integer seatNo,@Param(value  = "user_id") String user_id);
 
 	@Select("select seatnumber,user_id,user_name from activity_attender where acitivity_id=${activityId} and attended=1 and seatnumber =-1")
 	List<ActivityAttender> getWhoNotArrangeTaixUser(@Param(value  = "activityId") Integer activityId);

@@ -78,6 +78,7 @@ function initActivityStatus(status) {
 	case 0:
 		$("#pushActivity").show();
 		$("#invokeArrangeCar").hide();
+		$("#endActivity").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
 		$("#car-arrangement").hide();
@@ -86,12 +87,16 @@ function initActivityStatus(status) {
 	case 1:
 		$("#pushActivity").hide();
 		$("#invokeArrangeCar").show();
+		$("#endActivity").hide();
 		$("#activity-begin").show();
 		$("#activity-end").hide();
 		$("#car-arrangement").hide();
 		break;
 	// activity doing
 	case 2:
+		if(userId=="admin") {
+			$("#endActivity").show();
+		}
 		$("#pushActivity").hide();
 		$("#invokeArrangeCar").hide();
 		$("#activity-begin").hide();
@@ -102,6 +107,7 @@ function initActivityStatus(status) {
 	case 3:
 		$("#pushActivity").hide();
 		$("#invokeArrangeCar").hide();
+		$("#endActivity").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").show();
 		$("#car-arrangement").show();
@@ -110,6 +116,7 @@ function initActivityStatus(status) {
 	case 4:
 		$("#pushActivity").hide();
 		$("#invokeArrangeCar").hide();
+		$("#endActivity").hide();
 		$("#activity-begin").hide();
 		$("#activity-end").hide();
 		$("#car-arrangement").show();
@@ -172,8 +179,7 @@ function pushActivity() {
         data: data,
         url:"service/ActivityAttender/initActivityAttender",
         success: function(result) {
-        	alert(result);
-        	windows.location = "activity.html?userId=" + userId;
+        	windows.location = "activity.html?userId="+userId;
         },
         complete: function() {
 
@@ -194,7 +200,27 @@ function invokeArrangeCar() {
         url:"service/ActivityAttender/invokeCarSchedule",
         success: function(result) {
         	alert(result);
-        	windows.location = "activity.html?userId=" + userId;
+        	windows.location = "activity.html?userId="+userId;
+        },
+        complete: function() {
+
+        }
+    });
+}
+
+function endActivity() {
+	var data = {
+			activityId: activityId,
+			teamId:teamId
+	}
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
+        url:"service/ActivityAttender/endActivity",
+        success: function(result) {
+        	windows.location = "activity.html?userId="+userId;
         },
         complete: function() {
 

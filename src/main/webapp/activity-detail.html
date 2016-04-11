@@ -27,6 +27,10 @@
 	<a href="javascript:invokeArrangeCar();" data-role="button" id="send" data-ajax="false">发送车辆信息</a>
 	</div>
 	
+	<div id="endActivity" style="display: none">
+	<a href="javascript:endActivity();" data-role="button" id="end" data-ajax="false">活动结束</a>
+	</div>
+	
 	<div role="main" class="ui-content">
 		<div id="activity-begin">
 			<div data-role="fieldcontain">
@@ -71,7 +75,7 @@
 						<option value="7">活动支出</option>
 					</select>
 				</div>
-				<label for="money">金额(车费大于40请线下报销))</label>
+				<label for="money">金额</label>
 				<input type="text" name="exchange" id="exchange" placeholder="请输入金额" value="">
 			</div>
 			<a class="ui-btn ui-corner-all" id="refund">报销</a> 

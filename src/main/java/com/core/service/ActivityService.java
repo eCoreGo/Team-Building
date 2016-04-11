@@ -132,7 +132,7 @@ public class ActivityService {
         try {
         	session.getMapper(ActivityMapper.class).updateActivityStatus(activityId, status);
         } catch (Exception e) {
-            throw new RuntimeException("Fail to get activity!", e);
+            throw new RuntimeException("Fail to update activity statu!", e);
         } finally {
             session.close();
         }

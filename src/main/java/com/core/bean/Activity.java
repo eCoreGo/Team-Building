@@ -23,8 +23,8 @@ public class Activity {
     private Date startTime;
     private Date endTime;
     private Team team;
-    private Boolean openCarSchedule;
-    private Boolean openExchangeModule;
+    private int openCarSchedule;
+    private int openExchangeModule;
 
     public Integer getId() {
         return id;
@@ -100,19 +100,19 @@ public class Activity {
         this.team = team;
     }
 
-	public Boolean getOpenCarSchedule() {
+	public int getOpenCarSchedule() {
 		return openCarSchedule;
 	}
 
-	public void setOpenCarSchedule(Boolean openCarSchedule) {
+	public void setOpenCarSchedule(int openCarSchedule) {
 		this.openCarSchedule = openCarSchedule;
 	}
 
-	public Boolean getOpenExchangeModule() {
+	public int getOpenExchangeModule() {
 		return openExchangeModule;
 	}
 
-	public void setOpenExchangeModule(Boolean openExchangeModule) {
+	public void setOpenExchangeModule(int openExchangeModule) {
 		this.openExchangeModule = openExchangeModule;
 	}
     

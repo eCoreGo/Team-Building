@@ -47,12 +47,12 @@ public class ActivityResource {
 			@FormParam(value = "endTime") Date endTime,
 			@FormParam(value = "description") String description,
 			@FormParam(value = "teamId") Integer teamId,
-			@FormParam(value = "openCarSchedule") Boolean openCarSchedule,
-			@FormParam(value = "openExchangeModule") Boolean openExchangeModule,
+			@FormParam(value = "openCarSchedule") int openCarSchedule,
+			@FormParam(value = "openExchangeModule") int openExchangeModule,
 			@Context HttpServletRequest request, @Context HttpServletResponse response) {
 		response.setCharacterEncoding("UTF-8");
 		
-		String result = String.format("{\"status\":%s}", FAIL);;
+		String result = String.format("{\"status\":%s}", FAIL);
 
 		try {
 			Team team = teamService.getTeamById(teamId);
@@ -61,10 +61,11 @@ public class ActivityResource {
 			
 			activity.setTotalCost(0.0);
 			
-			if(StringUtils.isNullOrEmpty(totalFoundationCost))
+			if(StringUtils.isNullOrEmpty(totalFoundationCost)) {
 				activity.setTotalFoundationCost(0.0);
-			else
+			}else{
 				activity.setTotalFoundationCost(Double.valueOf(totalFoundationCost));
+			}
 			activity.setStartTime(startTime);
 			activity.setEndTime(endTime);
 			activity.setDescription(description);
@@ -120,7 +121,6 @@ public class ActivityResource {
 	public String getAllActivities() {
 		String result = "[]";
 		try {
-			//List<Activity> activities = activityService.getAllActivities(teamID);
 			List<Activity> activities = activityService.getAllActivities();
 			result = objectMapper.writeValueAsString(activities);
 		} catch (Exception e) {

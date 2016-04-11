@@ -3,7 +3,7 @@
  */
 
 var userId;
-$(document).on("pageshow", function() {
+$(document).on("pageinit", function() {
 	userId = findParameterValue("userId");
 	addUserItoLink();
 	
@@ -12,29 +12,29 @@ $(document).on("pageshow", function() {
 });
 
 function addActivity() {
-	
-	$.ajax({
-        type: "POST",
-        dataType: "json",
-        data:
-        {
-	        name: $("#name").val(),
+	var data = {
+			name: $("#name").val(),
 	        description: $("#description").val(),
 	        totalFoundationCost:$("#totalFoundationCost").val(),
 	        teamId:$("#teamList").val(),
 	        startTime:new Date($("#startTime").val()),
 	        endTime:new Date($("#endTime").val()),
 	        hasFoundationCost:$("#hasFoundationCost").val(),
-	        openCarSchedule:$("#openCarSchedule").val(),
-	        openExchangeModule:$("#openExchangeModule").val(),
-        },
+	        openCarSchedule:$("#openCarSchedule").prop("checked")==true?1:0,
+	        openExchangeModule:$("#openExchangeModule").prop("checked")==true?1:0
+	}
+	
+	$.ajax({
+        type: "POST",
+        dataType: "json",
+        data: data,
         url:"service/Activity/addActivity",
         success: function(result) {
         	alert("活动创建成功，可以去activity页面选择发布");
         	$("#activityId").val(result.activityId);
         },
         complete: function() {
-        	window.location = "activity.html";
+        	window.location = "activity.html?userId="+userId;
         }
     });
 }

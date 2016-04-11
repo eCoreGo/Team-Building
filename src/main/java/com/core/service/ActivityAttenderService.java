@@ -3,9 +3,11 @@ package com.core.service;
 import com.core.bean.ActivityAttender;
 import com.core.mapper.ActivityAttenderMapper;
 import com.core.util.GetSqlSessionFactory;
+
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -18,8 +20,7 @@ public class ActivityAttenderService {
 	public List<ActivityAttender> getAttendersByActivityId(Integer activityId)
 			throws RuntimeException {
 		List<ActivityAttender> activityAttenderList = new ArrayList<ActivityAttender>();
-		SqlSession session = GetSqlSessionFactory.getInstance()
-				.getSqlSessionFactory().openSession(true);
+		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
 			activityAttenderList = session.getMapper(
 					ActivityAttenderMapper.class).getAttendersByActivityId(activityId);
@@ -64,13 +65,16 @@ public class ActivityAttenderService {
 	public void arangeTaix(Integer activityId) throws RuntimeException {
 		List<ActivityAttender> carAttenderList = getCarAttender(activityId);
 		List<ActivityAttender> nocarAttenderList = getNoCarAttender(activityId);
-		int seatNo = 1;
+		int carNo = 1;
+		//分配自驾的剩余座位
 		for (ActivityAttender carInfo : carAttenderList) {
 			if(carInfo ==null) {
 				return;
 			}
 			int i = 0;
-			for (ActivityAttender nocarInfo : nocarAttenderList) {
+			Iterator<ActivityAttender> iter = nocarAttenderList.iterator();
+	        while(iter.hasNext()){
+	        	ActivityAttender nocarInfo = iter.next();
 				if(nocarInfo == null) {
 					return;
 				}
@@ -78,18 +82,21 @@ public class ActivityAttenderService {
 					break;
 				}
 				i++;
-				insertSeatNo(seatNo, nocarInfo.getUserId());
-			}
-			seatNo++;
+				insertCarNo(carNo, nocarInfo.getUserId());
+				iter.remove();
+		      }
+			carNo++;
 		}
+		
+		//余下的人分配taix
 		List<ActivityAttender> whoNotArrangeTaixList = getWhoNotArrangeTaix(activityId);
 		int k = 0;
-		for (ActivityAttender no : whoNotArrangeTaixList) {
+		for (ActivityAttender activityAttender : whoNotArrangeTaixList) {
 			if (k == 3) {
 				break;
 			}
 			k++;
-			insertSeatNo(seatNo, no.getUserId());
+			insertCarNo(carNo, activityAttender.getUserId());
 		}
 	}
 
@@ -120,10 +127,10 @@ public class ActivityAttenderService {
 		return activityAttenderList;
 	}
 
-	private void insertSeatNo(Integer seatNo, String user_id) {
+	private void insertCarNo(Integer seatNo, String user_id) {
 		SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
 		try {
-			session.getMapper(ActivityAttenderMapper.class).insertSeartNo(seatNo, user_id);
+			session.getMapper(ActivityAttenderMapper.class).insertCarNo(seatNo, user_id);
 		} catch (Exception e) {
 			throw new RuntimeException("Fail to insert seatNo!", e);
 		} finally {
