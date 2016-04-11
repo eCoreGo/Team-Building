@@ -42,6 +42,21 @@ public class ExchangeResource {
 
     @POST
     @Produces(MediaType.TEXT_PLAIN)
+    @Path(value = "getExchangesByMemberId")
+    public String getExchangesByMemberId(@FormParam(value = "id") String memberId) {
+        String result = "[]";
+        try {
+            List<Exchange> exchanges = exchangeService.getExchangesByMemberId(memberId);
+            result = objectMapper.writeValueAsString(exchanges);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return FAIL;
+        }
+        return result;
+    }
+
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
     @Path(value = "addExchange")
     public String addExchange(@FormParam(value = "member_id") String memberId,
                               @FormParam(value = "team_id") Integer teamId,

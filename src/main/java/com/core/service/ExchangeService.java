@@ -38,6 +38,19 @@ public class ExchangeService {
         return exchanges;
     }
 
+    public List<Exchange> getExchangesByMemberId(String memberId) throws RuntimeException {
+        List<Exchange> exchanges;
+        SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession(true);
+        try {
+            exchanges = session.selectList("com.core.bean.ExchangeMapper.getExchangesByMemberId",memberId);
+        } catch (Exception e) {
+            throw new RuntimeException("Fail to get exchanges!", e);
+        } finally {
+            session.close();
+        }
+        return exchanges;
+    }
+
     public void addExchange(Exchange exchange) throws RuntimeException {
         SqlSession session = GetSqlSessionFactory.getInstance().getSqlSessionFactory().openSession();
         try {

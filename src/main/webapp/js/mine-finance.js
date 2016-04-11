@@ -1,3 +1,11 @@
+var pair = {};
+pair[1] = "团队经费";
+pair[2] = "坏账";
+pair[3] = "充值";
+pair[4] = "出租车费"
+pair[5] = "退款";
+pair[6] = "均摊";
+pair[7] = "活动总开销";
 $(document).on("pageshow", function() {
     getTeamMembers();
     filterFiananceDetail();
@@ -17,11 +25,11 @@ function filterFiananceDetail() {
         type: "POST",
         dataType: "json",
         data: {
-                memberId: userId,
+                id: userId,
                 teamId : teamId,
                 duration : duration
         },
-        url:"service/ExchangeDetail/getExchangeDetails",
+        url:"service/Exchange/getExchangesByMemberId",
         success: function(result) {
             $("#mine-finance-detail").empty();
             for(var i = 0; i < result.length; i++) {
@@ -29,7 +37,7 @@ function filterFiananceDetail() {
                         var date = new Date(result[i].date);
                         var dateTime = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate()
                                         + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activityId + "</td><td>" + result[i].exchange + "</td><td>" + result[i].exchangeType + "</td><td>" + result[i].exchangeStatus + "</td><td>" + dateTime + "</td></tr>";
+                        return "<tr><th>" + (i + 1) + "</th><td>" + result[i].activity.name + "</td><td>" + result[i].value + "</td><td>" + pair[result[i].type] + "</td><td>" + dateTime + "</td></tr>";
                 });
             }
         },
