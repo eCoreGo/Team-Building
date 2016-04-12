@@ -7,11 +7,13 @@ $(document).on("pageshow", function() {
 	var activityLinkUrl = $("#activityLink").attr("href");
 	var groupLinkUrl = $("#groupLink").attr("href");
 	var mineLinkUrl = $("#mineLink").attr("href");
+	var homeLinkUrl = $("#homeLink").attr("href");
 	var groupAddLinkUrl = $("#groupAddLink").attr("href");
 	var groupSearchLinkUrl = $("#groupSearchLink").attr("href");
     $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
     $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
     $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
+    $("#homeLink").attr("href", homeLinkUrl + "?userId=" + userId);
     $("#groupAddLink").attr("href", groupAddLinkUrl + "?userId=" + userId);
     $("#groupSearchLink").attr("href", groupSearchLinkUrl + "?userId=" + userId);
 	

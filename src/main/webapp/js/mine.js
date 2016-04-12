@@ -6,11 +6,13 @@ $(document).on("pageshow", function() {
 	var mineLinkUrl = $("#mineLink").attr("href");
 	var mineFinanceUrl = $("#mineFinance").attr("href");
 	var mineProfileUrl = $("#mineProfile").attr("href");
+	var homeLinkUrl = $("#homeLink").attr("href");
     $("#activityLink").attr("href", activityLinkUrl + "?userId=" + userId);
     $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
     $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
     $("#mineFinance").attr("href", mineFinanceUrl + "?userId=" + userId);
     $("#mineProfile").attr("href", mineProfileUrl + "?userId=" + userId);
+    $("#homeLink").attr("href", homeLinkUrl + "?userId=" + userId);
     
     $.ajax({
         type: "POST",

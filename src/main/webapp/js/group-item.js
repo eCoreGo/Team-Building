@@ -8,6 +8,7 @@ $(document).on("pageshow", function() {
 //    var teamId = query["id"];
     var teamId = findParameterValue("id");
     var userId = findParameterValue("userId");
+    var homeLinkUrl = $("#homeLink").attr("href");
 	
 	var activityLinkUrl = $("#activityLink").attr("href");
 	var groupLinkUrl = $("#groupLink").attr("href");
@@ -18,6 +19,7 @@ $(document).on("pageshow", function() {
     $("#groupLink").attr("href", groupLinkUrl + "?userId=" + userId);
     $("#mineLink").attr("href", mineLinkUrl + "?userId=" + userId);
     $("#back2GroupLink").attr("href", back2GroupLinkUrl + "?userId=" + userId);
+    $("#homeLink").attr("href", homeLinkUrl + "?userId=" + userId);
 
     var url = $("#checkActivitiesByGroup").attr("href");
     $("#checkActivitiesByGroup").attr("href", url + "?id=" + teamId + "&userId=" + userId);
